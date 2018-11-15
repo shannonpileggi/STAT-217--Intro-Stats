@@ -1,0 +1,385 @@
+\documentclass[letterpaper,12pt]{report}
+
+\usepackage{graphicx}
+\usepackage{amssymb,amsmath}
+\usepackage{epigraph,fancyvrb,eqparbox}
+%\usepackage[multiple]{footmisc}
+%\usepackage{menukeys}
+\usepackage{url}
+\usepackage[colorlinks = true, linkcolor = blue, urlcolor = blue]{hyperref}
+\usepackage{setspace}
+%\usepackage{fancyhdr}
+\usepackage{enumerate}
+
+\usepackage[margin=0.75in]{geometry}
+
+%\usepackage{cellspace}
+%\setlength\cellspacetoplimit{5pt}
+%\setlength\cellspacebottomlimit{5pt}
+
+\setlength{\parindent}{0cm}
+
+%\newcommand\Tstrut{\rule{0pt}{2.6ex}}         % = `top' strut
+%\newcommand\Bstrut{\rule[-0.9ex]{0pt}{0pt}}   % = `bottom' strut
+
+%\lhead{STAT 217: Introduction to }
+\begin{document}
+
+\begin{center}
+\large{\textsc{STAT 217: Introduction to Statistical Concepts and Methods}}\\
+California Polytechnic State University, San Luis Obispo\\
+Winter 2018\\
+\end{center}
+\vskip10pt
+\begin{center}
+{\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{llllll}
+\hline
+\textbf{Instructor:} & Shannon Pileggi       &&& \textbf{Office:} & 25-109 \\
+\textbf{Email:}      & spileggi@calpoly.edu  &&& \textbf{Phone:} & 756-2946 \\
+\hline
+\end{tabular}}
+\end{center}
+
+\vskip15pt
+
+\textbf{Class meetings}
+\begin{itemize}
+\item[]
+\begin{tabular}{llll}
+       & Time       & Lecture &  Lab \\
+Sec 01 & 8:10-9:00  & MTW 29-129 & R 35-111B \\
+Sec 02 & 9:10-10:00 & MTW 29-129 & R 35-111B \\
+\end{tabular}
+\item[]
+\end{itemize}
+
+\textbf{Office hours}
+\begin{itemize}
+\item[] M 11:30-12:30 \\ T \hspace{0.1ex} 1:30-2:30 \\ W 11:30-12:30 \\ R \hspace{0.1ex} 1:30-2:30 \\ By appointment (please email me three times you are available)
+\item[]
+\end{itemize}
+
+\textbf{Diversity statement}
+\begin{itemize}
+\item[] This is an inclusive class that welcomes and values participation from individuals of \textbf{all} identities, which includes but is not limited to: race, ethnicity, culture, religion, gender, sexual orientation, language, national origin, age, physical/emotional/developmental ability, and socio-economic class.
+\item[]
+\end{itemize}
+
+\textbf{Course description}
+\begin{itemize}
+\item[]
+Whether you know it or not, statistics pervade your everyday life from your personal decision making to policies that affect your university or government. For example, how did you decide to attend Cal Poly? Maybe you saw \href{http://www.sanluisobispo.com/news/local/education/article39060447.html}{this study} from 2015 showing that Cal Poly has been ranked $14^{th}$ in the United States among public universities for median salaries post-graduation. But how was this ranking determined, and is it a valid conclusion? To understand this, we need to understand where the data came from and how it was analyzed. Were all Cal Poly graduates ever interviewed, or just some of them? Were they interviewed the same number of years after graduation? Were all majors represented in the data collection? Why did the study choose to rank salary in terms of the median, or is there a better measure? And how do we determine if the salaries of students from Cal Poly are meaningfully different than those from UCSB, for example? These are the kind of questions that statisticians ask and answer in order to critique or perform data analysis and draw appropriate conclusions. This course will delve into these concepts to empower you to do the same.
+\item[]
+\end{itemize}
+
+
+\textbf{Learning objectives}
+\begin{enumerate}
+\item Differentiate strengths and weaknesses of studies.
+\item Identify appropriate statistical methods when presented with data.
+\item Conduct, explain, and defend your conclusion from a statistical analysis.
+\item Read and interpret basic statistical literature of various sources, such as newspaper articles and academic journals.
+\item Use R as a tool to perform statistical analysis.
+\item Discuss how data can be used to provide insights into a diverse array of topics.
+\item Work productively as individuals and in groups to build a community of learners.
+\item[]
+\end{enumerate}
+
+\textbf{Materials}
+\begin{itemize}
+\item[]
+\begin{tabular}{p{2cm} p{14cm}}
+Textbook & \emph{OpenIntro Statistics, $3^{rd}$ ed}, by David Diez, Christopher Barr, and Mine Cetinkaya-Rundel. Access the free download or links to purchase here: \url{https://www.openintro.org/stat/textbook.php?stat_book=os} \\
+[1ex]
+Calculator & A calculator with a square root function will be useful for some lecture and exam content. You may use any type of calculator.\\
+[1ex]
+Software &  R, a free statistical software.  This can be accessed on campus computers or you may download to your personal laptop (see download instructions on PolyLearn).\\
+[1ex]
+Flash drive & It will be helpful to save your lab work on a flash drive. \\
+[1ex]
+\end{tabular}
+\item[]
+\end{itemize}
+
+
+\textbf{Course evaluation}
+\begin{itemize}
+\item[] In this course, you will earn every single point towards your grade.  The \textbf{approximate} course total sums to 450 points. The actual course total may differ depending on the final total number of assignments. Your final grade corresponds to the percent of points earned out of the total course points.
+\item[]
+\begin{minipage}{0.7\textwidth}
+\begin{tabular}{lrrrr}
+\hline
+Assessment	    &	Number      &	Points per	&	Total 	&	Percent 	\\
+        	    &	of items	&	item	    &	points	&	overall	\\
+\hline
+Pre-lab	        &	9	&	2	&	18	&	4\%	\\
+Labs	        &	8	&	5	&	40	&	9\%	\\
+Topic readiness	&	20	&	2	&	40	&	9\%	\\
+Quizzes	        &	8	&	3	&	24	&	5\%	\\
+Exam 1	        &	1	&	75	&	75	&	17\%	\\
+Exam 2	        &	1	&	75	&	75	&	17\%	\\
+Final exam      &	1	&	100	&	100	&	22\%	\\
+Project 	    &	1	&	60	&	60	&	13\%	\\
+Instruction discretion 	&	1	&	18	&	18	&	4\%	\\
+\hline
+	            &		&		&	450	&	100\%	\\
+\end{tabular}
+\end{minipage}
+\begin{minipage}{0.05\textwidth} \hspace{0.05in} \end{minipage}
+\begin{minipage}{0.25\textwidth}
+\begin{tabular}{|ll|}
+\hline
+Letter & Percent \\
+\hline
+A	&	93-100	\\
+A-	&	90-92.9	\\
+B+	&	87-89.9	\\
+B	&	83-86.9	\\
+B-	&	80-82.9	\\
+C+	&	77-79.9	\\
+C	&	73-76.9	\\
+C-	&	70-72.9	\\
+D+	&	67-69.9	\\
+D	&	60-66.9	\\
+F	&	0-59.9	\\
+\hline
+\end{tabular}
+
+ \end{minipage}
+\end{itemize}
+
+\textbf{Pre-lab assignments}
+\begin{itemize}
+\item[]
+Your pre-lab assignment is due before each lab session, which consists of completing the assigned lesson on \url{https://www.datacamp.com/}.  Please allow yourself at least one hour to complete the pre-lab assignments.  Students will not be permitted to make up missed pre-lab assignments, as this defeats the point of preparing for lab.
+\item[]
+\end{itemize}
+
+\textbf{Lab practice}
+\begin{itemize}
+\item[]
+Each lab period consists of a problem set called Lab Practice to be completed in your lab groups. Lab practices are submitted as a group; attribution and credit should only be given to the group members actually present in lab by naming the contributing and present members at the top of the assignment. Individuals who miss lab are responsible for submitting their lab practice individually.  Individual submissions must be uploaded to PolyLearn with their name on the submission (ie, Pileggi\_Lab1.html).  Late lab practices have a 1 point per day late point deduction.
+\item[]
+\end{itemize}
+
+
+\textbf{Topic readiness}
+\begin{itemize}
+\item[]
+In this course, we will have three units and each unit will consist of three to four topics which will span 1-4 lecture days. Prior to the start of each topic, there will be assigned reading from the textbook and/or assigned videos to watch. The topic readiness is to be completed on PolyLearn; students will have two attempts for each readiness assignment and the average grade of the two attempts is recorded (you are not required to take both attempts if you are satisfied with your grade). Students will not be permitted to make up missed readiness assignments, as this defeats the point of being ready! The readiness assignments will assess your ``big picture'' understanding of the topic at hand.
+\item[]
+\end{itemize}
+
+
+\textbf{Quizzes}
+\begin{itemize}
+\item[]
+You will have approximately one in-class quiz per week.  In-class quizzes will be brief (8 minutes timed) and completed with your lab groups.
+\item[]
+\end{itemize}
+
+\textbf{Exams}
+\begin{itemize}
+\item[]
+Midterm exams and the final exam will be in class exams, closed-book, and closed-note. A formula sheet will be provided for each exam. All exams are \textbf{cumulative} by the nature of the material. The \textbf{approximate} emphasis of exam material is:
+\begin{center}
+\begin{tabular}{lccc}
+\hline
+            & Unit 1 & Unit 2 & Unit 3 \\
+\hline
+Exam 1      & 100\%  &        &        \\
+Exam 2      & 20\%   &  80\%  &        \\
+Final Exam  & 20\%   &  20\%  & 60\%   \\
+\hline
+\end{tabular}
+\end{center}
+\item[] Both lecture content and R \emph{output} are testable material.  You will not be tested on R code.
+\item[]
+\end{itemize}
+
+\textbf{Project}
+\begin{itemize}
+\item[] Your \textbf{team} project entails study design, data collection, and analysis of results. The project has five phases (group selection, proposal, data collection, preliminary report, and final report and peer evaluations).
+%\item[]
+%\begin{tabular}{lll}
+%Phase 1 & Project proposal   & due \\
+%Phase 2 & Data collection    & due \\
+%Phase 3 & Preliminary report & due \\
+%Phase 4 & Analysis proposal  & due \\
+%Phase 5 & Final report       & due \\
+%\end{tabular}
+\item[]
+\end{itemize}
+
+\textbf{Instructor discretion}
+\begin{itemize}
+\item[]
+About 4\% (18 points) of your class grade is completely at my discretion. Everyone will start with \textbf{10} out of 18 points.  You can both earn more points and lose points.  \textbf{Earn} more discretionary points by:  attending class daily, showing up on time for class, coming prepared for class, being engaged during class, participating in class discussion by asking or answering questions, posting and answering questions on the course discussion forum, and attending office hours. \textbf{Lose} discretionary points by: using your phone during class, using a laptop in class for non-class related purposes, missing class, showing up late to class, packing up early, not participating in class, and being disruptive in class.
+\item[]
+\end{itemize}
+
+\textbf{First exam check in}
+\begin{itemize}
+\item[]
+\textbf{All} students are required to either (1) attend office hours, or (2) post a question on the course discussion forum \emph{prior} to the first exam.  Doing so will be graded for completion as one of your ``topic readiness'' assignments (2 points).
+\item[]
+\end{itemize}
+
+\textbf{Communication}
+\begin{itemize}
+\item[]
+A productive quarter requires good communication between instructors and students, which includes both personal and course related issues. Course related questions can include clarification on course policy, but mostly arise from questions regarding course content. All course related questions can be discussed in person or otherwise should be posted to the PolyLearn discussion forum. This is because it is likely that other students may have similar questions, and then the whole class can benefit from your question. On the other hand, personal communication may entail issues like missing class for personal reasons, or requests for a meeting. Please discuss with me in person or email me any personal communication.
+\item[]
+\end{itemize}
+
+\textbf{Difficult conversations}
+\begin{itemize}
+\item[]
+Occasionally students encounter challenges in classroom dynamics with other students or even with the professor.  If you ever find yourself in the situation where you aren't comfortable with something that was said or done, please consider taking one of the following actions:
+\begin{itemize}
+\item Discuss the issue with me privately during office hours.
+\item Discuss the issue with the class or individual of concern if you feel you can do so in a respectful and well-communicated way.
+\item Discuss the issue with someone that you feel that you can trust (another faculty member, a mentor, or advisor) and who can, in turn, communicate your concerns with me.*
+\end{itemize}
+Change cannot be enacted unless there is awareness of a problem - thank you for taking action.
+\item[]
+\end{itemize}
+
+
+\textbf{Tips for success}
+\begin{itemize}
+\item \emph{Practice!}  Many students who simply review the slides before an exam do poorer than they expected. The key to success is continual practice, which can come in the form of reviewing labs and practice problems from lecture, doing extra practice problems assigned from the text book, and doing extra practice worksheets.
+\item \emph{Repetition!}  Many students struggle to grasp statistical concepts the first time they read about or hear about it.  Review material frequently, which can include reviewing the textbook reading, re-watching assigned videos, watching the extra unassigned videos, and doing practice problems.
+\item \emph{Ask questions!} Your instructor is your best resource to answer any questions or provide any clarification. Please visit office hours early and often!  Seek clarification on course content as soon as questions arise.
+\item \emph{Put in the time!}  You know the 25-35 drill: you should be studying \textbf{at least 8 hours a week} for this course.
+\item[]
+\end{itemize}
+
+\textbf{Academic integrity}
+\begin{itemize}
+\item[]
+All students are expected to uphold high standards of academic integrity. The university provides \href{http://www.academicprograms.calpoly.edu/content/academicpolicies/Cheating}{broad definitions} of academic misconduct and also provides \href{http://www.osrr.calpoly.edu/process}{due process} for students with an alleged violation.  Please note that there may be serious consequences for academic misconduct, including failing an assignment or the course. If you are ever unsure as to whether or not an action is acceptable, please do not hesitate to contact the instructor.
+\item[]
+\end{itemize}
+
+\textbf{Disability resources}
+\begin{itemize}
+\item[]
+If you have a disability for which you are or may be requesting an accommodation, you are encouraged to contact both your instructor and the \href{http://drc.calpoly.edu/}{Disability Resource Center}, Building 124, Room 119, at (805) 756-1395, as soon as possible.
+\item[]
+\end{itemize}
+
+\textbf{Other policies}
+\begin{itemize}
+\item All course materials and important announcements will be posted on PolyLearn. You are expected to check PolyLearn regularly and read your emails.
+\item Students are expected to attend all class meetings.  However, missing class for religious holidays, school-related travel for academics or athletics, serious illness, or family emergencies is excused, and missed work due to such reasons will be allowed to be made up.
+\item Please notify the instructor in a timely manner of any events that may adversely impact your performance in the class.
+\item[]
+\end{itemize}
+
+%\newpage
+%\textbf{Schedule}
+%\vskip10pt
+\noindent \emph{This schedule is \underline{tentative} and subject to change.}
+\vskip5pt
+\noindent \textbf{P1} in the schedule below refers to Project Phase 1, etc.
+
+{\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|p{2.4cm} p{0.1cm} p{2.3cm} p{0.1cm} p{2.3cm} p{0.1cm} p{2.3cm} p{0.1cm} p{2.7cm} p{0.1cm} p{2.0cm}|}
+\hline
+\textbf{Week} && \textbf{Monday} && \textbf{Tuesday} && \textbf{Wednesday} && \textbf{Thursday} && \textbf{Friday} \\
+\hline\hline
+\textbf{1} \newline 1/8 - 1/12  &
+    & Introduction &
+    & Foundations of statistics &
+    & Exploring variables &
+    & Lab 1: Intro to R &
+    &
+    \\
+\hline
+\textbf{2} \newline 1/15 - 1/19 &
+    & \emph{No class}  &
+    & Exploring variables &
+    & \textbf{Quiz}; Exploring variables  &
+    & Lab 2: Intro to data &
+    &
+    \\
+\hline
+\textbf{3} \newline 1/22 - 1/26 &
+    & Associations  &
+    & Study design  &
+    & \textbf{Quiz}; Probability  &
+    & Lab 3: Summarizing and visualizing data &
+    & \textbf{Phase 1 due}
+    \\
+\hline
+\textbf{4} \newline 1/29 - 2/2 &
+    & \textbf{Exam 1}  &
+    & Sampling distribution (proportion)  &
+    & Confidence interval (proportion)  &
+    & Lab 4a: Sampling distribution / CI for proportion &
+    &  \textbf{Phase 2a due}
+    \\
+\hline
+\textbf{5} \newline 2/5 - 2/9 &
+    &  Understanding the CI   &
+    & Sampling distribution (mean) &
+    & \textbf{Quiz}; Confidence interval (mean)  &
+    & Lab 4b: Sampling distribution / CI for mean &
+    & \textbf{Complete Phase 2b}
+    \\
+\hline
+\textbf{6} \newline 2/12 - 2/16 &
+    &  Intro to hypothesis testing \textbf{Phase 2c due}   &
+    &  Intro to hypothesis testing &
+    & \textbf{Quiz}; Intro to hypothesis testing   &
+    & Lab 5: Inference for a single mean &
+    &
+    \\
+\hline
+\textbf{7} \newline 2/19 - 2/23 &
+    & \emph{No class}   &
+    &  Intro to hypothesis testing &
+    & \textbf{Quiz}; Type I/II errors     &
+    & Lab: Project Day &
+    & \textbf{Phase 3}
+    \\
+\hline
+\textbf{8} \newline 2/26 - 3/2 &
+    & \textbf{Exam 2}  &
+    & Inference for paired data   &
+    & \textbf{Quiz}; Inference for 2 means  &
+    & Lab 6: Inference for quantitative data  &
+    & \textbf{Phase 4}
+    \\
+\hline
+\textbf{9} \newline 3/5 - 3/9 &
+    & Inference for $>$2 means  &
+    & Inference for 1 proportion  &
+    & \textbf{Quiz}; Inference for 2 proportions &
+    & Lab 7: Inference for categorical data &
+    &
+    \\
+\hline
+\textbf{10} \newline 3/12 - 3/16 &
+    & Chi-squared test &
+    & Correlation and regression &
+    & \textbf{Quiz}; Correlation and regression &
+    & Lab 8: Linear regression &
+    & \textbf{Phase 5}
+    \\
+\hline
+\end{tabular}}
+
+\vskip10pt
+\textbf{Final Exam Sec 01:} Wed, Mar 21 7:10am-10:00am \\
+\textbf{Final Exam Sec 02:} Fri, Mar 23 7:10am-10:00am \\
+%\begin{itemize}
+%\item[]
+%\item Sec 02 (3pm class): Wednesday, June 14 1:10pm-4:00pm
+%\item[] The \textbf{only} way you may be permitted to take an exam with the other section (not your assigned section) is if you identify a student in the other section who is willing to swap exam times with you.  You are required to notify the instructor if you wish to do so.
+%\end{itemize}
+
+
+\end{document}

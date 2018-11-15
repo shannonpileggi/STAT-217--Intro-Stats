@@ -1,0 +1,895 @@
+
+
+\input{"C:/Users/spileggi/Google Drive/STAT 217/Slides/SlideStyle.tex"}
+
+
+
+\title[Unit 1 Deck 2]{Exploring Variables}
+\author[Pileggi]{Shannon Pileggi}
+
+\institute[STAT 217]{STAT 217}
+
+\date{}
+
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+
+%===========================================================================================================================
+\section[Working with Variables]{Working with Variables}
+%===========================================================================================================================
+\begin{frame}
+\tableofcontents[currentsection, hideallsubsections]
+\end{frame}
+
+%\subsection{}
+\begin{frame}
+\frametitle{\grp}
+\begin{columns}
+\column{0.7\textwidth}
+An experiment regarding the physiological cost of reproduction on male fruit flies contains the following variables. Male fruit flies were randomly assigned to cohabitate with one of 5 experimental groups of female fruit flies.  \\
+\vskip10pt
+\resizebox{1.0\textwidth}{!}{
+\begin{tabular}{r|l}
+\texttt{type} & Type of experimental assignment \\
+           & \hspace{0.1in} $1=$ no females  \\
+           & \hspace{0.1in} $2=$ 1 newly pregnant female \\
+           & \hspace{0.1in} $3=$ 8 newly pregnant females\\
+           & \hspace{0.1in} $4=$ 1 virgin female\\
+           & \hspace{0.1in} $5=$ 8 virgin females\\
+\texttt{lifespan} & lifespan (days)\\
+\texttt{thorax} & length of thorax (mm)\\
+\end{tabular}}
+\column{0.3\textwidth}
+\begin{clicker}{How many quantitative variables does this data set contain?}
+\begin{enumerate}
+    \item[0]
+    \item[1]
+    \item[2]
+    \item[3]
+    \item[4]
+    \item[5]
+    \item[6]
+    \item[7]
+\end{enumerate}
+\end{clicker}
+\end{columns}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{10 observations from survey results}
+\resizebox{1.0\textwidth}{!}{
+\begin{tabular}{llllllll}
+\hline
+ FirstStats &   gpa & target\_grade &  length\_rel & in\_rel & CP1stChoice & num\_coll & num\_text\\
+\hline
+
+          No & 2.500   &          B   &   48.00  &   No   &      Yes    &    3   &    10 \\
+         Yes & 3.000    &         B   &   36.00  &   No  &       Yes   &     5  &    100 \\
+         Yes & 3.389     &        A   &   24.00  &  Yes   &       No   &    18  &    100 \\
+          No & 3.298     &        B   &    4.00  &   No   &       No   &    11   &    30 \\
+          No & 3.200    &         A   &    0.25  &   No  &        No  &      8  &    100 \\
+          No & 2.920   &          B   &   14.00  &   No  &        No  &      7  &    600 \\
+          No & 3.500   &          A   &   12.00  &  Yes  &        No  &      6  &     30 \\
+         Yes & 2.800    &         A   &   10.00  &   No   &      Yes  &     13   &   100 \\
+          No & 3.470    &         A    &  23.00  &   No  &        No  &     13  &     50 \\
+          No & 3.050    &         B   &    6.00  &   No  &        No  &     11  &     35 \\
+\hline
+\end{tabular}}
+\vskip10pt
+\resizebox{0.9\textwidth}{!}{
+\begin{tabular}{r|l}
+\texttt{FirstStats} & first stats class?\\
+\texttt{gpa} & GPA\\
+\texttt{target\_grade\textunderscore rel} & target grade in stat 217\\
+\texttt{length\_rel} & length (in months) of longest serious relationship \\
+\texttt{in\_rel} & whether or not currently in a serious relationship\\
+\texttt{CP1stChoice} & whether or not Cal Poly was your first choice \\
+\texttt{num\_coll} &  number of colleges applied to \\
+\texttt{num\_text} & number of texts sent in a day \\
+\end{tabular}}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Summary of data produced by R}
+\begin{lcverbatim}
+> summary(survey)
+ FirstStats      gpa        CP1stChoice    num_coll
+ No :34     Min.   :1.700   No :23      Min.   : 0.000
+ Yes:33     1st Qu.:3.000   Yes:44      1st Qu.: 5.000
+            Median :3.132               Median : 7.000
+            Mean   :3.178               Mean   : 7.239
+            3rd Qu.:3.493               3rd Qu.: 9.000
+            Max.   :4.000               Max.   :18.000
+            NA's   :1
+\end{lcverbatim}
+\begin{clicker}{}
+\begin{enumerate}
+\item How are the quantitative and categorical variables summarized differently?
+\item[]
+\item What else do you notice?
+\item[]
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Categorical variable}
+\begin{lcverbatim}
+> addmargins(table(survey$CP1stChoice))
+ No Yes Sum
+ 23  44  67
+\end{lcverbatim}
+\begin{clicker}{}
+\begin{enumerate}
+\item Identify a \emph{statistic} that summarizes this variable.
+\item[]
+\item[]
+\item Produce a visualization of this variable.
+\item[]
+\item[]
+\item[]
+\end{enumerate}
+\end{clicker}
+\vskip100pt
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Pie charts}
+\begin{columns}
+\column{0.5\textwidth}
+\includegraphics[trim=10mm 10mm 10mm 0mm,clip,width=1.0\textwidth]{Figures/pie_opinion.pdf}
+\column{0.5\textwidth}
+\begin{clicker}{Approximately what percent of students rated statistics as a 5?}
+\begin{enumerate}
+\item 4\%
+\item 7\%
+\item 10\%
+\item 13\%
+\item 16\%
+\end{enumerate}
+\end{clicker}
+\end{columns}
+% 7.5 percent
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Quantitative variable - center and variability}
+\begin{lcverbatim}
+> library(mosaic)
+> favstats(survey$num_coll)
+ min Q1 median Q3 max     mean       sd  n missing
+   0  5      7  9  18 7.238806 3.737969 67       0
+\end{lcverbatim}
+\begin{clicker}{}
+\begin{enumerate}
+\item Identify two measures of center, and interpet.
+\begin{itemize}
+\item
+\item[]
+\item
+\item[]
+\end{itemize}
+\item Identify two measures of variability, and interpret.
+\begin{itemize}
+\item
+\item[]
+\item
+\item[]
+\end{itemize}
+\end{enumerate}
+\end{clicker}
+\vskip100pt
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Quantitative variable - position}
+\begin{lcverbatim}
+> library(mosaic)
+> favstats(survey$num_coll)
+ min Q1 median Q3 max     mean       sd  n missing
+   0  5      7  9  18 7.238806 3.737969 67       0
+\end{lcverbatim}
+\begin{clicker}{What is the value and interpretation of
+}
+\begin{enumerate}
+\item Q1
+\item[]
+\item[]
+\item Q3
+\item[]
+\item[]
+\end{enumerate}
+\end{clicker}
+\vskip100pt
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Quantitative variable - figures}
+\begin{columns}
+\column{0.33\textwidth}
+\includegraphics[width=1.0\textwidth]{Figures/histnumcoll.pdf}
+\column{0.33\textwidth}
+\includegraphics[width=1.0\textwidth]{Figures/bpnumcoll.pdf}
+\column{0.33\textwidth}
+\includegraphics[width=1.0\textwidth]{Figures/dpnumcoll.pdf}
+\end{columns}
+\vskip100pt
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{\grp}
+\begin{columns}
+\column{0.33\textwidth}
+\includegraphics[width=1.0\textwidth]{Figures/histnumcoll.pdf}
+\column{0.33\textwidth}
+\includegraphics[width=1.0\textwidth]{Figures/bpnumcoll.pdf}
+\column{0.33\textwidth}
+\includegraphics[width=1.0\textwidth]{Figures/dpnumcoll.pdf}
+\end{columns}
+\begin{clicker}{True or False}
+\begin{enumerate}
+\item 5 students applied to 0 colleges
+\item 50\% of students applied to 8 colleges or less
+\end{enumerate}
+\end{clicker}
+\vskip50pt
+\end{frame}
+
+
+\begin{frame}
+\frametitle{\grp}
+%\href{http://www.youtube.com/watch?v=RUwS1uAdUcI}{Video illustrating Gapminder (start at 2min 40sec)}\\
+\begin{clicker}{How many variables does a histogram show the distribution of?}
+\begin{enumerate}
+\item[0]
+\item[1]
+\item[2]
+\item[3]
+\item[5.] it depends
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{}
+%l b r t
+Suppose I asked three groups of 5 college students how many children they want to have.\\
+\begin{columns}
+\column{0.3\textwidth}
+\includegraphics[trim=0mm 40mm 105mm 0mm,clip,width=1.0\textwidth]{Figures/dpkids.pdf}\\
+\column{0.7\textwidth}
+\begin{clicker}{Which is true? (Don't use a calculator.)}
+\begin{enumerate}
+    \item
+    Group 1 has the largest mean;\\ Group 1 has largest standard deviation
+    \item
+    Group 3 has the largest mean;\\ Group 3 has largest standard deviation
+    \item
+    all three groups have same mean;\\ Group 1 has largest standard deviation
+    \item
+    all three groups have same mean;\\ Group 2 has largest standard deviation
+    \item
+    all three groups have same mean;\\ Group 3 has largest standard deviation
+    \end{enumerate}
+\end{clicker}
+\end{columns}
+\end{frame}
+
+
+
+
+\begin{frame}[fragile]
+\frametitle{\grp}
+\begin{lcverbatim}
+ min Q1 median   Q3 max mean   sd  n missing
+   0  3      9 22.5  50 12.5 12.3 63       4
+\end{lcverbatim}
+\begin{columns}
+\column{0.40\textwidth}
+\includegraphics[width=1.0\textwidth]{Figures/bp_rel_length.pdf}
+\column{0.60\textwidth}
+\begin{clicker}{Which of the following statements are \textbf{true}?}
+\begin{enumerate}
+    \small{
+    \item
+    Exactly 50\% of students had 9 months as their longest serious relationship
+    \item
+    50\% of students had a longest serious relationship of 12.5 months or longer.
+    \item
+    There are no students who have never been in a serious relationship.
+    \item
+    75\% of students had serious relationships longer than 22.5 months.
+    \item 
+    None of these are true.}
+\end{enumerate}
+\end{clicker}
+\end{columns}
+\end{frame}
+
+
+\begin{frame}[label=summarizing]
+\frametitle{Summarizing and visualizing quantitative variables}
+Statistics:
+\begin{itemize}
+    \item Position: percentiles ($Q1=25^{th}$ , median$=50^{th}$, $Q3=75^{th}=Q3$)
+    \item Center: mean, median
+    \item Variability: standard deviation, interquartile range
+    \item[] \hyperlink{meansd}{\beamerreturnbutton{formulas for mean and sd}} \hyperlink{percentiles}{\beamerreturnbutton{finding percentiles and IQR}}
+    \item[]
+\end{itemize}
+Figures:
+\begin{itemize}
+    \item dotplot - displays individual values
+    \item histogram - displays values in bins
+    \item boxplot - based on percentiles \hyperlink{boxplot}{\beamerreturnbutton{how to make a boxplot}}
+\end{itemize}
+\end{frame}
+
+%===========================================================================================================================
+\section[Shape]{Describing the Shape of a Distribution}
+%===========================================================================================================================
+\begin{frame}
+\tableofcontents[currentsection, hideallsubsections]
+\end{frame}
+
+%\subsection{}
+\begin{frame}
+\frametitle{Describing the Shape of Distribution}
+\begin{columns}
+\column{0.4\textwidth}
+\includegraphics[width=1.0\textwidth]{Figures/hist_heights.pdf}
+\column{0.6\textwidth}
+\begin{itemize}
+    \item
+    \textbf{unimodal} - has one peak
+    \item
+    \textbf{symmetric} - mirror image when folded in half
+    \item
+    \textbf{bell-shaped} (normal) - data follow a bell-shaped curve
+\end{itemize}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Mean vs Median (in symmetric data)}
+\begin{columns}
+\column{0.4\textwidth}
+\includegraphics[trim=0mm 0mm 0mm 0mm,clip,width=1.0\textwidth]{Figures/hist_heights_mm.pdf}
+\column{0.6\textwidth}
+\begin{itemize}
+    \item
+    For symmetric data, the mean and the median are approximately equal.
+    \item
+    In this case, the mean is an appropriate measure of central tendency.
+\end{itemize}
+\end{columns}
+\begin{clicker}{If the mean and median are equal, this means that the data are bell-shaped.}
+\begin{enumerate}
+\item True
+\item False
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+\begin{frame}
+\frametitle{Describing the Shape of Distribution}
+\begin{columns}
+\column{0.4\textwidth}
+\includegraphics[width=1.0\textwidth]{Figures/hist_lifeexp.pdf}
+\column{0.6\textwidth}
+\begin{itemize}
+    \item
+    \textbf{unimodal} - has one peak
+    \item
+    \textbf{left-skewed} - left tail is longer than the right (skew is in the direction of the tail)
+    \item
+    not symmetric
+    \item
+    not bell-shaped
+\end{itemize}
+\end{columns}
+\begin{clicker}{Most countries have a life expectancy between 75 and 80 years.}
+\begin{enumerate}
+\item True
+\item False
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+\begin{frame}
+\frametitle{Mean vs Median (in left-skewed data)}
+\begin{columns}
+\column{0.4\textwidth}
+\includegraphics[trim=0mm 0mm 0mm 0mm,clip,width=1.0\textwidth]{Figures/hist_lifeexp_mm.pdf}
+\column{0.6\textwidth}
+\begin{itemize}
+    \item
+    For left-skewed data, the mean is less than the median.
+    \item
+    The mean is pulled in the direction of the long left tail.
+    \item
+    In highly skewed distributions, the median is preferred over the mean as a measure of central tendency (it better represents what is typical).
+\end{itemize}
+\end{columns}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Describing the Shape of Distribution}
+\begin{columns}
+\column{0.4\textwidth}
+\includegraphics[width=1.0\textwidth]{Figures/hist_gdpcap.pdf}
+\column{0.6\textwidth}
+\begin{itemize}
+    \item
+    \textbf{unimodal} - has one peak
+    \item
+    \textbf{right-skewed} - right tail is longer than the left (skew is in the direction of the tail)
+    \item
+    not symmetric
+    \item
+    not bell-shaped
+\end{itemize}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Mean vs Median (in right-skewed data)}
+\begin{columns}
+\column{0.4\textwidth}
+\includegraphics[trim=0mm 0mm 0mm 0mm,clip,width=1.0\textwidth]{Figures/hist_gdpcap_mm.pdf}
+\column{0.6\textwidth}
+\begin{itemize}
+    \item
+    For right-skewed data, the mean is greater than the median.
+    \item
+    The mean is pulled in the direction of the long right tail.
+    \item
+    In highly skewed distributions, the median is preferred over the mean as a measure of central tendency (it better represents what is typical).
+\end{itemize}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Describing the Shape of Distribution}
+\begin{columns}
+\column{0.4\textwidth}
+\includegraphics[width=1.0\textwidth]{Figures/hist_popn.pdf}
+\column{0.6\textwidth}
+\begin{itemize}
+    \item
+    \textbf{unimodal} - has one peak
+    \item
+    \textbf{right-skewed} - right tail is longer than the left (skew is in the direction of the tail)
+    \item
+    has \textbf{outliers} - notice the gap between most of the observations and China and India
+    \item
+    not symmetric
+    \item
+    not bell-shaped
+\end{itemize}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{\grp}
+\begin{columns}
+\column{0.30\textwidth}
+208 students reported the typical weekly amount of time they spent on extracurricular activities (in hours).  \\
+\includegraphics[width=1.15\textwidth]{Figures/hist_hrs.pdf}
+\column{0.70\textwidth}
+\begin{clicker}{Which of the following statements is \emph{true}?}
+\begin{enumerate}
+    \item
+    This distribution is left-skewed.
+    \item
+    The mean is an appropriate measure of central tendency to represent a typical student response.
+    \item
+    As the semester progresses, students are spending fewer hours on extracurricular activities.
+    \item
+    The maximum hours spent weekly on extracurricular activities is greater than 100.
+    \item
+    None of these statements are true.
+\end{enumerate}
+\end{clicker}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{\grp}
+A real estate agent is trying to sell a house in a neighborhood in which most houses are worth \$180,000-\$220,000, but a few houses cost much more than that. The house for sale is listed at \$210,000, and the real estate agent is making the argument to the prospective home buyer that this is a really good deal because a typical house sells for \$250,000.
+\begin{clicker}{Which statistic is the real estate agent using to support her argument regarding the price of a `typical' house?}
+\begin{enumerate}
+    \item
+    the mean
+    \item
+    the median
+    \item
+    the mode
+    \item
+    the standard deviation
+\end{enumerate}
+\end{clicker}
+\vspace{10pt}
+Is this a fair portrayal of `typical' housing prices?
+\end{frame}
+
+
+%===========================================================================================================================
+\section[Histogram vs Boxplot]{Histogram vs Boxplot}
+%===========================================================================================================================
+\begin{frame}
+\tableofcontents[currentsection, hideallsubsections]
+\end{frame}
+
+%\subsection{}
+
+\begin{frame}
+\frametitle{Histogram vs Boxplot}
+\includegraphics[width=0.48\textwidth]{Figures/hist_heights.pdf}
+%\pause
+\includegraphics[width=0.48\textwidth]{Figures/bp_heights.pdf}
+\end{frame}
+
+\begin{frame}
+\frametitle{Histogram vs Boxplot}
+\includegraphics[width=0.48\textwidth]{Figures/hist_lifeexp.pdf}
+%\pause
+\includegraphics[width=0.48\textwidth]{Figures/bp_lifeexp.pdf}
+\end{frame}
+
+\begin{frame}
+\frametitle{Histogram vs Boxplot}
+\includegraphics[width=0.48\textwidth]{Figures/hist_gdpcap.pdf}
+%\pause
+\includegraphics[width=0.48\textwidth]{Figures/bp_gdpcap.pdf}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Histogram vs Boxplot}
+\includegraphics[width=0.48\textwidth]{Figures/hist_popn.pdf}
+%\pause
+\includegraphics[width=0.48\textwidth]{Figures/bp_popn.pdf}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{\grp}
+This is a summary of the distribution of the number of hours spent weekly on extracurricular activities by 208 students.
+\begin{center}
+\includegraphics[width=0.6\textwidth]{Figures/extraCurrHrs.png}
+\end{center}
+\begin{clicker}{What is the most plausible shape of this distribution?}
+\begin{enumerate}
+    \item
+    bell-shaped
+    \item
+    right-skewed
+    \item
+    left-skewed
+    \item
+    none of these
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{\grp}
+\begin{columns}
+\column{0.7\textwidth}
+An experiment regarding the physiological cost of reproduction on male fruit flies contains the following variables. Male fruit flies were randomly assigned to cohabitate with one of 5 experimental groups of female fruit flies.  \\
+\vskip10pt
+\resizebox{1.0\textwidth}{!}{
+\begin{tabular}{r|l}
+\texttt{type} & Type of experimental assignment \\
+           & \hspace{0.1in} $1=$ no females  \\
+           & \hspace{0.1in} $2=$ 1 newly pregnant female \\
+           & \hspace{0.1in} $3=$ 8 newly pregnant females\\
+           & \hspace{0.1in} $4=$ 1 virgin female\\
+           & \hspace{0.1in} $5=$ 8 virgin females\\
+\texttt{lifespan} & lifespan (days)\\
+\texttt{thorax} & length of thorax (mm)\\
+\end{tabular}}
+\column{0.3\textwidth}
+\begin{clicker}{Which figure would you use to plot \texttt{type}?}
+\begin{enumerate}
+    \item dotplot
+    \item histogram
+    \item bar plot
+    \item pie chart
+    \item boxplot
+\end{enumerate}
+\end{clicker}
+\end{columns}
+\end{frame}
+
+
+
+
+%===========================================================================================================================
+\section[Normal Distribution]{Normal Distribution}
+%===========================================================================================================================
+\begin{frame}
+\tableofcontents[currentsection, hideallsubsections]
+\end{frame}
+
+%\subsection{}
+\begin{frame}
+\frametitle{Normal distribution}
+When a distribution is \emph{unimodal}, approximately \emph{symmetric}, and \emph{bell-shaped}, we describe it as a \textbf{normal} distribution..
+\begin{center}
+\includegraphics[width=0.6\textwidth]{Figures/OI68.png}
+\end{center}
+For any variable following a normal distribution
+\begin{itemize}
+    \small{
+    \item
+    68\% of observations fall within one standard deviation of the mean
+    \item
+    95\% of observations fall within two standard deviations of the mean
+    \item
+    99.7\% of observations fall within three standard deviations of the mean}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Two normal distributions}
+\begin{center}
+\includegraphics[width=0.5\textwidth]{Figures/twonormalv2.png}
+\end{center}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Using the normal distribution}
+\begin{columns}
+\column{0.4\textwidth}
+Suppose women on average are 64 inches tall with a standard deviation of 3 inches.  
+Sketch the distribution of heights of women.
+\vskip100pt
+%\includegraphics[width=1.0\textwidth]{Figures/hist_heights.pdf}\\
+%\begin{center}
+%$\bar{x}=63.8$, $s=2.8$
+%\end{center}
+\textcolor{white}{w}
+\column{0.6\textwidth}
+\begin{center}
+\begin{tabular}{|ccc|}
+    \hline
+    68\% & 95\% & 99.7\% \\
+    $\bar{x}\pm s$ & $\bar{x}\pm 2s$ & $\bar{x}\pm 3s$\\
+    \hline
+\end{tabular}
+\end{center}
+\begin{itemize}
+    \item
+    68\% of women are between \bs and \bs inches tall
+    \item
+    95\% of women are between \bs and \bs inches tall
+    \item
+    Nearly all (99.7\%) women are between \bs and \bs inches tall
+    \item
+    About what percent of women are taller than 73 inches?\\
+    %\pause
+    %\textcolor{OrangeRed}{About 2.5\%}
+\end{itemize}
+\vskip100pt
+\textcolor{white}{w}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{\grp}
+A doctor collects a large set of heart rate measurements that approximately follow a normal distribution.  The doctor reports the the average heart rate is 110 beats per minute, the lowest is 65, and the highest is 155.
+\begin{clicker}{Which of the following is most likely to be the standard deviation of this distribution?}
+\begin{enumerate}
+    \item
+    5
+    \item
+    15
+    \item
+    35
+    \item
+    90
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{\grp}
+Here we have 9 data sets from samples of size $n=100$.  Which of these 9 data sets come from a normal distribution?
+\includegraphics[width=0.55\textwidth]{Figures/normal_100.pdf}
+\end{frame}
+
+\begin{frame}
+\frametitle{\grp}
+Here we have 9 data sets from samples of size $n=30$.  Which of these 9 data sets come from a normal distribution?
+\includegraphics[width=0.55\textwidth]{Figures/normal_30.pdf}
+\end{frame}
+
+\begin{frame}
+\frametitle{$z$-score}
+\begin{itemize}
+    \item
+    Based on the normal distribution, we know it is unusual for an observation to fall more than three standard deviations away from the mean
+    \item
+    Therefore, one way we can assess if an observation is a potential outlier is to calculate \textbf{how many standard deviations away from the mean it is}.
+    \item
+    If an observation falls more than three standard deviations away from the mean, it can be regarded as a \textbf{potential outlier}.
+\end{itemize}
+\begin{center}
+$z=\frac{\mbox{value}-\mbox{mean}}{\mbox{standard deviation}}$
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{$z$-score example}
+\begin{columns}
+\column{0.4\textwidth}
+\includegraphics[width=1.0\textwidth]{Figures/heights_normal.pdf}\\
+\begin{center}
+mean$=64$, sd$=3$
+\end{center}
+\column{0.6\textwidth}
+\begin{clicker}{Suppose Mary is 67 inches tall.}
+\begin{enumerate}
+    \item
+    What is the z-score for Mary's height?
+    \item[]
+    \item[]
+    \item[]
+    \item
+    What is the interpretation of this z-score?
+    \item[]
+    \item[]
+    \item[]
+\end{enumerate}
+\end{clicker}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{the distribution of $z$-scores}
+When a $z$-score is calculated from a normal distribution, the $z$-scores themselves follow a normal distribution with a mean of zero and a standard deviation of 1.  We call this the standard normal distribution, and it is often referred as the $z$ distribution.
+\begin{center}
+\includegraphics[width=0.4\textwidth]{Figures/heights_normal2.pdf}
+\includegraphics[width=0.4\textwidth]{Figures/z_scores.pdf}
+\end{center}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{\grp}
+Suppose marketing and accounting majors have their own distribution of starting salaries (that is, each field has its own mean and standard deviation of salaries).  Tom gets a job in marketing and Anna gets a job in accounting.  Tom's z-score for his salary offer is 1.5, and Anna's is 0.67.
+\begin{clicker}{Which of the following is \emph{true}?}
+\begin{enumerate}
+    \item
+    Tom's salary offer was higher than Anna's.
+    \item
+    Since Anna's z-score is less than 1, her salary offer was below the mean.
+    \item
+    Anna's salary offer is relatively closer to the mean starting salary for her field than Tom's.
+    \item
+    Tom's salary offer is 150\% better than the mean starting salary for his field.
+    \item
+    More than one statement is true.
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+\begin{frame}
+\frametitle{\grp}
+\begin{columns}
+\column{0.35\textwidth}
+\begin{center}
+\includegraphics[width=1.0\textwidth,trim={0 0 0 2cm},clip]{Figures/hist_heights.pdf}\\
+\begin{align*}
+n_1&=100\\
+\bar{x}_1&=63.8\\
+s_1&=?
+\end{align*}
+\end{center}
+\column{0.35\textwidth}
+\begin{center}
+\includegraphics[width=1.0\textwidth,trim={0 0 0 2cm},clip]{Figures/hist_heights.pdf}\\
+\begin{align*}
+n_2&=1,000\\
+\bar{x}_2&=63.8\\
+s_2&=?
+\end{align*}
+\end{center}
+\column{0.3\textwidth}
+\begin{clicker}{What is the relationship between $s_1$ and $s_2$?}
+\begin{enumerate}
+\item $s_1 > s_2$
+\item $s_1 < s_2$
+\item $s_1 = s_2$
+\end{enumerate}
+\end{clicker}
+\end{columns}
+\end{frame}
+
+
+%===========================================================================================================================
+\section[Extra]{Extra}
+%===========================================================================================================================
+\begin{frame}
+\tableofcontents[currentsection, hideallsubsections]
+\end{frame}
+
+%\subsection{}
+\begin{frame}[label=meansd]
+\frametitle{Mean and Standard Deviation}
+ Mean (or average): the sum of the observations divided by the number of observations
+\begin{equation*}
+   \bar{x} = \frac{\sum{x}}{n}
+\end{equation*}
+\vskip10pt
+The standard deviation represents a type of average distance of an observation from the mean.
+\begin{equation*}
+   s = \sqrt{\frac{\sum(x-\bar{x})^2}{n-1}}
+\end{equation*}
+\begin{flushright}
+\hyperlink{summarizing}{\beamerreturnbutton{Back}}
+\end{flushright}
+\end{frame}
+
+\begin{frame}[label=percentiles]
+\frametitle{Percentiles}
+\begin{enumerate}
+    \item
+    Order your data.
+    \item
+    Identify the middle of the data.  If $n$ odd, the $50^{th}$ percentile (median) is the value in the middle.  If $n$ is even the $50^{th}$ percentile (median) is the average of the two middle values.
+    \item
+    Examine the lower half of the data defined by the median (if $n$ odd exclude median).  The median of the lower half is the $25^{th}$ percentile (first quartile).
+    \item
+    Examine the upper half of the data defined by the median (if $n$ odd exclude median).  The median of the upper half is the $75^{th}$ percentile (third quartile).
+    \item[]
+\end{enumerate}
+The interquartile range (IQR) of the data is the distance between the third and first quartiles: $IQR = Q3 - Q1$
+\begin{flushright}
+\hyperlink{summarizing}{\beamerreturnbutton{Back}}
+\end{flushright}
+\end{frame}
+
+
+
+\begin{frame}[label=boxplot]
+\frametitle{Boxplot}
+A \textbf{five-number summary} of data includes the minimum value, Q1, median, Q3, and maximum value.  A five-number summary can be displayed in a \textbf{boxplot}.
+\begin{center}
+\includegraphics[width=0.6\textwidth]{Figures/boxplot.jpg}
+\end{center}
+The whiskers extend out to the smallest and largest observations that are \textbf{not} potential outliers.  Potential outliers are indicated with circles.  An observation is a \textbf{potential} outlier if
+\begin{itemize}
+    \item
+    it falls below $Q1-1.5\times IQR$
+    \item
+    it falls above  $Q3+1.5\times IQR$
+\end{itemize}
+\begin{flushright}
+\hyperlink{summarizing}{\beamerreturnbutton{Back}}
+\end{flushright}
+\end{frame}
+
+
+
+
+
+
+\end{document} 

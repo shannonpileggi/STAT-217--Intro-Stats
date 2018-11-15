@@ -1,0 +1,955 @@
+
+
+\input{"C:/Users/spileggi/Google Drive/STAT 217/Slides/SlideStyle.tex"}
+
+
+
+\title[Unit 2 Deck 1]{Distribution of Sample Proportions and Confidence Interval for a Population Proportion}
+\author[Pileggi]{Shannon Pileggi}
+
+\institute[STAT 217]{STAT 217}
+
+\date{}
+
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}
+\frametitle{OUTLINE\qquad\qquad\qquad} \tableofcontents[hideallsubsections]
+\end{frame}
+
+
+
+%===========================================================================================================================
+\section[Overview]{Overview}
+%===========================================================================================================================
+
+%\subsection{}
+\begin{frame}[fragile]
+\frametitle{The Data}
+From the CDC's 2013 Youth Risk Behavior Surveillance System \\
+\vskip10pt
+ \resizebox{1.0\textwidth}{!}{
+\begin{tabular}{llllllll}
+\hline
+	&	gender	&	height\textunderscore m	&	weight\textunderscore kg	&	bmi	&	carried\textunderscore weapon	&	bullied	&	days\textunderscore drink	\\
+\hline
+1	&	female	&	1.73	&	84.37	&	28.2	&	yes	&	no	&	30	\\
+2	&	female	&	1.6	&	55.79	&	21.8	&	no	&	yes	&	1	\\
+3	&	female	&	1.5	&	46.72	&	20.8	&	no	&	yes	&	0	\\
+4	&	female	&	1.57	&	67.13	&	27.2	&	no	&	yes	&	0	\\
+5	&	female	&	1.68	&	69.85	&	24.7	&	no	&	no	&	0	\\
+6	&	female	&	1.65	&	66.68	&	24.5	&	no	&	no	&	1	\\
+7	&	male	&	1.85	&	74.39	&	21.7	&	no	&	no	&	0	\\
+8	&	male	&	1.78	&	70.31	&	22.2	&	yes	&	no	&	0	\\
+9	&	male	&	1.73	&	73.48	&	24.6	&	no	&	yes	&	0	\\
+10	&	male	&	1.83	&	67.59	&	20.2	&	no	&	no	&	0	\\
+$\vdots$	&	$\vdots$	&$\vdots$		&$\vdots$		&	$\vdots$	&$\vdots$		&	$\vdots$	&$\vdots$		\\
+8482	&	male	&	1.73	&	68.95	&	23	&	no	&	no	&	0	\\
+\hline
+\end{tabular}}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{The idea}
+\vskip10pt
+\begin{columns}
+\column{0.27\textwidth}
+\includegraphics[width=1.0\textwidth]{Figures/barplot_all.pdf}\\
+\vskip20pt
+\includegraphics[width=1.0\textwidth]{Figures/barplot_samp3.pdf}
+\column{0.27\textwidth}
+\includegraphics[width=1.0\textwidth]{Figures/barplot_samp1.pdf}\\
+\vskip20pt
+\includegraphics[width=1.0\textwidth]{Figures/barplot_samp4.pdf}
+\column{0.27\textwidth}
+\includegraphics[width=1.0\textwidth]{Figures/barplot_samp2.pdf}\\
+\vskip20pt
+\includegraphics[width=1.0\textwidth]{Figures/barplot_samp5.pdf}
+\end{columns}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Parameters vs statistics}
+\begin{columns}
+\column{0.5\textwidth}
+A \textbf{parameter} is a numerical summary of a population.  It is usually \emph{unknown}, although we can make \emph{assumptions} about parameter values for population distributions.  We generally use Greek letters (without bars or hats) to denote population parameters: \\
+\vskip20pt
+\resizebox{0.95\textwidth}{!}{
+\begin{tabular}{|ll|}
+    \hline
+    population mean & $\mu$\\
+    population standard deviation & $\sigma$ \\
+    population proportion & $p$ \\
+    \hline
+\end{tabular}}
+\column{0.5\textwidth}
+A \textbf{statistic} is a numerical summary of the sample.  It is estimated from observed data.  We generally use lower case letters (with bars or hats) to denote sample statistics: \\
+\vskip60pt
+\resizebox{0.85\textwidth}{!}{
+\begin{tabular}{|ll|}
+    \hline
+    sample mean & $\bar{x}$\\
+    sample standard deviation & $s$ \\
+    sample proportion & $\hat{p}$ \\
+    \hline
+\end{tabular}}
+\end{columns}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Describing distributions}
+\grp
+\begin{clicker}{When describing distributions, what are the three features you should address?}
+\begin{enumerate}
+\item
+\item[]
+\item
+\item[]
+\item
+\item[]
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+\begin{frame}
+\frametitle{Three distributions to keep in mind}
+\begin{enumerate}
+ \item   The \textbf{population distribution} refers to the actual distribution of a variable in a population.  \\ \vskip5pt
+ \item   The \textbf{data distribution} refers to the distribution of observed values from a \emph{single} sample.  \\ \vskip5pt
+ \item     The \textbf{sampling distribution} refers to the distribution of a statistic from \emph{many} samples.\\ \vskip5pt
+\item[] \begin{tabular}{p{4.2cm} p{0.2cm} p{4.8cm}}
+\small{sampling distribution of the sample proportion} & = & \small{the distribution of sample proportions ($\hat{p}$) from many samples} \\
+ & & \\
+ \small{sampling distribution of the sample means}  & = &  \small{the distribution of sample means ($\bar{x}$) from many samples}
+\end{tabular}
+%    \begin{itemize}
+%        \item
+%        sampling distribution of the sample proportion = the distribution of sample proportions ($\hat{p}$ from many samples
+%        \item
+%        sampling distribution of the sample means  the distribution of sample means ($\bar{x}$ from many samples
+%    \end{itemize}
+\end{enumerate}
+\end{frame}
+
+
+%===========================================================================================================================
+\section[Simulation]{Simulation}
+%===========================================================================================================================
+\begin{frame}
+\tableofcontents[currentsection, hideallsubsections]
+\end{frame}
+
+%\subsection{}
+\begin{frame}
+\frametitle{Population and data distribution of \texttt{bullied}}
+Consider the 8,482 observations from the YRBSS data set to be the \emph{entire} population of interest.  Now let's describe the \textbf{population distribution} of \texttt{bullied}.
+\begin{itemize}
+    \item
+    True population proportion:
+    \item[]
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Example data distributions from \texttt{bullied}}
+ Now let's take three random samples of size $n=10$ from the population distribution of \texttt{bullied}.  Each random sample represents a \textbf{data distribution}.\\
+ \vskip10pt
+ %\hspace*{-20pt}
+ \resizebox{1.0\textwidth}{!}{
+ \begin{tabular}{|l|cccccccccc|c|}
+ \hline
+         & $x_1$ & $x_2$ & $x_3$ & $x_4$ & $x_5$ & $x_6$ & $x_7$ & $x_8$ & $x_9$ & $x_{10}$ &  $\hat{p}$ \\
+         \hline
+Sample 1 &       &       &       &       &       &       &       &       &       &          &   \textcolor{white}{1234}    \\
+[2.0ex]
+Sample 2 &       &       &       &       &       &       &       &       &       &          &      \\
+[2.0ex]
+Sample 3 &       &       &       &       &       &       &       &       &       &          &      \\
+[2.0ex]
+\hline
+\end{tabular}}
+\end{frame}
+
+
+
+
+\begin{frame}
+\frametitle{Many samples from \texttt{bullied}}
+ Let's repeat the process and take 1000 random samples of size $n=10$ from the population distribution of \texttt{bullied}.
+  \vskip5pt
+   \resizebox{1.0\textwidth}{!}{
+ \begin{tabular}{|l|cccccccccc|c|}
+    \hline
+ 	& $x_1$ & $x_2$ & $x_3$ & $x_4$ & $x_5$ & $x_6$ & $x_7$ & $x_8$ & $x_9$ & $x_{10}$  & $\hat{p}$ \\
+    \hline
+Sample1	&	no	&	yes	&	no	&	no	&	no	&	no	&	no	&	no	&	no	&	yes	&	0.2	\\
+Sample2	&	no	&	no	&	no	&	no	&	no	&	no	&	no	&	no	&	no	&	yes	&	0.1	\\
+Sample3	&	no	&	no	&	yes	&	no	&	no	&	yes	&	yes	&	no	&	no	&	no	&	0.3	\\
+Sample4	&	no	&	no	&	no	&	yes	&	yes	&	no	&	no	&	no	&	yes	&	no	&	0.3	\\
+Sample5	&	no	&	yes	&	no	&	no	&	no	&	no	&	no	&	yes	&	no	&	no	&	0.2	\\
+Sample6	&	no	&	n	&	no	&	yes	&	yes	&	yes	&	yes	&	no	&	no	&	no	&	0.4	\\
+Sample7	&	yes	&	no	&	no	&	no	&	no	&	no	&	no	&	no	&	no	&	yes	&	0.2	\\
+Sample8	&	no	&	yes	&	yes	&	yes	&	no	&	no	&	no	&	no	&	no	&	yes	&	0.4	\\
+Sample9	&	no	&	yes	&	no	&	no	&	no	&	no	&	no	&	yes	&	no	&	no	&	0.2	\\
+Sample10	&	no	&	yes	&	no	&	no	&	no	&	no	&	no	&	no	&	no	&	no	&	0.1	\\
+Sample11	&	yes	&	no	&	no	&	no	&	no	&	no	&	no	&	no	&	no	&	no	&	0.1	\\
+$\vdots$	&	$\vdots$	&	$\vdots$	&	$\vdots$	&	$\vdots$	&	$\vdots$	&	$\vdots$	&	$\vdots$	&	$\vdots$	&	$\vdots$	&	$\vdots$	&	$\vdots$	\\
+Sample1000	&	no	&	no	&	no	&	no	&	no	&	no	&	no	&	no	&	no	&	no	&	0	\\
+\hline
+ \end{tabular}}
+  \end{frame}
+
+
+\begin{frame}
+\frametitle{\grp}
+\begin{clicker}{What do you think will be the shape of the distribution of the 1000 sample proportions?}
+\begin{enumerate}
+    \item
+    bell-shaped
+    \item
+    left-skewed
+    \item
+    right-skewed
+    \item
+    uniform
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Simulated sampling distribution, example 1}
+The collection of the sample proportions from the 1000 samples of size $n=10$ represents a simulated \textbf{sampling distribution} of the sample proportion.
+\begin{itemize}
+    \item[]
+    \item
+    Shape of the sampling distribution:
+    \item[]
+    \item
+    Mean of the sampling distribution:
+    \item[]
+    \item
+    Standard deviation of the sampling distribution:
+    \item[]
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Re-cap, example 1}
+\begin{columns}
+\column{0.33\textwidth}
+\textbf{Population distribution}\\
+\vskip10pt
+$p=0.194$
+\vskip110pt
+\textcolor{white}{nothing}
+\column{0.33\textwidth}
+\textbf{Single data distribution ($n=10$)}\\
+\vskip10pt
+\texttt{no yes	no	no	no	no	no	no	no	yes}\\
+\vskip10pt
+$\hat{p}=0.2$	
+\vskip80pt
+\textcolor{white}{nothing}
+\column{0.33\textwidth}
+\textbf{Distribution of 1000 sample proportions from samples of size $n=10$}\\
+\includegraphics[width=1.0\textwidth]{Figures/Sampling1Bullied.pdf}
+\begin{center}
+    mean = 0.202\\
+     sd  = 0.127
+\end{center}
+\end{columns}
+\end{frame}
+
+%\begin{frame}
+%\frametitle{Re-cap, example 1}
+%\begin{minipage}{0.3\textwidth} \textcolor{white}{CHECK} \end{minipage}
+%\begin{minipage}{0.64\textwidth}
+%\begin{itemize}
+%\item[\textbf{Population distribution:}] In the population of all individuals, the proportion bullied is $p=0.194$
+%\item[]
+%\item[\textbf{Data distribution:}] In one sample of 10 individuals, we observed 1 person that was bullied ($\hat{p}=0.10$)
+%\item[]
+%\item[\textbf{Sampling distribution:}] From 1000 samples of size $n=10$ individuals, we calculated 1000 sample proportions.  These 1000 sample proportions had:
+%\begin{itemize}
+%    \item Shape: right-skewed
+%    \item Mean: 0.202
+%    \item Standard deviation: 0.127
+%\end{itemize}
+%\end{itemize}
+% \end{minipage}
+%\end{frame}
+
+\begin{frame}
+\frametitle{\grp}
+What do you think will happen to the distribution of sample proportions if we increase the sample size for each individual sample from $n=10$ to $n=100$? (The number of samples will stay the same at 1000.)
+\begin{clicker}{The shape will be \underline{\hspace{1in}}, the mean will \underline{\hspace{1in}}, the standard deviation will \underline{\hspace{1in}}.}
+\begin{enumerate}
+    \item
+    shape: right-skewed, left-skewed, approximately normal
+    \item
+    mean: increase, decrease, remain the same
+    \item
+    standard deviation: increase, decrease, remain the same
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Simulated sampling distribution, example 2}
+The collection of the sample proportions from the 1000 samples of size $n=100$ represents a simulated \textbf{sampling distribution} of the sample proportion.
+\begin{itemize}
+    \item[]
+    \item
+    Shape of the sampling distribution:
+    \item[]
+    \item
+    Mean of the sampling distribution:
+    \item[]
+    \item
+    Standard deviation of the sampling distribution:
+    \item[]
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Re-cap, example 2}
+\begin{columns}
+\column{0.33\textwidth}
+\textbf{Population distribution}\\
+\vskip10pt
+$p=0.194$
+\vskip110pt
+\textcolor{white}{nothing}
+\column{0.33\textwidth}
+\textbf{Single data distribution ($n=100$)}\\
+\vskip10pt
+\texttt{no no no no no no no yes no  no yes  no  no  no  no  no  no  no  no  no  no  no  no  no  no  no  yes no  no  no  no  no  no  no  no  no  no  no  no  no yes  ...}\\
+\vskip10pt
+$\hat{p}=0.173$	
+%\vskip80pt
+\textcolor{white}{nothing}
+\column{0.33\textwidth}
+\textbf{Distribution of 1000 sample proportions from samples of size $n=100$}\\
+\includegraphics[width=1.0\textwidth]{Figures/Sampling2Bullied.pdf}
+\begin{center}
+    mean = 0.193\\
+     sd  = 0.04
+\end{center}
+\end{columns}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Summary}
+{\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{p{0.1cm} p{2cm} p{3.7cm} p{3.7cm}}
+\toprule
+& Feature & Example 1 ($n=10$) & Example 2 ($n=100$) \\
+\midrule
+\multicolumn{3}{l}{\emph{Observed in simulation}}  \\
+& Shape  & & \\
+& Mean   & & \\
+& Std Dev & & \\
+\midrule
+\multicolumn{3}{l}{\emph{According to theory}}  \\
+& Shape  & & \\
+& Mean   & & \\
+& Std Dev & & \\
+\bottomrule
+\end{tabular}}
+\end{frame}
+
+%===========================================================================================================================
+\section[Distribution of $\hat{p}$]{Distribution of a Sample Proportions}
+%===========================================================================================================================
+\begin{frame}
+\tableofcontents[currentsection, hideallsubsections]
+\end{frame}
+
+%\subsection{}
+
+\begin{frame}
+\frametitle{Distribution of Sample Proportions}
+\framesubtitle{OR: the sampling distribution of the sample proportion}
+For a random sample of size $n$ from a population with population proportion $p$, the distribution of sample proportions has
+\begin{center}
+mean = $p$, standard deviation$=\displaystyle\sqrt{\frac{p(1-p)}{n}}$
+\vskip50pt
+Saying the same thing, but with more notation:
+\vskip10pt
+mean($\hat{p}$) = $p$, sd($\hat{p}$)$=\displaystyle\sqrt{\frac{p(1-p)}{n}}$
+\end{center}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Distribution of Sample Proportions}
+\framesubtitle{OR: the sampling distribution of the sample proportion}
+When $np\ge10$ and $n(1-p)\ge10$, then the the distribution of sample proportions has an \textbf{approximately normal} shape.  That is, when this condition is satisfied, the distribution of sample proportions has:
+\begin{itemize}
+\item[]
+\item shape = normal
+\item mean = $p$
+\item standard deviation = $\displaystyle\sqrt{\frac{p(1-p)}{n}}$
+\item[]
+\end{itemize}
+The condition $np\ge10$ and $n(1-p)\ge 10$ means that you have at least 10 expected `successes' and 10 expected `failures.'
+\end{frame}
+
+\begin{frame}
+\frametitle{\grp}
+\begin{clicker}{Suppose that 80\% of Americans prefer milk chocolate to dark chocolate. For which of the following sample sizes would the distribution of the sample proportions of Americans that prefers milk chocolate be approximately normally distributed? Mark \underline{all} that apply.}
+\begin{enumerate}
+    \item
+    $n=20$
+    \item
+    $n=40$
+    \item
+    $n=60$
+    \item
+    $n=80$
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{\grp}
+\begin{clicker}{Which of the following affects the variability (or spread) in the distribution of the sample proportions?  Select all that apply}
+\begin{enumerate}
+    \item
+    the population mean
+    \item
+    the population standard deviation
+    \item
+    the sample size
+    \item
+    the number of samples collected
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+\begin{frame}
+\frametitle{\grp}
+\begin{clicker}{When discussing sampling distributions, what started off as KNOWN and UNKNOWN?}
+\begin{enumerate}[A.]
+    \item[]
+    \item
+    population proportion: (1) known OR (2) unknown
+    \item[]
+    \item
+    sample proportion: (1) known OR (2) unknown
+    \item[]
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Example}
+Suppose that 80\% of Cal Poly students own a Mac laptop, and that we take samples of size $n=100$ from the population of all Cal Poly students.
+Specify (with justification) the following features of the distribution of sample proportions and sketch the distribution of sample proportions.
+\vskip10pt
+\begin{enumerate}
+\item shape
+\item[]
+\item mean
+\item[]
+\item std dev
+\item[]
+\end{enumerate}
+\vskip50pt
+\end{frame}
+
+%===========================================================================================================================
+\section[CI general]{Confidence Interval in General}
+%===========================================================================================================================
+\begin{frame}
+\tableofcontents[currentsection, hideallsubsections]
+\end{frame}
+
+%\subsection{}
+\begin{frame}
+\frametitle{Estimation}
+Given that we generally collect data from a sample (and not a population), how do we \emph{estimate} population parameter values reliably?  Examples of estimation:
+    \begin{itemize}
+        \item
+        A \href{http://www.npr.org/blogs/thesalt/2013/01/31/170748045/why-mixing-alcohol-with-diet-soda-may-make-you-drunker?sc=tw}{study} found that the average breath alcohol concentration (BrAC) was .091 when subjects drank alcohol mixed with a diet drink. By comparison, BrAC was .077 when the same subjects consumed the same amount of alcohol but with a sugary soda.
+        \item
+        \href{http://www.bbc.co.uk/news/science-environment-21236690}{Researchers} estimate that domestic cats are responsible for the deaths of between 1.4 and 3.7 billion birds and 6.9-20.7 billion mammals annually.
+    \end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Point estimate vs interval estimate}
+A \textbf{point estimate} is a \textbf{single number} that is our `best guess' for the  population parameter.  Point estimates are given by sample statistics.  \\
+\begin{itemize}
+    \item
+    the average number of hours of sleep on a typical night is 7.024 ($\bar{x}=7.024$)
+    \item
+    100/208 students indicated the Emory was their $1^{st}$ choice ($\hat{p}=0.48$)
+\end{itemize}
+\vskip10pt
+%\pause
+An \textbf{interval estimate} is an \textbf{interval of numbers} within which the \underline{population parameter} value is believed to fall.\\
+\begin{itemize}
+    \item
+    What is a plausible range for the \textbf{population mean} ($\mu$) number of hours of sleep of Emory students in a typical night?
+    \item
+    What is a plausible range for the \textbf{population proportion} ($p$) of students for whom Emory was their $1^{st}$ choice?
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Confidence Interval}
+A \textbf{confidence interval} is an interval containing the most believable values for a \underline{population parameter}.
+\begin{itemize}
+    \item
+    The probability that this method produces an interval that captures the true parameter value is called the \textbf{confidence level}.
+    \item
+    The confidence level is a number close to 1, and is most commonly 0.95.
+    \item
+    A confidence interval with a confidence level of 0.95 is called a 95\% confidence interval.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{General Form of  Confidence Interval:}
+\begin{center}
+    point estimate $\pm$ margin of error
+\end{center}
+\begin{itemize}
+    \item
+    the \textbf{point estimate} is your best guess of a population parameter, like $\bar{x}$ or $\hat{p}$
+    \item
+    the \textbf{margin of error} measures how accurate the point estimate is likely to be in estimated a parameter
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Relationship between sampling distribution and confidence intervals}
+{\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{lcc}
+\hline
+                      & \textbf{Sampling} & \textbf{Confidence} \\
+                      & \textbf{Distribution} & \textbf{Interval} \\
+\hline
+Population proportion & known                 & unknown \\
+Sample proportion     & unknown               & known \\
+\hline
+\end{tabular}}
+\end{frame}
+
+%===========================================================================================================================
+\section[CI for $p$]{Confidence Interval for a Population Proportion}
+%===========================================================================================================================
+\begin{frame}
+\tableofcontents[currentsection, hideallsubsections]
+\end{frame}
+
+%\subsection{}
+
+
+\begin{frame}
+\frametitle{The research question}
+How can we estimate the population proportion of Cal Poly students that own a Mac laptop?\\
+\vskip10pt
+In random sample of Cal Poly students,  50 out of 67 students reported that they own a Mac laptop.
+\vskip100pt
+\end{frame}
+
+
+
+%\begin{frame}
+%\frametitle{Unknown values and how they are estimated}
+%\begin{columns}
+%\column{0.5\textwidth}
+%Values that are generally \textbf{unknown}:
+%\begin{itemize}
+%    \item  the population proportion $p$
+%    \item  the standard deviation of the distribution of sample proportions, $\sqrt{p(1-p)/n}$
+%\end{itemize}
+%\column{0.5\textwidth}
+%Values that are \emph{estimated} from a sample of data:
+%\begin{itemize}
+%    \item  the sample proportion $\hat{p}$
+%    \item  the \emph{standard error} of the sample proportion, $\sqrt{\hat{p}(1-\hat{p})/n}$
+%\end{itemize}
+%\end{columns}
+%\end{frame}
+
+\begin{frame}
+\frametitle{CI for a population proportion}
+\begin{align*}
+\hat{p} & \pm z^{*} \times \sqrt{\frac{\hat{p}(1-\hat{p})}{n}}\\
+\mbox{\emph{point estimate}} & \pm \mbox{\emph{critical value}} \times \mbox{\emph{standard error}}  \\
+\mbox{\emph{point estimate}} & \pm \mbox{\emph{margin of error}}
+\end{align*}
+\vskip5pt
+\begin{itemize}
+    \item
+    the \textbf{point estimate} is your best guess of a population parameter  $\rightarrow$ $\hat{p}$
+    \item
+    the \textbf{critical value} establishes your degree of confidence for that interval  $\rightarrow$ use $z$
+    \item
+    the \textbf{standard error} allows for uncertainty in that point estimate  $\rightarrow$ $\sqrt{\hat{p}(1-\hat{p})/n}$
+    \item
+   the \textbf{margin of error} is the (critical value $\times$ standard error), and is everything after the $\pm$  $\rightarrow$  $z\times\sqrt{\hat{p}(1-\hat{p})/n}$
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Choice of \emph{approximate} $z$}
+\begin{itemize}
+\item[]
+$ \mbox{point estimate} \pm \textcolor{OrangeRed}{z^{*}} \times se \rightarrow$ general form of CI\\
+\item[]
+\item[]
+$\mbox{point estimate}  \pm \textcolor{OrangeRed}{1} \times se \rightarrow$ approximate \underline{\hspace{0.3in}} CI \\
+\item[]
+\item[]
+$\mbox{point estimate}  \pm \textcolor{OrangeRed}{2} \times se \rightarrow$ approximate \underline{95\%}  CI \\
+\item[]
+\item[]
+$\mbox{point estimate}  \pm \textcolor{OrangeRed}{3} \times se \rightarrow$ approximate \underline{\hspace{0.3in}} CI  \\
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Elements of an interpretation of a confidence interval}
+
+\begin{enumerate}
+    \item
+    State the confidence level
+    \item
+    Refer to the population
+    \item
+    State the parameter being estimated
+    \item
+    Utilize context
+    \item
+    Include a range of values
+    \item[]
+\end{enumerate}
+
+At the \bsans{1} \% confidence level, we estimate that the \bsans{2} \bsans{3} of \bsans{4} is in the interval \bsans{5}.
+\end{frame}
+
+\begin{frame}
+\frametitle{Evaluating claims}
+\begin{clicker}{Different faculty members have different guesses on the percent of all Cal Poly students that own laptop.  Based on the interval calculated, which of these claims are plausible?  Mark all that apply.}
+\begin{enumerate}
+    \item
+    Professor A claims that 60\% of students own a Mac laptop.
+    \item
+    Professor B claims that 70\% of students own a Mac laptop.
+    \item
+    Professor C claims that 80\% of students own a Mac laptop.
+    \item
+    Professor D claims that 90\% of students own a Mac laptop.
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+
+
+\begin{frame}[label=assumptions]
+\frametitle{Conditions required for a CI for $p$}
+    \begin{enumerate}
+        \item
+        The observations are independent.
+        \hyperlink{independentobs}{\beamerreturnbutton{Discussion}}
+        %\item[]
+        %\textcolor{OrangeRed}{If not, the $se$ tends to be \emph{underestimated}, resulting in CIs that are too narrow (invalid CIs).}
+        \item
+        $n\hat{p} \geq 10 $ and $n(1-\hat{p}) \geq 10$
+        \item[]
+        \emph{(at least 10 observed ``successes'' and 10 observed ``failures'')}
+        %\item[]
+        %\textcolor{OrangeRed}{If not, the sampling distribution of $\hat{p}$ is not approximately normal, and CIs produced by this method are not \emph{valid}.}
+    \end{enumerate}
+\end{frame}
+
+
+
+
+\begin{frame}
+\frametitle{Steps to constructing a confidence interval for a population proportion}
+\begin{enumerate}
+    \item
+    Check your conditions.
+    \item[]
+    \item
+    Identify $z^{*}$ for your specified level of confidence.
+    \item[]
+    \begin{tabular}{|lcccc|}
+\hline
+Confidence level & 80\% & 90\% & 95\% & 99\% \\
+$z^{*}$  & 1.28 & 1.65 & 1.96 & 2.58 \\
+\hline
+\end{tabular}
+    \item[]
+    \item
+    Calculate the interval: $\hat{p} \pm z^{*} \times \sqrt{\frac{\hat{p}(1-\hat{p})}{n}}$
+    \item[]
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\frametitle{Example}
+In random sample of Cal Poly students,  50 out of 67 students reported that they own a Mac laptop.  Compute and interpret a 95\% CI for the population proportion of Cal Poly students that own a Mac laptop.
+\vskip200pt
+\end{frame}
+
+
+%===========================================================================================================================
+\section[Understanding the CI]{Understanding the CI}
+%===========================================================================================================================
+\begin{frame}
+\tableofcontents[currentsection, hideallsubsections]
+\end{frame}
+
+%\subsection{}
+
+
+\begin{frame}
+\frametitle{\grp}
+A 95\% confidence interval for the true proportion of US citizens who are opposed to issuing traffic tickets from traffic cameras is (0.57, 0.63) based on a sample of 1000 individuals.
+\begin{clicker}
+{What is the point estimate for the proportion of sampled individuals who are opposed to issuing traffic tickets from traffic cameras?}
+\begin{enumerate}
+    \item
+    0.57
+    \item
+    0.63
+    \item
+    0.60
+    \item
+    0.95
+    \item
+    not enough information to determine
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+
+
+
+
+\begin{frame}
+\frametitle{\grp}
+\begin{center}
+$\hat{p} \pm z^{*} \times \sqrt{\frac{\hat{p}(1-\hat{p})}{n}}$, 90\% $z^{*} = $\underline{\hspace{0.5in}},  95\% $z^{*} = $\underline{\hspace{0.5in}}
+\end{center}
+\begin{clicker}{The value of $z$ for a  95\% CI is \underline{\hspace{1in}} than the value of $z^{*}$ for a 90\% CI.  This means that higher confidence levels correspond to \underline{\hspace{1in}} confidence intervals.}
+\begin{enumerate}
+    \item
+    greater; wider
+    \item
+    greater; narrower
+    \item
+    less; narrower
+    \item
+    less; wider
+\end{enumerate}
+\end{clicker}
+\vskip10pt
+What factors affect the width of the CI?
+Constructing a confidence interval is a \emph{compromise} between an acceptable width of your confidence interval and the desired level of confidence in correct inference.
+\end{frame}
+
+
+\begin{frame}
+\frametitle{\grp}
+\begin{clicker}{Will a 95\% confidence interval always contain the \textbf{estimate} of the population proportion ($\hat{p}$)?}
+\begin{enumerate}
+    \item
+    Yes
+    \item
+    No
+\end{enumerate}
+\end{clicker}
+\vskip20pt
+\begin{clicker}{Will a 95\% confidence interval always contain the \textbf{population} proportion ($p$)?}
+\begin{enumerate}
+    \item
+    Yes
+    \item
+    No
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+%\begin{frame}
+%\frametitle{Class exercise with partners}
+%\begin{enumerate}
+%    \item
+%    Find the sample proportion.
+%    \item
+%    Construct a 95\% CI for $p$.
+%    \item
+%    Plot your sample proportion and CI on the board.
+%\end{enumerate}
+%\end{frame}
+
+\begin{frame}
+\frametitle{The meaning of a 95\% CI}
+If we were to repeatedly sample over and over again, \emph{in the long run} 95\% of our confidence intervals would make correct inference.
+That is, if we took 100 random samples and calculated 100 confidence intervals, we would expect 95 of those confidence intervals to capture the true parameter value.
+\begin{columns}
+\column{0.7\textwidth}
+\includegraphics[width=1.0\textwidth]{Figures/CIp.png}
+\column{0.3\textwidth}
+This figures shows 100 samples of size $n=50$ where the true $p=0.50$.  Note that 5 of the 100 CI's don't actually capture the true $p$.
+\end{columns}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{The meaning of a 95\% CI, continued}
+%\begin{center}
+%\includegraphics[width=0.5\textwidth]{CIp.png}
+%\end{center}
+\begin{itemize}
+\item
+95\% of samples of this size will produce confidence intervals that capture the true proportion.
+\item
+This can be longwinded, so we say ``We are 95\% confident that the true proportion lies in this interval.''
+\item
+In reality, we cannot know whether or our sample is one of the 95\% that captured $p$, or one of the unlucky 5\% that did not catch $p$.
+\item
+95\% confident means that we arrived at this interval by a method that gives us correct results 95\% of the time.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{\grp}
+Based on data from the Winter 2016 STAT 217 class, a 95\% confidence interval for the proportion of Cal Poly students who own a Mac laptop is 0.64 to 0.85.
+\begin{clicker}{Which of the following is a correct interpretation?}
+\begin{enumerate}
+    \item
+    We are 95\% confident that the proportion of Cal Poly students from this sample who own a Mac laptop is between 0.64 and 0.85.
+    \item
+    We are 95\% confident that the population proportion of Cal Poly students who own a Mac laptop is between 0.64 and 0.85.
+    \item
+    95\% of the time the proportion of Cal Poly students who own a Mac laptop is between 0.64 and 0.85.
+    \item
+    More than one statement is correct.
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+\begin{frame}
+\frametitle{Interpreting the CI}
+\begin{itemize}
+    \item
+    Interpreting a CI can be challenging
+    \item
+    Students often try to use their own words, and get the interpretation incorrect (just use my words).
+    \item
+    Confidence intervals are about values of \underline{population} \underline{parameters}, so \emph{both} pieces of this information \textbf{must} be included in the interpretation.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{\grp}
+\begin{center}
+\begin{tabular}{cc}
+\hline
+ Sample 1 & Sample 2\\
+\hline
+ $\hat{p}=0.35$        &   $\hat{p}=0.35$ \\
+ $n=50$         & $n=100$ \\
+ \hline
+\end{tabular}
+\end{center}
+\begin{clicker}{Suppose we construct a 95\% confidence interval for $p$ for both samples.  How will the confidence intervals compare?}
+\begin{enumerate}
+    \item
+    The width of the intervals from the two samples will be the same.
+    \item
+    The CI for sample 1 will be wider than the CI for sample 2.
+    \item
+    The CI for sample 2 will be wider than the CI for sample 1.
+    \item
+    There is not enough information to determine.
+ \end{enumerate}
+\end{clicker}
+\end{frame}
+
+\begin{frame}
+\frametitle{\grp}
+\begin{clicker}{For each of the following scenarios, indicate if the research question should be answered with a confidence interval for a \textbf{mean} or \textbf{proportion}.  We want to know something about...}{
+\begin{enumerate}
+\item how many times a day a baby laughs
+\item whether or not babies are born with blue eyes
+\item the number of months until the baby first sleeps through the night
+\item if babies can sit up independently by age 6 months
+\item the heart rate of baby immediately after birth
+\end{enumerate}
+}
+\end{clicker}
+\end{frame}
+
+
+%===========================================================================================================================
+% Extra
+%===========================================================================================================================
+
+
+\appendix
+\newcounter{finalframe}
+\setcounter{finalframe}{\value{framenumber}}
+
+
+\section[Extra Material]{Extra Material}
+
+\subsection{}
+
+\begin{frame}[label=independentobs]
+\frametitle{When are observations not independent?}
+Observations are not independent when they are correlated with each other.  This occurs when observations are related and are more similar to each other than other observations in the data set.
+\begin{itemize}
+    \item
+    Measurements made on the same subject are typically not independent.
+    \begin{itemize}
+        \item
+        circumference of right and left thigh
+        \item
+        blood pressure before and after a treatment
+    \end{itemize}
+    \item
+    Observations from different subjects may not always be independent.
+    \begin{itemize}
+        \item
+        siblings, twin pairs, husband-wife
+    \end{itemize}
+    \item
+    Observations from groups of subjects may not always be independent.
+    \begin{itemize}
+        \item
+         children that attend the same elementary school, patients that attend the same in-town clinic
+    \end{itemize}
+\end{itemize}
+\begin{flushright}
+\hyperlink{assumptions}{\beamerreturnbutton{Back}}
+\end{flushright}
+\end{frame}
+
+\end{document} 

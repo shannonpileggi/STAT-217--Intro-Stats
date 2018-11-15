@@ -1,0 +1,157 @@
+---
+title: "Lab 8 Practice"
+author: "Group members"
+date: "Date"
+output:
+  pdf_document:
+    toc: yes
+  html_document:
+    highlight: tango
+    theme: cerulean
+    toc: yes
+    toc_float:
+      collapsed: no
+      smooth_scroll: yes
+---
+
+```{r setup, include=FALSE}
+#Load your libraries
+library(mosaic)
+```
+
+
+# Background
+
+The movie Moneyball focuses on discovering the secret to success in baseball. It follows a low-budget team, the Oakland Athletics, who believed that underused statistics, such as a player's ability to get on base, better predict the ability to score runs than typical statistics like homeruns, RBIs (runs batted in), and batting average. Obtaining players who excelled in these underused statistics turned out to be much more affordable for the team.
+
+# The Data
+
+In this lab we'll be looking at data from all 30 Major League Baseball teams from the 2011 baseball season.
+
+* `team` = Team name
+* `runs` = Number of runs
+* `at_bats` = Number of at bats
+* `hits` = Number of hits
+* `homeruns` = Number of homeruns
+* `bat_avg` = Batting average
+* `strikeouts ` = Number of strikeouts
+* `stolen_bases `= Number of stolen bases
+* `wins` = Number of wins
+* `new_onbase` = On base percentage, measure of how often a batter reaches base for any reason other than
+a fielding error, fielder's choice, dropped/uncaught third strike, fielder's obstruction, or
+catcher's interference
+* `new_slug` = Slugging percentage, popular measure of the power of a hitter calculated as the total bases
+divided by at bats
+* `new_obs` = On base plus slugging, calculated as the sum of these two variables
+
+# Practice
+
+### Question 1
+**Open the `R Reference Guide` from the `Lab Content` area of PolyLearn.**
+
+### Question 2
+**Open `RStudio` and then open the `Lab8_practice.Rmd` Rmarkdown.  Note that the two code chunks needed (header, set up chunk) are already included in this Rmarkdown document.** 
+
+### Question 3
+**Import the data by executing the following two commands (click on the green arrow in the R chunk). Note: you do need internet connection.**
+```{r}
+download.file("http://www.openintro.org/stat/data/mlb11.RData", destfile = "mlb11.RData")
+load("mlb11.RData")
+```
+
+### Question 4
+**Produce three different scatter plots showing the relationship between `runs` (this is y, or the response variable) and at bats, stolen bases, and `strikeouts ` (these are x, or the explanatory variables).  For each plot, comment on whether or not the relationship is linear and your guess at the correlation between the two variables.**
+
+##### Plot of `runs` (y) vs `at_bats` (x)
+**linear?**
+
+**correlation guess?**
+
+
+##### Plot of `runs` (y) vs `stolen_bases `(x)
+**linear?**
+
+**correlation guess?**
+
+##### Plot of `runs` (y) vs `strikeouts ` (x)
+**linear?**
+
+**correlation guess?**
+
+### Question 5
+**Of the three explanatory variables explored in the previous question, which one do you think would be the best choice to predict `runs`, and why?**
+
+### Question 6
+**Using R, calculate the actual correlation estimate for each pair of variables. Interpret the strength of association as strong, moderate, or weak.**
+
+##### `runs` vs `at_bats` 
+**correlation = ?**
+
+**strength = ?**
+
+##### `runs` vs `stolen_bases `
+**correlation = ?**
+
+**strength = ?**
+
+##### `runs` vs `strikeouts ` 
+**correlation = ?**
+
+**strength = ?**
+
+### Question 7
+
+##### Question 7(a)
+**Use R to estimate the simple linear regression model using `at_bats` (x) to predict `runs` (y).**
+
+##### Question 7(b)
+**Write out the estimated regression equation.**
+
+##### Question 7(c)
+**Interpret the intercept.**
+
+##### Question 7(d)
+**Interpret the slope.**
+
+### Question 8 
+
+##### (Use the model created in Question 7.)
+
+##### Question 8(a)
+**We want to perform a statistical analysis to formally assess the association between `runs` and `at_bats`. In order to assess the association, should we examine the intercept, the slope, or both?**
+
+##### Question 8(b)
+**Is there evidence of an association between `runs` and `at_bats`? Why or why not?**
+
+##### Question 8(c)
+**Report and interpret the confidence interval for the slope. **
+
+### Question 9
+#### Optional - challenge question!
+**For both the Los Angeles Dodgers and the San Diego Padres, identify the number of `runs` and `at_bats` they had.  (Hint: you will need to look at the data set.)  Then use the model from Question 8 to predict the number of `runs` based on the team's `at_bats`. (Use R as a calculator.)**
+
+#####Los Angeles Dodgers:
+actual number of `at_bats` =
+
+actual number of `runs` =
+
+predicted number of `runs` =
+
+
+
+#####San Diego Padres:
+actual number of `at_bats` =
+
+actual number of `runs` =
+
+predicted number of `runs` =
+
+
+### Question 10 
+#### Optional - challenge question!
+**Which of the two teams actually perfomed better than predicted by the regression model?  Which of the two teams actually perfomed worse than predicted by the regression model?  By how about much better or worse?  In statistical jargon, the name of this value is the _residual_ of the model.**
+
+### Question 11
+**Submit this lab assignment as an html compiled from R Markdown. Make sure all names of group members who contributed to this lab assignment are on the html file.**
+
+

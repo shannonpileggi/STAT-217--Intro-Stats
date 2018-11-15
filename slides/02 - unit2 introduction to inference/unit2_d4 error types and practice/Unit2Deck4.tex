@@ -1,0 +1,469 @@
+
+
+\input{"C:/Users/spileggi/Google Drive/STAT 217/Slides/SlideStyle.tex"}
+
+
+\title[Unit 2 Deck 4]{Type I/II errors and Exam Practice}
+\author[Pileggi]{Shannon Pileggi}
+
+\institute[STAT 217]{STAT 217}
+
+\date{}
+
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}
+\frametitle{OUTLINE\qquad\qquad\qquad} \tableofcontents[hideallsubsections]
+\end{frame}
+
+
+%===========================================================================================================================
+\section[Type I/II Errors]{Errors in Hypothesis Testing}
+%===========================================================================================================================
+%\subsection{}
+
+\begin{frame}
+%\frametitle{Clicker}
+\begin{clicker}
+{When we draw a conclusion about a hypothesis test (ie, reject or fail to reject $H_0$), do we always make the correct decision?}
+\begin{enumerate}
+    \item
+    Yes
+    \item
+    No
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+\begin{frame}
+\frametitle{Possible outcomes of a hypothesis test}
+\begin{tabular}{l|cc|}
+\cline{2-3}
+\textbf{Decision based} & \multicolumn{2}{|c|}{\textbf{Unknown Truth}}\\
+\textbf{on observed data}                                                         & $H_0$ true                   & $H_0$ false \\
+\cline{2-3}
+  Fail to reject $H_0$ & \visible<2->{\textcolor{blue}{Correct Decision}}  & \visible<5->{\textcolor{red}{Type II Error}}\\
+                                        Reject $H_0$ & \visible<4->{\textcolor{red}{Type I Error}} & \visible<3->{\textcolor{blue}{Correct Decision}}\\
+  \cline{2-3}
+\end{tabular}
+\vskip20pt
+\begin{itemize}
+    \visible<4->{
+    \item
+    A \textbf{Type I error} occurs when $H_0$ is true in reality but is rejected based on evidence from the test.}
+    \visible<5->{
+    \item
+    A \textbf{Type II error} occurs when $H_0$ is false in reality (or $H_a$ true) but you fail to reject $H_0$ based on evidence from the test.}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Type I/Type II error example}
+\framesubtitle{Jury trial}
+\begin{tabular}{l|cc|}
+    \cline{2-3}
+     & \multicolumn{2}{|c|}{\textbf{Unknown Truth}}\\
+    \textbf{Decision by}    & Defendant is        & Defendant is  \\
+    \textbf{the jury}       & innocent ($H_0$)    & guilty ($H_a$) \\
+    \cline{2-3}
+  Innocent & \visible<2->{\textcolor{blue}{Correct Decision}}  & \visible<4->{\textcolor{red}{Type II Error}}\\
+                                        Guilty & \visible<3->{\textcolor{red}{Type I Error}} & \visible<2->{\textcolor{blue}{Correct Decision}}\\
+  \cline{2-3}
+\end{tabular}
+\vskip20pt
+\begin{itemize}
+    \visible<3->{
+    \item
+    A \textbf{Type I error} occurs when the jury finds a truly innocent man to be guilty.}
+    \visible<4->{
+    \item
+    A \textbf{Type II error} occurs when the jury finds a truly guilty man to be innocent.}
+\end{itemize}
+\visible<5->{
+\begin{clicker}{Which error do you think is worse?}
+\begin{enumerate}
+    \item
+    Type I
+    \item
+    Type II
+\end{enumerate}
+\end{clicker}
+}
+\end{frame}
+
+\begin{frame}
+\frametitle{Type I/Type II error example}
+%\framesubtitle{Screening for breast cancer by mammogram}
+\resizebox{1.0\textwidth}{!}{
+\begin{tabular}{l|cc|}
+    \cline{2-3}
+    & \multicolumn{2}{|c|}{\textbf{Unknown Truth}}\\
+    \textbf{Decision based}     & Woman does not have  & Woman has breast  \\
+    \textbf{on screening test} &  breast cancer ($H_0$) &  cancer ($H_a$) \\
+    \cline{2-3}
+    No suspicion of breast cancer & \textcolor{blue}{Correct Decision}  & \textcolor{red}{Type II Error}\\
+    Suspicion of breast cancer & \textcolor{red}{Type I Error} & \textcolor{blue}{Correct Decision}\\
+  \cline{2-3}
+\end{tabular}}
+\begin{itemize}
+    \pause
+    \item
+    A \textbf{Type I error} occurs when the woman does not have breast cancer, but the mammogram indicates that she may.  This is a false positive.
+    \pause
+    \item
+    A \textbf{Type II error} occurs when the woman does have breast cancer, but the mammogram indicates that does not.  This is a false negative.
+\end{itemize}
+\pause
+\begin{clicker}{Which error do you think is worse?}
+\begin{enumerate}
+    \item
+    Type I
+    \item
+    Type II
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+\begin{frame}
+\begin{clicker}{If I conduct a hypothesis test and I reject the null hypothesis based on evidence from my data, this could have been the result of... \emph{(mark all that apply)}}
+\begin{enumerate}
+    \item
+    a Type I error
+    \item
+    a Type II error
+    \item
+    a correct decision
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+\begin{frame}
+\frametitle{Type I error}
+\begin{itemize}
+    \item
+    A \textbf{Type I error} occurs when $H_0$ is true but is rejected.
+    \item
+    $\alpha$ = Pr(Type I error) = Pr(reject $H_0$ when  $H_0$ true)
+    \item
+    The choice of significance level controls the probability of a Type I error.
+    \item
+    The more serious the consequences of a Type I error, the smaller $\alpha$ should be.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Type II error}
+\begin{itemize}
+    \item
+    A \textbf{Type II error} occurs when $H_0$ is false (or $H_a$ true) but $H_0$ is \emph{not} rejected.
+    \item[]
+    Pr(Type II error)=Pr(fail to reject $H_0$ when $H_0$ false)
+    %\item
+    %The Type II error is defined when the null hypothesis is false, and correspondingly when the alternative hypothesis is true.  The alternative hypothesis is comprised of a range of values (which includes infinitely many values).  Therefore, the Pr(Type II error) can only be calculated by hand for a specific value under $H_a$.
+    \item
+    The Pr(Type II error) is a function of many things, including: $\alpha$, $n$, $s$, and $\mu_0$ - you won't need to calculate this.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+Suppose we interested in determining if the population mean length of the longest serious relationship among Cal Poly students differs from 9 months.  That is, we test $H_0$: $\mu=9$ vs $H_a$: $\mu\neq 9$.
+\begin{clicker}{What would be an example of a Type I error? Finding that we \underline{(do/do not)} have evidence that the population mean length of longest serious relationship differs from 9 when in reality the population mean length of longest serious relationship \underline{(equals/does not equal)} 9 months.}
+\begin{enumerate}
+    \item
+    do; equals 
+    \item
+    do not; does not equal 
+    \item
+    do; does not equal
+    \item
+    do not; equals 
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{We can't have it all}
+\begin{itemize}
+    \item
+    We cannot simultaneously minimize Pr(Type I error) and Pr(Type II error).
+    \item
+    Pr(Type I error) and Pr(Type II error) are inversely related - as one goes down the other must go up.
+    \item
+    If we minimize the chance of a Type I error by making $\alpha$ smaller, we increase our chances of committing a Type II error.
+%    This is because:
+%    \begin{itemize}
+%    \item
+%    With smaller $\alpha$, we need a smaller $p$-value to reject $H_0$.
+%    \item
+%    So it is harder to reject $H_0$.
+%    \item
+%    Which means it is easier to fail to reject $H_0$, and thus easier to commit a Type II error.
+%    \end{itemize}
+\end{itemize}
+%\vskip5pt
+%\footnotesize{$^*$Note that we generally fix the Pr(Type I error) as this is established by our level of significance $\alpha$.}
+\end{frame}
+
+%\begin{frame}
+%\frametitle{Power}
+%\begin{itemize}
+%    \item
+%    The \textbf{power} of a test is the Pr(reject $H_0|H_0$ false).
+%    \item
+%    Power$=1-$Pr(Type II error)
+%    \item
+%    You can think of this as the ability of the test to detect an \emph{effect} when it is truly there.
+%    \item
+%    So, for example, if the true mean GPA is 3.35 and we are testing that it equals 3.5, we want sufficient power to detect the 0.15 difference in average GPA.
+%    \item
+%    We want the power of a test to be high in order to be able to reject $H_0$ when it really is false, and detect the effect.
+%    \item
+%    It is typical for a study to have a power of 80\% or 90\%.
+%\end{itemize}
+%\end{frame}
+
+
+\begin{frame}
+\frametitle{Importance of conditions}
+We always have some conditions we need for \emph{valid} inference.  When these conditions are violated, but we use the statistical method anyway, this results in \emph{invalid} inference.  Invalid inference can mean:
+\begin{itemize}
+    \item
+    your confidence interval isn't capturing the parameter as often as it should (ie, lower than 95\%)
+    \item
+    you commit Type I errors more than you should (ie, more than 5\%)
+    \item
+    basically, can't trust your CI or your $p$-value
+\end{itemize}
+\end{frame}
+
+%===========================================================================================================================
+\section[Practice Problems]{Practice Problems}
+%===========================================================================================================================
+
+
+\begin{frame}
+\tableofcontents[currentsection, hideallsubsections]
+\end{frame}
+%\subsection{}
+
+\begin{frame}
+\begin{clicker}{For which of the following $p$-values would I reject the null hypothesis at the $\alpha = 0.10$ level of significance?  Mark all that apply.}
+\begin{enumerate}
+    \item
+    0.01
+    \item
+    0.08
+    \item
+    0.15
+    \item
+    0.36
+    \item
+    0.89
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Clicker}
+We are interested in describing the math SAT scores of Cal Poly students.  Assume that math SAT scores of Cal Poly students are right-skewed with $\mu=600$ and $\sigma=75$.  Consider the sampling distribution of the sample mean when we take a sample of size $n=100$.
+\begin{clicker}
+{Can we assume that the sampling distribution of the sample mean is approximately normally distributed?}
+    \begin{enumerate}
+        \item
+        Yes, because $n$ is bigger than 30.
+        \item
+        Yes, because $n$ is bigger than 10.
+        \item
+        Yes, because $np>10$ and $n(1-p)>10$.
+        \item
+        No, because $np$ or $n(1-p)$ is not greater than 10.
+        \item
+        No, because the population is right-skewed.
+    \end{enumerate}
+\end{clicker}
+\end{frame}
+
+\begin{frame}[fragile]
+\small{Below are the summary statistics of the data and output from the analysis testing if the population average birth weight of the monkeys is 0.4kg.}
+\begin{verbatim}
+  min   Q1 median  Q3  max mean   sd  n missing
+ 0.27 0.37   0.39 0.5 0.68 0.44 0.12 10       0
+
+t = 1.0853, df = 9, p-value = 0.306
+alternative hypothesis: true mean is not equal to 0.4
+95 percent confidence interval:
+ XXXXXXX XXXXXXX
+\end{verbatim}
+\begin{clicker}{Which is the correct calculation to estimate the population average birth weight of rhesus monkeys with a 95\% CI?}
+\begin{enumerate}
+\item	$0.44 \pm 1.0853 \times 0.12 / \sqrt{10} $
+\item	$0.44 \pm 1.0853 \times 0.12  $
+\item	$0.44 \pm 2.26 \times 0.12 / \sqrt{10} $
+\item	$0.39 \pm 1.96 \times 0.12 $
+\item  $0.39 \pm 2.26 \times 0.12 / \sqrt{9} $
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+\begin{frame}
+Suppose I test if the average age of retirement for Americans differs from 65 ($H_0$: $\mu=65$ vs $H_a$: $\mu \neq 65$), and I get a test statistic of 1.5.  Which figure corresponds to the $p$-value?\\
+\vskip20pt
+\includegraphics[width=1.0\textwidth,trim=0mm 50mm 0mm 50mm]{Figures/pmatrix.pdf}
+\end{frame}
+
+\begin{frame}
+\begin{clicker}{The level of significance $\alpha$ at which the test is performed (and hence, the corresponding confidence level of a CI) affects...}
+\begin{enumerate}
+        \item
+        both the value of the test statistic and the width of a confidence interval.
+        \item
+        only the value of the test statistic and not the width of a confidence interval.
+        \item
+        only the width of a confidence interval and not the value of the test statistic.
+        \item
+        neither the value of the test statistic nor the width of a confidence interval.
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\frametitle{Number of states visited}
+\begin{verbatim}
+> favstats(survey$States)
+ min Q1 median Q3 max     mean       sd  n missing
+   1  5      8 13  35 9.820896 6.797783 67       0
+ \end{verbatim}
+\begin{columns}
+\column{0.5\textwidth}
+\includegraphics[width=1.0\textwidth]{Figures/states.pdf}
+\column{0.5\textwidth}
+\begin{clicker}{Are conditions satisfied for the following one-sample t-test?  $H_0$: $\mu=8$ vs $H_a$: $\mu\neq8$, where $\mu$ = population mean number of states visited}
+\begin{enumerate}
+    \item
+    yes, $n \geq 30$
+    \item
+    no, distribution is right skewed
+    \item
+    yes, $n\hat{p} \geq 10$ and $n(1-\hat{p}) \geq 10$
+    \item
+    no, $n\hat{p} < 10$ OR $n(1-\hat{p}) < 10$
+\end{enumerate}
+\end{clicker}
+\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{verbatim}
+	One Sample t-test
+
+data:  survey$States
+t = 2.1926, df = 66, p-value = 0.03187
+alternative hypothesis: true mean is not equal to 8
+95 percent confidence interval:
+  8.162786 11.479005
+sample estimates:
+mean of x
+ 9.820896
+\end{verbatim}
+\begin{clicker}{Which of the following statements are \underline{true} at $\alpha=0.05$?}
+\begin{enumerate}
+    \item
+    67 individuals were included in this sample
+    \item
+    the null hypothesis is $\mu\neq 8$
+    \item
+    the $z$ distribution was used to calculate the $p$-value
+    \item
+    there is evidence that the null hypothesis is true
+    \item
+    all are true
+    \item
+    none are true
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+\begin{frame}
+\begin{clicker}{Suppose Cal Poly administrators want to determine the proportion of students that graduate within 4 years, and they calculate a 95\% confidence interval to be (0.4, 0.8).  They aren't happy with the interval because it is so wide, and hence not very informative.  What would you recommend that they do?}
+\begin{enumerate}
+    \item
+    increase their confidence level
+    \item
+    take a larger sample
+    \item
+    perform a hypothesis test
+    \item
+    reduce the standard deviation of whether or not students graduate
+    \item
+    more than one of these items
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+\begin{frame}
+The percentage of Cal Poly students that participate in Greek life is 20\%.  Suppose I were to repeatedly sample groups of $n=100$ Cal Poly students.  Describe the sampling distribution of the sample proportion in terms of the
+\begin{itemize}
+    \item
+    shape
+    \item
+    mean
+    \item
+    standard deviation
+\end{itemize}
+of the distribution.
+\end{frame}
+
+
+
+
+\begin{frame}
+\frametitle{Clicker}
+We tested if the average amount of hours worked per week differs from 38 at the $\alpha=0.01$ level of significance. ($H_0$: $\mu=38$ vs $H_a$: $\mu \neq 38$) In the data, $\bar{x}=37.1$, and we get a $p$-value equal to 0.0299.
+\begin{clicker}{What can be said about a 99\% confidence interval for the population mean?}
+\begin{enumerate}
+  \item
+  A 99\% confidence interval would contain 38.
+  \item
+  A 99\% confidence interval would not contain 38.
+  \item
+  A 99\% confidence interval would not contain 37.1.
+  \item
+  A 99\% confidence interval would contain 0.0299.
+  \item
+  A 99\% confidence interval would contain 0.
+  \item
+  Not enough information to determine.
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+\begin{frame}
+\frametitle{Clicker}
+Supposed I used a one-sample t-test to determine if average income of US citizens is less than \$45,000. \\
+$H_0$: $\mu=45000$ vs $H_a$: $\mu < 45000$
+\begin{clicker}{What would a Type II error be in the context of this research question?  Finding that we \underline{(do/do not)} have evidence that the population average income is less than \$45,000, when in reality the population average income \underline{(equals \$45,000/is less than \$45,000)}.}
+\begin{enumerate}
+    \item
+    do not; is less than \$45,000
+    \item
+    do not; equals \$45,000
+    \item
+    do; equals \$45,000
+    \item
+    do; is less than \$45,000
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+\end{document} 

@@ -1,0 +1,743 @@
+
+\input{"C:/Users/spileggi/Google Drive/STAT 217/Slides/SlideStyle.tex"}
+
+
+
+\title[Unit 1 Deck 3]{Associations and Study Design}
+\author[Pileggi]{Shannon Pileggi}
+
+\institute[STAT 217]{STAT 217}
+
+\date{}
+
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+
+%===========================================================================================================================
+\section[Associations]{Associations between variables}
+%===========================================================================================================================
+\begin{frame}
+\tableofcontents[currentsection, hideallsubsections]
+\end{frame}
+
+%\subsection{}
+\begin{frame}[fragile]
+\frametitle{The Data}
+From the CDC's 2013 Youth Risk Behavior Surveillance System \\
+\vskip10pt
+\begin{verbatim}
+   gender height_m weight_kg  bmi carried_weapon bullied
+1  female     1.73     84.37 28.2            yes      no
+2  female     1.60     55.79 21.8             no     yes
+3  female     1.50     46.72 20.8             no     yes
+4  female     1.57     67.13 27.2             no     yes
+5  female     1.68     69.85 24.7             no      no
+6  female     1.65     66.68 24.5             no      no
+7    male     1.85     74.39 21.7             no      no
+8    male     1.78     70.31 22.2            yes      no
+9    male     1.73     73.48 24.6             no     yes
+10   male     1.83     67.59 20.2             no      no
+...
+8482 male     1.73     68.95  23             no      no
+\end{verbatim}
+\end{frame}
+
+\begin{frame}
+\frametitle{Response vs explanatory variable}
+In data analysis, we are generally interested in how the outcome or the \textbf{response} variable \emph{depends on} or is \emph{explained by} an \textbf{explanatory} variable.  
+\vskip10pt
+\begin{columns}
+\column{0.49\textwidth}
+When there is a \emph{relationship} between the two variables we say:
+\begin{itemize}
+\item 
+there is an \textbf{association} between the response and an explanatory variable, or
+\item 
+the response and an explanatory variable are \textbf{not independent}
+\end{itemize}
+\column{0.49\textwidth}
+When there is \emph{no relationship} between the two variables we say:
+\begin{itemize}
+\item
+there is \textbf{no association} between the response and an explanatory variable, or
+\item
+the response and an explanatory variable are \textbf{independent}
+\end{itemize}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Two quantitative variables: Is there an association?}
+\begin{center}
+\includegraphics[width=0.49\textwidth]{Figures/scatter_weight.pdf}
+\includegraphics[width=0.49\textwidth]{Figures/scatter_height.pdf}
+\end{center}
+For descriptive statistics, we will use the correlation (to come later in the semester).
+\end{frame}
+
+\begin{frame}
+\frametitle{One quantitative and one categorical variable: Is there an association?}
+\begin{columns}
+\column{0.5\textwidth}
+\includegraphics[width=1.0\textwidth]{Figures/bp_bmi_sex.pdf}
+\column{0.5\textwidth}
+\grp
+\begin{clicker}{Do you think there is an association between gender and bmi?}
+\begin{enumerate}
+    \item
+    Yes, because the medians are different.
+    \item
+    Yes, because the medians are the same.
+    \item
+    No, because the medians are different.
+    \item
+    No, because the medians are the same.
+\end{enumerate}
+\end{clicker}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{One quantitative and one categorical variable: Is there an association?}
+\begin{center}
+\includegraphics[width=0.40\textwidth]{Figures/bp_bmi_sex.pdf} \hspace{0.1in}
+\includegraphics[width=0.40\textwidth]{Figures/bp_height_sex.pdf}
+\end{center}
+For descriptive statistics, we can report the mean and standard deviation in each group (or median and IQR).  For example, the average height among males is $1.75 \pm 0.08$ m, and the average height among females is $1.62 \pm 0.07$ m.
+\end{frame}
+
+%\begin{frame}
+%\frametitle{Response vs Explanatory Variable}
+%\framesubtitle{Two quantitative and one categorical variable: Is there an association?}
+%\begin{center}
+%\includegraphics[width=0.6\textwidth]{scatter_skaters_sex.pdf}
+%\end{center}
+%\end{frame}
+
+\begin{frame}
+\frametitle{Two categorical variables: Is there an association?}
+\begin{table}
+%\resizebox{1.0\textwidth}{!}{
+\begin{tabular}{|l|cc|r|}
+    \hline
+    \textbf{Carried Weapon}    & \textbf{Males} & \textbf{Females} & \textbf{Total} \\
+    \hline\hline
+    \textbf{Yes}      &  1046 & 274 & 1320 \\
+    \textbf{No}       &  3159 & 4003 & 7162 \\
+    \hline
+    \textbf{Total} & 4205 & 4277 & 8482 \\
+    \hline
+\end{tabular}\\%\
+This is a 2x2 contingency table.
+\end{table}
+%\vskip10pt
+\begin{enumerate}
+    \item
+    What percent of students carried a weapon to school?
+    \item
+    What percent of students are male?
+    \item
+    Among males, what percent carried a weapon to school?
+    \item
+    Among females, what percent carried a weapon to school?
+    \item
+    Among those who carried a weapon to school, what percent are male?
+    \item 
+    Which two percents should you compare if you want to know if gender can explain whether or not someone carries a weapon to school?
+\end{enumerate}
+%Relevant descriptive statistics are the \emph{conditional proportions}:
+%\begin{itemize}
+%    \item
+%    1046 out of 4205 males carried weapons to school ($\hat{p}_{males}=1046/4205=0.248$, or 24.8\%)
+%    \item
+%    274 out of 4277 females carried weapons to school ($\hat{p}_{females}=274/4277=0.064$, or 6.4\%)
+%\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Interpreting a contingency table}
+\begin{columns}
+\column{0.60\textwidth}
+\resizebox{1.0\textwidth}{!}{
+\begin{tabular}{|l|cc|r|}
+    \hline
+     & \multicolumn{2}{|c|}{\textbf{Bullied}} & \\
+    \textbf{Carried Weapon}    & \textbf{Yes} & \textbf{Not} & \textbf{Total} \\
+    \hline\hline
+    \textbf{Yes}      &  312 & 1008 & 1320 \\
+    \textbf{No}       &  1331 & 5831 & 7162 \\
+    \hline
+    \textbf{Total} & 1643 & 6839 & 8482 \\
+    \hline
+\end{tabular}}\\
+\vskip10pt
+Which numbers should I compare in order to determine if there is an association between being bullied (explanatory variable) and whether or not a student carries a weapon to school (response variable)?
+%\vskip10pt
+\column{0.45\textwidth}
+\grp
+\begin{clicker}{Which numbers?}
+\begin{enumerate}
+    \item
+    1643 vs 6839
+    \item
+    312 vs 1008
+    \item
+    312/1320 vs 1331/7162
+    \item
+    312/1643 vs 1008/6839
+    \item
+    1643/8482 vs 6839/8482
+    \item
+    1320/8482 vs 1643/8482
+\end{enumerate}
+\end{clicker}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Two categorical variables: Is there an association?}
+\begin{center}
+\includegraphics[width=0.49\textwidth]{Figures/bar_weapon_gender.pdf}
+%\pause
+\includegraphics[width=0.49\textwidth]{Figures/bar_weapon_bullied.pdf}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Summary}
+\begin{columns}
+\column{0.20\textwidth}
+\vskip10pt
+Association? \\
+\vskip40pt
+No association?
+\column{0.25\textwidth}
+\centering{\footnotesize{quantitative-quantitative}}\\
+\includegraphics[width=1.0\textwidth]{Figures/scatter_weight.pdf}\\
+\includegraphics[width=1.0\textwidth]{Figures/scatter_height.pdf}
+\column{0.25\textwidth}
+\centering{\footnotesize{categorical-quantitative}}\\
+\includegraphics[width=1.0\textwidth]{Figures/bp_height_sex.pdf}\\
+\includegraphics[width=1.0\textwidth]{Figures/bp_bmi_sex.pdf}
+\column{0.25\textwidth}
+\centering{\footnotesize{categorical-categorical}}\\
+\includegraphics[width=1.0\textwidth]{Figures/bar_weapon_gender.pdf}\\
+\includegraphics[width=1.0\textwidth]{Figures/bar_weapon_bullied.pdf}
+\end{columns}
+\begin{center}
+\textcolor{OrangeRed}{We need formal statistical tests to determine the direction, magnitude, and significance of the association!}
+\end{center}
+\end{frame}
+
+
+%%===========================================================================================================================
+%\section[Study Types]{Types of Studies}
+%%===========================================================================================================================
+%\begin{frame}
+%\tableofcontents[currentsection, hideallsubsections]
+%\end{frame}
+%
+%\subsection{}
+%
+%\begin{frame}
+%\frametitle{Types of studies}
+%In an \textbf{experimental study} subjects are \emph{assigned} to experimental conditions and then the response variable or outcome of interest is observed.  The experimental conditions can be called \textbf{treatments}.
+%\\
+%\vskip10pt
+%In an \textbf{observational study} researchers \emph{observe} both the response and explanatory variable without assigning a `treatment'.  Observational studies are non-experimental.
+%\\
+%\vskip10pt
+%We can study the effect of an explanatory variable on a response variable more accurately in an experimental study than an observational study.
+%\end{frame}
+%
+%\begin{frame}
+%\frametitle{Research question: does exercise improve energy level?}
+%\hspace*{-0.25in}\includegraphics[width=1.1\textwidth]{Figures/exp_vs_obs.pdf}
+%\end{frame}
+
+
+%===========================================================================================================================
+\section[Study Design]{Study Design}
+%===========================================================================================================================
+\begin{frame}
+\tableofcontents[currentsection, hideallsubsections]
+\end{frame}
+
+%\subsection{}
+\begin{frame}
+\frametitle{Types of studies}
+In an \textbf{experimental study} subjects are \emph{assigned} to experimental conditions and then the response variable or outcome of interest is observed.  The experimental conditions can be called \textbf{treatments}.
+\\
+\vskip10pt
+In an \textbf{observational study} researchers \emph{observe} both the response and explanatory variable without assigning a `treatment'.  Observational studies are non-experimental.
+\\
+\vskip10pt
+We can study the effect of an explanatory variable on a response variable more accurately in an experimental study than an observational study.
+\end{frame}
+
+
+%\begin{frame}
+%\frametitle{Example}
+%Take a sample of 10 words from the Gettysburg address, and record the length of each word.
+%\end{frame}
+
+\begin{frame}
+\frametitle{Sampling discussion}
+%How do you select individuals to participate in your study?
+%\vskip10pt
+%\href{http://thedailyshow.cc.com/videos/3ey8zx/herman-cain}{Herman Cain's interview on The Daily Show with John Stewart}\\
+%(the interview takes place after the Republican National Convention Fall 2012, relevant time frame 2:00-4:15)
+%\vskip10pt
+Ideally, you want study participants to be a \emph{representative} sample from your population so that your statistical inference can be \emph{generalizable} to the population.  Otherwise, your results may be \emph{biased}.
+\vskip10pt
+\textbf{Bias} is present when the results of the sample are not representative of the population.\\
+\end{frame}
+
+\begin{frame}
+\frametitle{Potential sources of bias in observational studies}
+\textbf{Sampling bias} (or coverage bias) can result from the sampling method.
+\begin{itemize}
+    \item
+    Sample may not actually be random.
+    \item
+    The sample does not represent the entire population, resulting in \textbf{undercoverage} of certain groups in the population.
+\end{itemize}
+\vskip5pt
+\textbf{Nonresponse bias} occurs when subjects refuse to participate.
+\begin{itemize}
+    \item
+    Participating subjects may have different characteristics than nonparticipating subjects.
+    \item
+    Participating subjects may choose not to response to some questions, generating \textbf{missing data}.
+\end{itemize}
+\vskip5pt
+\textbf{Response bias} occurs when subjects give inaccurate answers.
+\begin{itemize}
+    \item
+    Subjects may lie.
+    \item
+    Question may be subjective or leading.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{\grp}
+\begin{clicker}{Suppose I wanted to estimate the average GPA of all Cal Poly students.  I use my STAT 217 class as a sample of all Cal Poly students.}
+\begin{enumerate}
+\item How could the following types of bias affect the study results?
+\begin{itemize}
+\item sampling bias
+\item[]
+\item nonresponse bias
+\item[]
+\item response bias 
+\item[]
+\end{itemize}
+\item Do you think the study results can be generalizable to all Cal Poly students?
+\item[]
+\item[]
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+%\begin{frame}
+%\frametitle{The Literary Digest Poll}
+%\begin{itemize}
+%    \item
+%    the 1936 presidential election was Franklin D. Roosevelt (Democrat, incumbent) vs Alf Landon (Republican)
+%    \item
+%    the Literary Digest mailed 10 million ballots to prospective voters, and 2.3 million were returned
+%    \item
+%    the poll showed Landon as the favorite, with FDR only getting 43\% of votes
+%    \item
+%    Election result: FDR \textcolor{OrangeRed}{won} with 62\% of the vote
+%\end{itemize}
+%\vskip10pt
+%What happened?
+%\end{frame}
+
+\begin{frame}
+\small{Suppose we want to estimate the average age of college students, where college students are defined as individuals enrolled in higher education at community college (2 year institutions), traditional 4 year institutions, and online degree programs.  We randomly select students from CalPoly and ask them their age.}
+\begin{clicker}{Will the resulting average age of college students be biased?  Will it overestimate or underestimate the average age of college students? Why?}
+\begin{enumerate}
+    \item
+    unbiased because this would be a representative sample
+    \item
+    biased due to response bias; average age of college students would be overestimated
+    \item
+    biased due to sampling bias; average age of college students would be underestimated
+    \item
+    biased due to non-response bias; average age of college students would be underestimated
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+%\begin{frame}
+%\frametitle{Sampling Methods}
+%The \textbf{sampling frame} is the list of subjects in the population from which the sample is taken.  The method used to collect data is the \textbf{sampling design}.
+%\vskip15pt
+%\begin{columns}
+%\column{0.5\textwidth}
+%\underline{Random Sampling Methods}
+%\begin{itemize}
+%    \item
+%    Simple random sample
+%    \item
+%    Stratified sample
+%    \item
+%    Cluster sample
+%    \item[]
+%\end{itemize}
+%\column{0.5\textwidth}
+%\underline{Non-Random Sampling Methods}
+%\begin{itemize}
+%    \item
+%    Volunteer sample
+%    \item
+%    Convenience sample
+%    \item[]
+%    \item[]
+%\end{itemize}
+%\end{columns}
+%\vskip15pt
+%\emph{Non-random} sampling methods are likely to suffer from sampling bias, or undercoverage.
+%\end{frame}
+
+
+\begin{frame}
+\frametitle{Simple Random Sample}
+\begin{columns}
+\column{0.5\textwidth}
+\includegraphics[width=1.0\textwidth]{Figures/srs.png}
+\column{0.5\textwidth}
+\begin{itemize}
+\item
+Each individual equally likely to be samples
+\item
+Most likely to be \emph{representative} of the population of interest (unbiased).
+\end{itemize}
+\end{columns}
+\begin{clicker}{In order to conduct a simple random sample...}
+\begin{enumerate}
+\item What do you need?
+\item[]
+\item[]
+\item How do you do it?
+\item[]
+\item[]
+\end{enumerate}
+\end{clicker}
+\end{frame}
+%
+%
+%\begin{frame}
+%\frametitle{Cluster Sample}
+%\begin{columns}
+%\column{0.5\textwidth}
+%\includegraphics[width=1.0\textwidth]{Figures/cluster.png}
+%\column{0.5\textwidth}
+%\begin{itemize}
+%\item
+%Clusters are naturally occurring groups in the population.
+%\item
+%Good when reliable sampling frame not available.
+%\item
+%Take a random sample of individuals from within a random sample of clusters.
+%\end{itemize}
+%\end{columns}
+%\vskip15pt
+%\emph{Example}: In studying vaccination rates in elementary school children, you could randomly select elementary schools (the clusters), and then within each school you randomly select children.
+%\end{frame}
+%
+%
+%\begin{frame}
+%\frametitle{Stratified Sample}
+%\begin{columns}
+%\column{0.5\textwidth}
+%\includegraphics[width=1.0\textwidth]{Figures/stratified.png}
+%\column{0.5\textwidth}
+%\begin{itemize}
+%    \item
+%    The population is divided into separate groups called \emph{strata}, which are groups made up of similar individuals.
+%    \item
+%    Select a simple random sample from within each stratum.
+%    \item
+%    Useful for comparing specific groups.
+%\end{itemize}
+%\end{columns}
+%\vskip15pt
+%\emph{Example}: Capitol Hill is a male dominated environment.  If you want \href{http://nationaljournal.com/congress-legacy/how-congressional-republicans-and-democrats-pay-women-20120711}{compare salaries of male and female congressmen and staff}, you should \textbf{stratify} on gender to ensure that you get a large enough sample size of both females and males.
+%\end{frame}
+%
+
+%\begin{frame}
+%\frametitle{Example}
+%Investigators followed 806 kids age 2 to 4 and and 704 kids age 5 to 9 for four years.  IQ was measured at the beginning of the study and again four years later.  The researchers found that at at the end of the study the average IQ of kids who were not spanked was 5 points higher than spanked in the 2-4 group, and 2.8 points higher in the 5-8 group.
+%\begin{clicker}{How would you \emph{best} describe the study design?}
+%\begin{enumerate}
+%    \item
+%    Experimental
+%    \item
+%    Observational - simple random sample
+%    \item
+%    Observational - stratified sample
+%    \item
+%    Observational - cluster sample
+%\end{enumerate}
+%\end{clicker}
+%\end{frame}
+
+\begin{frame}
+\frametitle{\grp}
+\small{Investigators followed 806 kids age 2 to 4 and and 704 kids age 5 to 9 for four years.  IQ was measured at the beginning of the study and again four years later.  The researchers found that at at the end of the study the average IQ of kids who were not spanked was 5 points higher than spanked in the 2-4 group, and 2.8 points higher in the 5-8 group.  The following newspaper headlines were observed:}
+\begin{columns}
+\column{0.6\textwidth}
+\begin{itemize}
+    \item
+    ``Spanking lowers a child's IQ'' (\emph{Los Angeles Times})
+    \item
+    ``Do you spank? Studies indicate it could lower your kid's IQ'' (\emph{Houston Chronicle})
+    \item
+    ``Spanking can lower IQ'' (NBC4i, Columbus, Ohio)
+    \item
+    ``Smacking hits kids' IQ'' (newscientists.com)
+\end{itemize}
+\column{0.4\textwidth}
+\begin{clicker}{Based on the above information...}
+\begin{enumerate}
+    \item
+    Is this an observational or experimental study?
+    \item
+    Do you think these headlines accurately reflect the results of the study?
+\end{enumerate}
+\end{clicker}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{3 possible explanations}
+\begin{enumerate}
+    \item
+    Spanking causes a decline in IQ
+    \item[]
+    \includegraphics[width=0.4\textwidth]{Figures/ex1.png}
+    \item
+    Lower IQ causes kids to get spanked
+    \item[]
+    \includegraphics[width=0.4\textwidth]{Figures/ex2.png}
+    \item
+    A \emph{third} variable can explain both.  A third variable that affects both the explanatory and the response variable and that makes it seem like there is a relationship between the two are called \textbf{confounding} variables.
+    \item[]
+    \includegraphics[width=0.4\textwidth]{Figures/ex3.png}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\Large{\textbf{In observational studies, association does not imply causation.}}
+\end{frame}
+
+\begin{frame}
+\frametitle{Headlines}
+\begin{columns}
+\column{0.5\textwidth}
+Incorrect interpretations:
+\begin{itemize}
+    \item
+    ``Spanking lowers a child's IQ'' (\emph{Los Angeles Times})
+    \item
+    ``Do you spank? Studies indicate it could lower your kid's IQ'' (\emph{Houston Chronicle})
+    \item
+    ``Spanking can lower IQ'' (NBC4i, Columbus, Ohio)
+    \item
+    ``Smacking hits kids' IQ'' (newscientists.com)
+\end{itemize}
+\column{0.5\textwidth}
+Correct interpretations:
+\begin{itemize}
+    \item
+    ``Lower IQ's measured in spanked children'' (world-science.net)
+    \item
+    ``Children who get spanked have lower IQs'' (livescience.com)
+    \item
+    ``Research suggests an association between spanking and lower IQ in children'' (CBSnews.com)
+\end{itemize}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{\grp}
+\begin{columns}
+\column{0.6\textwidth}
+\includegraphics[width=0.8\textwidth]{Figures/firefighters.pdf}
+\column{0.4\textwidth}
+\begin{clicker}{Suppose we observe the relationship that more fire fighters are associated with more costs due to damages.}
+\begin{enumerate}
+    \item
+    Does this figure mean that fire fighters \emph{cause} damage?
+    \item
+    What confounding variables could affect this relationship?
+\end{enumerate}
+\end{clicker}
+\end{columns}
+\end{frame}
+
+
+%%===========================================================================================================================
+%\section[Experiments]{Conducting an Experiment}
+%%===========================================================================================================================
+%\begin{frame}
+%\tableofcontents[currentsection, hideallsubsections]
+%\end{frame}
+%
+%\subsection{}
+\begin{frame}
+\frametitle{Key Concepts in Experimental Design}
+\begin{enumerate}
+    \item
+    \textbf{Control} - compare treatment of interest to control group
+    \item
+    \textbf{Randomize} - randomly assign subjects to treatment and control groups
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\frametitle{Random assignment to treatment and control groups}
+Why randomly assign individuals to treatment and control groups?
+\begin{enumerate}
+    \item
+    comparing results between treatment and control groups actually allows us to determine if an intervention was effective
+    \item
+    randomly assigning individuals to treatment and control groups allows us to make sure the groups are balanced with respect to other characteristics of the subjects
+    \item
+    this allows us to attribute any observed differences as the result of the experimental assignment rather than confounding variables (can conclude a causal effect)
+\end{enumerate}
+\vskip15pt
+In a \emph{well} designed experiment, results should not be affected confounding variables.
+\end{frame}
+
+
+%\begin{frame}
+%\frametitle{Terminology}
+%\begin{itemize}
+%    \item
+%    \textbf{placebo} - fake treatment, often used as the control group
+%    \item
+%    \textbf{placebo effect} - showing change despite being on the placebo
+%    \item
+%    \textbf{blinding} - experimental units don't know which group they are in
+%    \item
+%    \textbf{double-blind} - both experimental units and researcher don't know the group assignment
+%\end{itemize}
+%\end{frame}
+%
+%\begin{frame}
+%\frametitle{Clicker}
+%\begin{clicker}{What is a benefit of conducting a ``double blind'' experiment?}
+%\begin{enumerate}
+%    \item
+%    It eliminates the need to use random samples.
+%    \item
+%    It eliminates the need to randomly assign treatments to participants in the study.
+%    \item
+%    It helps to reduce bias.
+%    \item
+%    It allows you to use smaller samples.
+%    \item
+%    It eliminates all possible confounding variables
+%\end{enumerate}
+%\end{clicker}
+%\end{frame}
+
+
+%
+%%===========================================================================================================================
+%\section[Summary]{Summary}
+%%===========================================================================================================================
+%\begin{frame}
+%\tableofcontents[currentsection, hideallsubsections]
+%\end{frame}
+%
+%\subsection{}
+
+
+\begin{frame}
+\frametitle{Types of studies}
+\begin{columns}
+\column{0.5\textwidth}
+\underline{Experimental studies}:
+\begin{itemize}
+    \item
+    reduces potential for confounding variables to affect results through random assignment
+    \item
+    may be able to conclude cause and effect
+    \item
+    may be unethical to assign `treatment'
+    \item
+    typically has control and treatment group
+    \item
+    utilizes random assignment
+\end{itemize}
+\column{0.5\textwidth}
+\underline{Observational studies}:
+\begin{itemize}
+    \item
+    confounding variables can affect the results
+    \item
+    cannot establish cause and effect
+    \item
+    may be easier to monitor a person's behavior
+    \item
+    typically has control and comparison group
+    \item
+    utilizes random sampling
+    \item[]
+\end{itemize}
+\end{columns}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Impact of study design on conclusions}
+\resizebox{1.0\textwidth}{!}{
+\begin{tabular}{lcccc}
+& \textbf{Random}    & & \textbf{Random}  &   \\
+& \textbf{Assignment} & \textbf{Causation} & \textbf{Sampling} & \textbf{Generalizable} \\
+\hline
+Ideal Experiment & \textcolor{ForestGreen}{\checkmark} &  \textcolor{ForestGreen}{\checkmark} &  \textcolor{ForestGreen}{\checkmark} & \textcolor{ForestGreen}{\checkmark} \\
+[1ex]
+Most Experiments & \textcolor{ForestGreen}{\checkmark} & \textcolor{ForestGreen}{\checkmark} & \textcolor{red}{\xmark} & \textcolor{red}{\xmark}  \\
+[1ex]
+Most Observational & \textcolor{red}{\xmark} &  \textcolor{red}{\xmark}  & \textcolor{ForestGreen}{\checkmark} & \textcolor{ForestGreen}{\checkmark} \\
+[1ex]
+Weak Observational  & \textcolor{red}{\xmark} & \textcolor{red}{\xmark} & \textcolor{red}{\xmark} & \textcolor{red}{\xmark} \\
+\end{tabular}}
+\end{frame}
+
+
+%\begin{frame}
+%\frametitle{Clicker}
+%Suppose that anecdotal evidence suggests that eye color is associated with emotional sensitivity.  Common eye colors include blue, brown, hazel, and green, and some eye colors are more prevalent than others.
+%\begin{clicker}{Which of the following would be the \emph{most} effective study design to investigate the relationship between eye color and emotional sensitivity?}
+%\begin{enumerate}
+%    \item
+%    simple random sampling
+%    \item
+%    cluster sampling
+%    \item
+%    stratified sampling
+%    \item
+%    an experimental study
+%\end{enumerate}
+%\end{clicker}
+%\end{frame}
+
+
+
+
+\end{document} 

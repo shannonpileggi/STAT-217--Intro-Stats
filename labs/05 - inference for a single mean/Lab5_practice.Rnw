@@ -1,0 +1,122 @@
+
+
+\documentclass{article}
+
+
+
+\input{"C:/Users/spileggi/Google Drive/STAT 217/Labs/labStyleNew.tex"}
+
+
+
+\begin{document}
+
+
+\section*{Lab 5 Practice: Inference for a Single Mean}
+
+\subsection*{Overview}
+In this lab we use the one sample t-test to perform inference for a single mean.  We also use the $t$ distribution to (1) calculate p-values based on t test statistics, and (2) calculate t-scores used in confidence intervals for specific confidence levels.
+
+\subsection*{The Data: Ethiopian adolescents}
+
+Dr. Craig Hadley, an anthropologist at Emory University, is the principle investigator of a study on the social determinants of wellbeing in adolescents in Ethiopia.  This study is aimed at understanding youth social, cultural, educational and health trajectories: how these vary by place, what predicts different youth trajectories, and what are the determining factors that lead to trajectories with greater or less wellbeing.   The data set provided contains basic demographic information, nutritional indicators, and economic indicators.   The data set \texttt{ethiopia.csv} contains 9 variables.\\
+
+\begin{tabular}{r|l}
+\hlstd{place} &  	city, rural area, or small town    \\
+\hlstd{age} &		age in years (13, 14, 15, 16, or 17) \\
+\hlstd{weight\textunderscore kg} &	weight in kilograms \\
+\hlstd{height\textunderscore cm} &	height in centimeters  \\
+\hlstd{muac\textunderscore cm} &	mid-upper arm circumference (in centimeters) \\
+\hlstd{hhincome} &	household income (in Ethiopian birr)	 \\
+\hlstd{gender} &	male, female \\
+\hlstd{roof} &		grass or iron/tin \\
+\hlstd{bmi} &		body mass index (weight in kg divided by height in meters squared) \\
+\end{tabular}
+
+
+\subsection*{Practice}
+
+
+
+\begin{enumerate}
+\item Open the \hlstd{R Reference Guide} from the \hlstd{Lab Content} area of PolyLearn.
+\item Open \hlstd{RStudio} and then open a brand new \hlstd{Rmarkdown} document by clicking on the green plus sign on the top left of RStudio.  Delete everything in the Rmarkdown document.  Identify the \hlstd{Rmarkdown} tab of your \hlstd{R Reference Guide}. Copy and paste the three code chunks (header, set up chunk, and import data code chunk) into your Rmarkdown document. 
+\item   Identify the \hlstd{Lab Data Sets} folder on PolyLearn and download the \hlstd{ethiopia} data set to a  location on your computer (i.e., desktop, STAT 217 folder).  Follow the steps in the \hlstd{Importing} tab of the \hlstd{R Reference Guide} to import the \hlstd{ethiopia} data set and save your import code in an R chunk.
+\item 
+How many observations are in this data set?
+  \item
+  What do you think is the target population for this study?
+\item Examine the distribution of \hlstd{bmi}.  Be sure to comment on the shape, mean, and standard deviation.
+\item 
+Researchers want to know if the population of all Ethiopian adolescents have a healthy bmi or not, where a healthy bmi value is considered to be 18.  Suppose you want to use a one sample t-test to determine if the population mean bmi differs from 18 on average, or use a confidence interval to estimate the population mean bmi.  Are conditions satisfied for valid inference?  Fully justify your answer.  \emph{Hint: There is no R code required to answer this question - do not actually execute the test yet!}
+\item
+Perform the appropriate test to determine if the population mean bmi differs from 18 on average and use a 95\% confidence interval to estimate the average bmi.  Fill in the blanks in the following paragraph to summarize your results. 
+\item[]
+\ans{When submitting answers for the paragraph below, please either:
+\begin{itemize}
+\item write just the answers that go in the blanks (do not copy whole paragraph), or
+\item copy the whole paragraph but mark your answers in bold using double asterisks, as in \texttt{**myanswer**}
+\end{itemize}}
+\item[]
+\doublespacing
+In summarizing the data, we found that \bs \emph{(insert \#)} adolescents had an average bmi of \bs with a standard deviation of \bs.  The distribution of bmi appeared to be \underline{(approximately normal/} \underline{right skewed/left skewed)}.  We conducted a \bs test to determine if the population mean bmi differs from 18, and we evaluated the hypotheses $H_0$:\bs versus  $H_a$:\bs.  The conditions for valid inference \underline{(were/were not)} satisfied.  The test yielded a test statistic of $t=$\bs and a p-value of \bs.  At the 0.05 level of signifcance, we \underline{(reject/fail to reject)} the null hypothesis.  We \underline{(do/do not)} have evidence that the population \bs bmi  differs from 18.  We are 95\% confident that the population mean bmi is in the interval \bs.  Since this interval \underline{(does/does not)} contain 18, it \underline{(is/is not)} plausible that the population mean bmi is 18, indicating that the population mean of Ethiopian adolescents \underline{(less than/greater than/equal to)} the healthy value of 18.
+%\item[]
+\item[] \singlespacing \textbf{For the next two problems, it may be helpful to watch this brief video (2:38) demonstrating how to use the applet.}  \url{https://youtu.be/Rwk5e9yTR7g}
+\item[]
+\item
+\emph{Use the $t$-distribution to calculate $p$-values.}  Suppose we were performing a hypothesis test with a \textbf{two-sided} alternative hypothesis.  For this exercise, use the applet \url{http://www.lock5stat.com/StatKey/theoretical_distribution/theoretical_distribution.html#t}.  For each numbered item below, \textbf{calculate} $p$-values for the given test statistic values and degrees of freedom \underline{and} \textbf{state} if you would reject or fail to reject $H_0$ at the $\alpha=0.05$ level. Lastly, circle or write in answers in the paragraph below. 
+%\vspace{-1ex}
+\begin{multicols}{2}
+\begin{enumerate}
+\item
+$t=1, df=24$   \bs \emph{reject / fail to reject $H_0$}
+\item
+$t=2, df=24$   \bs \emph{reject / fail to reject $H_0$}
+\item
+$t=3, df=24$   \bs \emph{reject / fail to reject $H_0$}
+\item
+$t=1, df=99$   \bs \emph{reject / fail to reject $H_0$}
+\item
+$t=2, df=99$   \bs \emph{reject / fail to reject $H_0$}
+\item
+$t=3, df=99$   \bs \emph{reject / fail to reject $H_0$}
+\end{enumerate}
+\end{multicols}
+\doublespacing
+As the test statistic increases, the $p$-value \underline{(increases/decreases)}.  Therefore, larger test statistics present \underline{(more/less)} evidence against the null hypothesis.  As the degrees of freedom increase, the $p$-value \underline{(increases/decreases)}.  This is because as the degrees of freedom increase, the $t$ distribution gets closer to a \bs distribution.  The same test statistic value with different degrees of freedom \underline{(can/cannot)} result in a different conclusion for a specified level of significance (e.g., $\alpha=0.05$).
+%----------------------------------------------------------------------------------------------------
+\item
+\singlespacing
+\emph{Use the $t$-distribution to calculate $t$-scores for a confidence interval.}   Use the applet \url{http://www.lock5stat.com/StatKey/theoretical_distribution/theoretical_distribution.html#t} to calculate a $t$-score to create 90, 95, and 99\% confidence intervals with 24 and 99 degrees of freedom. Please report the \textbf{positive} version of the $t$-score.  Circle or write in answers in the paragraph below. 
+\begin{multicols}{2}
+\begin{enumerate}
+\item
+90\%, $df=24$ \bs
+\item
+95\%, $df=24$ \bs
+\item
+99\%, $df=24$ \bs
+\item
+90\%, $df=99$ \bs
+\item
+95\%, $df=99$ \bs
+\item
+99\%, $df=99$ \bs
+\end{enumerate}
+\end{multicols}
+\doublespacing
+As the confidence level increases, the $t$-score \underline{(increases/decreases)}.  This means that higher confidence levels result in \underline{(narrower/wider)} confidence intervals.  As the degrees of freedom increase, the $t$-score \underline{(increases/decreases)}.  This means that for the same confidence level, larger degrees of freedom result in \underline{(narrower/wider)} confidence intervals.
+\item
+\singlespacing
+\emph{Challenge question: This question is optional and you are not required to submit an answer to this question.}
+Perform a one-sample t-test on the \hlstd{bmi} variable testing $H_0$: $\mu=17.9$ versus $H_a$: $\mu \neq 17.9$ using $\alpha=0.05$ (so all we are doing is changing the value tested in the null hypothesis).  Compare your R output to the output from the Question 8.  Did changing the value of $\mu_0$ affect (i) the test statistic, and (ii) the p-value? If any changes are observed, explain why.
+
+\item
+\singlespacing
+Submit this lab assignment as an html compiled from R Markdown. Make sure all names of group
+members who contributed to this lab assignment are on the html file.
+%----------------------------------------------------------------------------------------------------
+
+\end{enumerate}
+
+
+\end{document}

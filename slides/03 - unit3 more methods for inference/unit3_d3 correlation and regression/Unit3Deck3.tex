@@ -1,0 +1,888 @@
+
+
+\input{"C:/Users/spileggi/Google Drive/STAT 217/Slides/SlideStyle.tex"}
+
+
+
+\title[Unit 3 Deck 3]{Correlation and Simple Linear Regression}
+\author[Pileggi]{Shannon Pileggi}
+
+\institute[STAT 217]{STAT 217}
+
+\date{}
+
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}
+\frametitle{OUTLINE\qquad\qquad\qquad} \tableofcontents[hideallsubsections]
+\end{frame}
+
+
+%===========================================================================================================================
+\section[The Data]{The Data}
+%===========================================================================================================================
+%\subsection{}
+
+\begin{frame}
+\frametitle{Chocolate Consumption, Cognitive Function,
+and Nobel Laureates by Franz H. Messerli, M.D.}
+\framesubtitle{\emph{New England Journal of Medicine} 367(\textbf{16}), Oct 18, 2012}
+\begin{itemize}
+    \item
+    chocolate contains flavanols, which are loosely linked to improved cognitive function
+    \item
+    Is there a relationship between country's level of chocolate consumption and its population's cognitive function?
+    \item
+    explanatory variable: per capita yearly chocolate consumption (in kg)
+    \item
+    response variable: total number of Nobel laureates per 10 million person (through 2011)
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Chocolate Consumption, Cognitive Function,
+and Nobel Laureates by Franz H. Messerli, M.D.}
+\framesubtitle{\emph{New England Journal of Medicine} 367(\textbf{16}), Oct 18, 2012}
+\begin{center}
+\includegraphics[width=0.7\textwidth]{Figures/chocolate.png}
+\end{center}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Discussion}
+\begin{itemize}
+    \item
+    Is this study observational or experimental?
+    \item[]
+    \item
+    What is the unit of observation?
+    \item[]
+    \item
+    Describe the sample:
+    \item[]
+    \item
+    Describe the population:
+    \item[]
+    \item
+    What are other variables may affect the relationship between chocolate consumption and nobel laureates?
+    \item[]
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Discussion, continued}
+ Other oddities:
+    \begin{itemize}
+    \item
+    Does it make sense to use nobel laureates as a measure of a country's cognitive function?
+    \item
+    Do we even know if the nobel laureates themselves ate chocolate?
+    \item
+    Were the variables measured on the same temporal scale?
+    \item
+    How are nobel prize winners identified with a specific country?
+    \item[]
+    \item[]
+    \end{itemize}
+  \href{http://www.stats.org/stories/2012/Cacao_or_Caca_oct16_12.html}{Stats.org}: Cacao or Caca? How the media bit into chocolate Nobel prize link
+\end{frame}
+
+\begin{frame}
+\frametitle{In the media}
+\begin{itemize}
+    \item
+    \href{http://healthland.time.com/2012/10/12/can-eating-chocolate-help-you-win-a-nobel-prize/}{Time}: Secret to Winning a Nobel Prize?  Eat more Chocolate
+    \item
+    \href{http://now.msn.com/chocolate-consumption-per-capita-linked-to-number-of-nobel-prize-wins}{MSN}: Want to win a Nobel Prize? Eat more chocolate
+    \item
+    \href{http://www.forbes.com/sites/larryhusten/2012/10/10/chocolate-and-nobel-prizes-linked-in-study/}{Forbes}: Chocolate and Nobel Prizes Linked in Study
+    \item
+    \href{http://www.usatoday.com/story/news/nation/2012/10/10/nobel-prizes-chocolate/1625403/}{USA Today}: Study links eating chocolate to winning Nobels
+    \item
+    \href{http://www.reuters.com/article/2012/10/10/us-eat-chocolate-win-the-nobel-prize-idUSBRE8991MS20121010}{Reuters}: Eat chocolate, win the Nobel Prize?
+    \item
+    \href{http://www.npr.org/blogs/thesalt/2012/10/12/162733830/the-secret-to-genius-it-might-be-more-chocolate}{NPR}: The Secret to Genius?  It Might Be More Chocolate
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{From the author (Messerli)}
+Reuters:
+\footnotesize{
+\begin{quote}
+    ``I started plotting this in a hotel room in Kathmandu, because I had nothing else to do, and I could not believe my eyes,'' he told Reuters Health. All the countries lined up neatly on a graph, with higher chocolate intake tied to more laureates.  The link was so strong it made a joke out of a statistic that virtually all studies in medical journals hinge on - the so-called p-value.
+\end{quote}}
+NPR:
+\footnotesize{
+\begin{quote}
+    ``I have published about 800 papers in peer-reviewed journals,'' he says, ``and every single one of them stands and falls with the p-value. And now here I find a p-value of 0.0001, and this is, to my way of thinking, a completely nonsensical relation. Unless you — or anybody else — can come up with an explanation. I've presented it to a few of my colleagues, and nobody has any thoughts.''
+\end{quote}}
+\end{frame}
+
+
+
+
+\begin{frame}[fragile]
+\frametitle{The Data}
+First 10 observations:
+\vskip10pt
+\begin{lcverbatim}
+     country nobel_rate chocolate   GDP_cap   totalpop literate
+1  Australia      5.451       4.5 35052.512   22323900     99.9
+2    Austria     24.332      10.2 36119.406    8423635     99.9
+3    Belgium      8.622       4.4 33020.438   11047744     99.9
+4     Brazil      0.050       2.9 10264.006  196935134     90.5
+5     Canada      6.122       3.9 35738.703   34483975     99.8
+6      China      0.060       0.7  7417.888 1344130000     95.4
+7    Denmark     25.255       8.5 32601.660    5570572     99.9
+8    Finland      7.600       7.3 32030.703    5388272     99.9
+9     France      8.990       6.3 29963.223   65371613    100.0
+10   Germany     12.668      11.6 34572.938   81797673     99.9
+\end{lcverbatim}
+\vskip5pt
+\begin{clicker}{Do \texttt{nobel\textunderscore rate} and \texttt{chocolate} represent paired data?}
+\begin{enumerate}
+    \item
+    yes
+    \item
+    no
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+%===========================================================================================================================
+\section[Correlation]{Correlation}
+%===========================================================================================================================
+\begin{frame}
+\tableofcontents[currentsection, hideallsubsections]
+\end{frame}
+%\subsection{}
+
+\begin{frame}
+\frametitle{Association between two quantitative variables}
+\begin{columns}
+\column{0.5\textwidth}
+\includegraphics[width=0.9\textwidth]{Figures/literacy_lifeexp.pdf}\\
+\begin{itemize}
+    \item
+    Positive association: as literacy rate tends to increase, life expectancy of females also tends to increase
+\end{itemize}
+\column{0.5\textwidth}
+\includegraphics[width=0.9\textwidth]{Figures/fertility_lifeexp.pdf}\\
+\begin{itemize}
+    \item
+    Negative association: as fertility rate tends to increase, life expectancy tends to decrease
+    \item[]
+\end{itemize}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Correlation}
+The \textbf{correlation} \emph{r} measures the \textbf{strength} and \textbf{direction} of the \textbf{linear association} between two quantitative variables.  Correlation is always between between $-1$ and $+1$.
+\begin{columns}
+\column{0.5\textwidth}
+\begin{center}
+\includegraphics[width=0.9\textwidth]{Figures/literacy_lifeexp.pdf}\\
+    $r=0.87$
+\end{center}
+\column{0.5\textwidth}
+\begin{center}
+\includegraphics[width=0.9\textwidth]{Figures/fertility_lifeexp.pdf}\\
+    $r=-0.84$
+\end{center}
+\end{columns}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Correlation examples}
+\includegraphics[width=0.19\textwidth]{Figures/corr1.pdf}
+\includegraphics[width=0.19\textwidth]{Figures/corr2.pdf}
+\includegraphics[width=0.19\textwidth]{Figures/corr3.pdf}
+\includegraphics[width=0.19\textwidth]{Figures/corr4.pdf}
+\includegraphics[width=0.19\textwidth]{Figures/corr5.pdf}\\
+\vskip10pt
+Rules of thumb:
+\begin{itemize}
+    \item
+    $0<|r|<0.3$ - weak correlation
+    \item
+    $0.3<|r|<0.7$ - moderate correlation
+    \item
+    $0.7<|r|<1.0$ - strong correlation
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\begin{clicker}{Which scenario illustrates the strongest linear association?}
+\begin{enumerate}
+    \item
+    College GPA and high school GPA, $r=0.46$
+    \item
+    price and quality rating of bike helmets, $r=0.30$
+    \item
+    years of education and years in jail, $r=-0.53$
+    \item
+    New York City marathon, age and finish time, $r=0.04$
+    \item
+    college GPA and a measure of tendency to procrastinate, $r=-0.36$
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Correlation estimate}
+\begin{lcverbatim}
+> plot(NEJM$chocolate,NEJM$nobel_rate)
+> cor(NEJM$chocolate,NEJM$nobel_rate)
+[1] 0.8010949
+\end{lcverbatim}
+\includegraphics[width=0.5\textwidth]{Figures/scatter_choc_nobel.pdf}
+\end{frame}
+
+\begin{frame}
+\frametitle{\grp}
+\begin{columns}
+\column{0.5\textwidth}
+\includegraphics[width=1.0\textwidth]{Figures/nonlinear.pdf}\\
+\column{0.5\textwidth}
+\begin{clicker}{What do you think the correlation between $x$ and $y$ is?}
+\begin{enumerate}
+    \item
+    $r=1$
+    \item
+    $r=0.5$
+    \item
+    $r=0$
+    \item
+    $r=-1$
+\end{enumerate}
+\end{clicker}
+\end{columns}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{\grp}
+\begin{columns}
+\column{0.5\textwidth}
+\includegraphics[width=1.0\textwidth]{Figures/scatter_totalpop_phone.pdf}\\
+\column{0.6\textwidth}
+\begin{clicker}{Which of the following best describes the relationship between total population and telephone lines?}
+\begin{enumerate}
+    \item
+    there is a strong negative linear relationship
+    \item
+    there is a moderate negative linear relationship
+    \item
+    there is very little, if any, linear relationship
+    \item
+    there is a moderate positive linear relationship
+    \item
+    there is a strong positive linear relationship
+\end{enumerate}
+\end{clicker}
+\end{columns}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Chocolate Nobel Data Set Example}
+\begin{columns}
+\column{0.5\textwidth}
+\includegraphics[width=1.0\textwidth]{Figures/scatter_totalpop_phone.pdf}\\
+\begin{itemize}
+    \item
+    Whole data set: $r = -0.35$
+\end{itemize}
+\column{0.5\textwidth}
+\includegraphics[width=1.0\textwidth]{Figures/scatter_totalpop_phone_new.pdf}\\
+\begin{itemize}
+    \item
+    Excluding China: $r = -0.02$
+\end{itemize}
+\end{columns}
+\end{frame}
+
+
+
+
+\begin{frame}
+\frametitle{\grp}
+\begin{columns}
+\column{0.5\textwidth}
+\includegraphics[width=1.0\textwidth]{Figures/click_corr1.pdf}
+\column{0.5\textwidth}
+\begin{clicker}{What is your best guess of the correlation between $x$ and $y$?}
+\begin{enumerate}
+    \item
+    $-1$
+    \item
+    $-0.7$
+    \item
+    $-0.2$
+    \item
+    0
+    \item
+    $0.2$
+    \item
+    $0.7$
+    \item
+    $1$
+\end{enumerate}
+\end{clicker}
+\end{columns}
+\end{frame}
+
+%===========================================================================================================================
+\section[SLR]{Simple Linear Regression}
+%===========================================================================================================================
+\begin{frame}
+\tableofcontents[currentsection, hideallsubsections]
+\end{frame}
+%\subsection{}
+
+
+\begin{frame}
+\frametitle{The idea}
+\begin{columns}
+\column{0.30\textwidth}
+\includegraphics[width=1.0\textwidth]{Figures/choc_m1.pdf}\\
+\vskip10pt
+Estimate the line of best fit:\\
+$\displaystyle \hat{y}= b_0 +b_1x$
+\vskip30pt
+\column{0.70\textwidth}
+Correlation allows us to:
+\begin{enumerate}
+    \item
+    identify the direction of the association between $x$ and $y$
+    \item
+    quantify the strength of the association between $x$ and $y$
+    \item[]
+\end{enumerate}
+A line of best fit additionally allows us to:
+\begin{enumerate}
+    \item
+    make predictions of $y$ based on $x$
+    \item
+    further describe the relationship between $x$ and $y$ with the slope $b_1$
+    %\item
+    %use statistical inference about the slope to determine if there is an association between $x$ and $y$
+\end{enumerate}
+\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Identifying the line}
+\begin{lcverbatim}
+> lm(NEJM$nobel_rate~NEJM$chocolate)
+
+Call:
+lm(formula = NEJM$nobel_rate ~ NEJM$chocolate)
+
+Coefficients:
+   (Intercept)  NEJM$chocolate
+        -3.400           2.496
+\end{lcverbatim}
+\vskip10pt
+\begin{tabular}{ll}
+General form: & $\displaystyle \hat{y}= b_0 +b_1x$ \\
+Here, this is:& $\displaystyle \hat{y}= b_0 +b_1\times chocolate$ \\
+& \\
+Estimated line: & $\displaystyle \hat{y}= -3.4 +2.5x$ \\
+Here, this is: &  $\displaystyle \hat{y}= -3.4 + 2.5\times chocolate$
+\end{tabular}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{The slope ($b_1$)}
+\begin{columns}
+\column{0.35\textwidth}
+\includegraphics[width=1.0\textwidth]{Figures/choc_slope2.pdf}
+\column{0.60\textwidth}
+$\displaystyle \hat{y}= -3.4 + 2.5x$
+\begin{itemize}
+    \item
+    the slope of this line is 2.5
+    \item
+    the slope is the amount that $\hat{y}$ changes when $x$ increases by one unit
+    \item
+    for each additional 1kg/yr/capita of chocolate that a country consumes, the rate of nobel laureates per 10 million persons increases by 2.5
+    \item
+    the sign of the slope (positive or negative) indicates the direction of the association
+\end{itemize}
+\end{columns}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{The $y$-intercept ($b_0$)}
+\begin{columns}
+\column{0.35\textwidth}
+\includegraphics[width=1.2\textwidth]{Figures/choc_int.pdf}\\
+\column{0.60\textwidth}
+$\displaystyle \hat{y}= -3.4 + 2.5x$
+\begin{itemize}
+    \item
+    the intercept of this line is -3.4
+    \item
+    the intercept is the predicted value of $y$ when $x=0$
+    \item
+    when a country consumes no chocolate, its predicted number of Nobel laureates is -3.4
+    \item
+    intercepts aren't always interpretable
+\end{itemize}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+Suppose we use literacy rate of a country (measured as a percent) to predict the life expectancy of that country (measured in years), and we estimate the regression line to be $\hat{y}=11.8+0.70x$.
+\begin{clicker}{What is the interpretation of the slope?}
+\begin{enumerate}
+    \item
+    For each one percent increase in literacy rate, life expectancy increases by 0.7 years.
+    \item
+    For each one year increase in life expectancy, literacy rate increases by 0.7 percentage points.
+    \item
+    For each one percent increase in literacy rate, life expectancy increases by 11.8 years.
+    \item
+    For each one year increase in life expectancy, literacy rate increases by 11.8 percentage points.
+    \item
+    The predicted life expectancy of a country with a literacy rate of 0 is 11.8 years.
+    \item
+    The predicted literacy rate of a country with a life expectancy of 0 is 11.8\%.
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+\begin{frame}
+\frametitle{Prediction ($\hat{y}$)}
+\begin{columns}
+\column{0.35\textwidth}
+\includegraphics[width=1.2\textwidth]{Figures/choc_pred.pdf}\\
+\column{0.60\textwidth}
+$\displaystyle \hat{y}= -3.4 + 2.5x$
+\begin{itemize}
+    \item
+    when $x=7$, $\hat{y}= -3.4 + 2.5\times7=14.1$
+    \item
+    the predicted number of Nobel Laureates for a country that consumes 7 kg/yr/capita of chocolate is 14.1
+\end{itemize}
+\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+Using length of pregnancy in days (the gestation period) to predict babies' birth weight in pounds in the babies data set:
+%\includegraphics[width=1.0\textwidth]{Figures/scatter_bwtlbs.pdf}
+\begin{lcverbatim}
+> cor(babies$bwt_lbs,babies$gestation)
+0.42
+> lm(bwt_lbs~gestation, data=babies)
+Call:
+lm(formula = bwt_lbs ~ gestation, data=babies)
+Coefficients:
+   (Intercept)        gestation
+      -1.30920          0.03143
+\end{lcverbatim}
+\begin{clicker}{\small{What is the correct formula to predict the birth weight of a baby with a gestation period of 300 days?}}
+\begin{enumerate}
+    \small{
+    \item
+    $\hat{y} = 0.03 - 1.31 \times 300$
+    \item
+    $\hat{y} = 0.03 + 0.42 \times 300$
+    \item
+    $\hat{y} = -1.31 + 0.03 \times 300$
+     \item
+     $\hat{y} = -1.31 + 0.42 \times 300$}
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Don't extrapolate!}
+\begin{columns}
+\column{0.35\textwidth}
+\includegraphics[width=1.2\textwidth]{Figures/choc_extra.pdf}\\
+\column{0.60\textwidth}
+\begin{itemize}
+    \item
+    Extrapolation is using a regression line to predict $y$-values for $x$-values outside the observed range of the data.
+    \item
+    Extrapolation gets riskier the farther we move from the range of the given $x$-values.
+    \item
+    There is no guarantee that the relationship given by the regression equation holds outside the range of sampled $x$-values.
+\end{itemize}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Cautions in Regression}
+\begin{itemize}
+    \item
+    Don't extrapolate
+    \item
+    The analysis is not robust to outliers (can affect estimates of correlation, slope, and intercept)
+    \item
+    Correlation/association does not imply causation
+    \item
+    Other variables can influence the analysis through confounding and interaction - you can control for this in \emph{multivariable regression} where you use more than one variable in your model to predict $y$
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\begin{clicker}{When using a simple linear regression model, which of the following allows us to assess the \emph{association} between $x$ and $y$?}
+\begin{enumerate}
+    \item
+    the intercept ($b_0$)
+    \item
+     the slope ($b_1$)
+     \item
+     both
+     \item
+     neither
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+\begin{frame}
+Using MMSE score to predict whole brain volume in the ADNI data set: $r=0.19$, $\hat{y}=796239+8302\times MMSE$\\
+\begin{columns}
+\column{0.4\textwidth}
+\includegraphics[width=1.0\textwidth]{Figures/scatter_ADNI.pdf}
+\column{0.6\textwidth}
+\begin{clicker}{What can we conclude about the strength of the association between MMSE and whole brain volume?}
+\begin{enumerate}
+    \item
+    there is a strong association because the slope is large
+    \item
+    there is a strong association because the correlation is large
+    \item
+    there is a weak association because the slope  is small
+    \item
+    there is a weak association because the correlation is small
+\end{enumerate}
+\end{clicker}
+\end{columns}
+\end{frame}
+
+%===========================================================================================================================
+\section[Inference for SLR]{Inference for SLR}
+%===========================================================================================================================
+\begin{frame}
+\tableofcontents[currentsection, hideallsubsections]
+\end{frame}
+%\subsection{}
+
+\begin{frame}
+\frametitle{The idea}
+\begin{itemize}
+\item
+the \emph{slope} of the line allows us to assess whether or not there is an association between $x$ and $y$
+\item
+a slope of 0 indicates no association between $x$ and $y$; a non-zero slope indicates some sort of association between $x$ and $y$
+\item
+we are estimating a slope $b_1$ based on sample data, but we want to draw conclusions about the slope in the population ($\beta_1$)
+\item
+We can do this with:
+\begin{enumerate}
+    \item
+    a hypothesis test of $H_0$: $\beta_1=0$ vs $H_a$: $\beta_1 \neq 0$
+    \item
+    a confidence interval for $\beta_1$
+\end{enumerate}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Conditions for inference in SLR}
+\begin{enumerate}
+    \item
+    observations are independent
+    \item
+    linear relationship between $x$ and $y$
+    \item
+    \textcolor{gray}{``normality'' - not addressed in STAT 217 (requires residuals)}
+    \item
+    constant variability in $y$ about the regression line
+\end{enumerate}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Example Figures}
+\begin{columns}
+\column{0.35\textwidth}
+\includegraphics[width=1.0\textwidth,clip,trim=0mm 0mm 90mm 0mm]{Figures/scattHeadLTotalLTube.pdf}\\
+\vskip5pt
+\includegraphics[width=1.0\textwidth,clip,trim=90mm 0mm 0mm 0mm]{Figures/scattHeadLTotalLTube.pdf}
+\column{0.6\textwidth}
+\begin{itemize}
+    \item
+    possum data
+    \item
+    the spread in $y$ (head length) is about the same for all values of $x$ (total length)
+    \item
+    this satisfies ``constant variability in $y$ about the regression line''
+    \item[]
+    \item
+    car data
+    \item
+    the relationship between $x$ (weight) and $y$ (miles per gallon) follows a curve rather than a straight line
+    \item
+    this violates ``linear relationship between $x$ and $y$''
+    \item[]
+\end{itemize}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\begin{center}
+Figure A \hspace{0.4in} Figure B  \hspace{0.4in} Figure C \hspace{0.4in} Figure D
+\end{center}
+\includegraphics[width=1.0\textwidth,clip,trim=0mm 25mm 0mm 0mm]{Figures/whatCanGoWrongWithLinearModel.pdf}\\
+\vskip20pt
+\begin{clicker}{Figure (A/B/C/D) violates the independence condition.\\
+ Figure (A/B/C/D) violates the linear condition.\\
+  Figure (A/B/C/D) violates the constant variability condition.}
+\end{clicker}
+\end{frame}
+
+
+
+
+\begin{frame}
+\frametitle{Assessing conditions}
+\begin{columns}
+\column{0.5\textwidth}
+\begin{center}
+\includegraphics[width=1.0\textwidth]{Figures/choc_m1.pdf}\\
+\end{center}
+\column{0.5\textwidth}
+\begin{clicker}{Which condition may be violated?  Select the \emph{best} answer.}
+\begin{enumerate}
+    \item
+    independence of observations
+    \item
+    linear relationship between $x$ and $y$
+    \item
+    constant variability in $y$ about the regression line
+    \item
+    no conditions are violated
+\end{enumerate}
+\end{clicker}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Assessing conditions, continued}
+\begin{columns}
+\column{0.5\textwidth}
+\begin{center}
+\includegraphics[width=1.0\textwidth]{Figures/choc_m2a.pdf}\\
+\end{center}
+\column{0.5\textwidth}
+\begin{clicker}{Which condition may be violated?  Select the \emph{best} answer.}
+\begin{enumerate}
+    \item
+    independence of observations
+    \item
+    linear relationship between $x$ and $y$
+    \item
+    constant variability in $y$ about the regression line
+    \item
+    no conditions are violated
+\end{enumerate}
+\end{clicker}
+\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{R results}
+\begin{lcverbatim}
+> m1<-lm(NEJM$nobel_rate~NEJM$chocolate)
+> summary(m1)
+
+Call:
+lm(formula = NEJM$nobel_rate ~ NEJM$chocolate)
+
+Residuals:
+    Min      1Q  Median      3Q     Max
+-12.888  -2.953  -0.213   1.992  19.279
+
+Coefficients:
+               Estimate Std. Error t value Pr(>|t|)
+(Intercept)      -3.400      2.699  -1.260    0.222
+NEJM$chocolate    2.496      0.407   6.133 4.37e-06 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 6.26 on 21 degrees of freedom
+Multiple R-squared:  0.6418,	Adjusted R-squared:  0.6247
+F-statistic: 37.62 on 1 and 21 DF,  p-value: 4.374e-06
+\end{lcverbatim}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Focus on the coefficients box}
+\begin{lcverbatim}
+Coefficients:
+               Estimate Std. Error t value Pr(>|t|)
+(Intercept)      -3.400      2.699  -1.260    0.222
+NEJM$chocolate    2.496      0.407   6.133 4.37e-06 ***
+\end{lcverbatim}
+On the \texttt{NEJM\$chocolate} line:
+\begin{columns}
+\column{0.1\textwidth}
+\column{0.9\textwidth}
+\begin{itemize}
+    \item[Hypotheses:]
+     $H_0$: $\beta_1=0$ vs $H_a$: $\beta_1 \neq 0$
+    \item[Test statistic:]
+     $\displaystyle t=\frac{\hat{\beta}_1-0}{se_{\hat{\beta}_1}}=\frac{2.496-0}{0.407}=6.133$
+    \item[$p$-value:]
+     two-tailed area from $t$ distribution with $df=n-2$; $p$-value$ = 0.00000437$
+    \item[Conclusion:]
+      At $\alpha=0.05$ reject $H_0$; we have evidence of a positive association between chocolate consumption and rate of nobel laureates.
+\end{itemize}
+\end{columns}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Confidence interval for the slope}
+\begin{columns}
+\column{0.6\textwidth}
+\begin{lcverbatim}
+> confint(m1)
+                   2.5 %   97.5 %
+(Intercept)    -9.013147 2.212415
+NEJM$chocolate  1.649869 3.342646
+\end{lcverbatim}
+\column{0.5\textwidth}
+\begin{eqnarray*}
+\hat{\beta}_1 & \pm &  t^*_{df=n-2} \times se_{\hat{\beta}_1} \\
+2.496  & \pm &  2.080 \times 0.407
+ \end{eqnarray*}
+\end{columns}
+\begin{itemize}
+    \item[]
+    \item
+    The 95\% CI for $\beta_1$ is (1.65, 3.34)
+    \item
+    Because this CI is entirely positive, there is a \emph{positive} association between rate of nobel laureates and chocolate consumption, such that as chocolate consumption increases so does the rate of nobel laureates.
+    \item
+    At the 95\% confidence level, for each 1kg/yr/capita increase in chocolate consumption the rate of nobel laureates per 10 million persons increases by as few as 1.65 or as many as 3.34
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+%\frametitle{\grp}
+\begin{lcverbatim}
+> cor(babies$bwt_lbs,babies$gestation)
+0.42
+
+Coefficients:
+                  Estimate Std. Error t value Pr(>|t|)
+(Intercept)      -1.309203   0.540712  -2.421   0.1560
+babies$gestation  0.031433   0.001931  16.274   <2e-16 ***
+\end{lcverbatim}
+\begin{columns}
+\column{0.3\textwidth}
+\begin{center}
+\includegraphics[width=1.0\textwidth]{Figures/scatter_bwtlbs.pdf}
+\end{center}
+\column{0.7\textwidth}
+\begin{clicker}{Identify a number that represents \underline{\hspace{0.5in}} between birth weight and gestation days:}
+\begin{enumerate}
+    \item the magnitude of the association
+    \item the strength of the evidence 
+    \item the strength of the association
+\end{enumerate}
+\end{clicker}
+\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{lcverbatim}
+> cor(babies$bwt_lbs,babies$gestation)
+0.42
+
+Coefficients:
+                  Estimate Std. Error t value Pr(>|t|)
+(Intercept)      -1.309203   0.540712  -2.421   0.1560
+babies$gestation  0.031433   0.001931  16.274   <2e-16 ***
+\end{lcverbatim}
+\begin{columns}
+\column{0.3\textwidth}
+\begin{center}
+\includegraphics[width=1.0\textwidth]{Figures/scatter_bwtlbs.pdf}
+\end{center}
+\column{0.7\textwidth}
+\begin{clicker}{\small{At $\alpha=0.05$, what can we conclude?  We \underline{(do/do not)} have evidence that $\beta_1$ differs from zero; so  we \underline{(do/do not)} have evidence of an association between gestation days and birth weight.}}
+\begin{enumerate}
+    \small{
+    \item
+    do; do
+    \item
+    do not; do not
+    \item
+    do; do not
+    \item
+    do not; do}
+\end{enumerate}
+\end{clicker}
+\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{lcverbatim}
+> cor(babies$bwt_lbs,babies$gestation)
+0.42
+
+Coefficients:
+                  Estimate Std. Error t value Pr(>|t|)
+(Intercept)      -1.309203   0.540712  -2.421   0.1560
+babies$gestation  0.031433   0.001931  16.274   <2e-16 ***
+\end{lcverbatim}
+\begin{columns}
+\column{0.3\textwidth}
+\begin{center}
+\includegraphics[width=1.0\textwidth]{Figures/scatter_bwtlbs.pdf}
+\end{center}
+\column{0.7\textwidth}
+\begin{clicker}{\small{Is there a strong linear association between gestation days and birth weight?}}
+\begin{enumerate}
+    \small{
+    \item
+    Yes, because the $p$-value for $H_0$: $\beta_1=0$ is less than $0.05$.
+    \item
+    No. Although the $p$-value for $H_0$: $\beta_1=0$ is less than $0.05$, the estimated slope is small.
+    \item
+     No, because the $p$-value for $H_0$: $\beta_1=0$ is greater than $0.05$.
+    \item
+    Yes, the correlation is positive.
+    \item
+    No, the correlation isn't that big.}
+\end{enumerate}
+\end{clicker}
+\end{columns}
+\end{frame}
+
+
+\end{document} 

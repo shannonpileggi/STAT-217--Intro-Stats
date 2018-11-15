@@ -1,0 +1,99 @@
+
+
+\documentclass{article}
+
+
+\input{"C:/Users/spileggi/Google Drive/STAT 217/Labs/labStyleNew.tex"}
+
+\begin{document}
+
+\section*{Lab 4a Practice: Sampling Distributions and Confidence Intervals (Proportion)}
+
+\subsection*{Overview}
+In this lab we explore sampling distributions by obtaining random samples from a population.  In this lab, \textbf{we consider the data set provided to be the entire population of interest} so that we may explore what happens when we repeatedly sample from the given population. 
+\subsection*{The Data: Youth Risk Behavior Surveillance System}
+
+The \href{http://www.cdc.gov/healthyyouth/yrbs/index.htm}{Youth Risk Behavior Surveillance System (YRBSS)} has been conducted every two years since 1991 by the Centers for Disease Control and Prevention (CDC) in order to obtain information from adolescents regarding trends in risky behavior, such a smoking, drinking, drug use, diet, and physical activity.  In 2013, 47 states participated in this school-based survey, yielding 13,583 respondents and 213 variables.   Full survey and data documentation can be accessed on the CDC \href{http://www.cdc.gov/healthyyouth/yrbs/data/index.htm}{website}.  A subset of this data set which has no missing data for 16 selected variables is provided in the file \texttt{yrbss2013.csv}\footnote{The variables \hlstd{days\textunderscore smoke} and \hlstd{sad} were originally coded in categories of `0 days', `1 or 2 days', `3 to 5 days', `6 to 9 days', `10 to 19 days', `20 to 29 days', and `All 30 days'.  The number of days provided in this data set was randomly generated according to the category specified.}.\\
+
+\begin{tabular}{r|l}
+\hlstd{age} & \emph{Q1: How old are you?}\\
+\hlstd{gender} &\emph{Q2: What is your sex?} \\
+\hlstd{height\textunderscore m} &  calculated variable: height in meters\\
+\hlstd{weight\textunderscore kg} &  calculated variable: weight in kilograms \\
+\hlstd{bmi} &  calculated variable: body mass index$=$\hlstd{height\textunderscore m}/(\hlstd{weight\textunderscore kg})$^2$  \\
+\hlstd{BMIPCT} & calculated variable: BMI percentile for age and sex\\
+\hlstd{seatbelt} &\emph{Q9: How often do you wear a seat belt when riding in a car driven by someone else?}\\
+\hlstd{seatbelt2} &calculated variable: \hlstd{seatbelt} never vs otherwise \\
+\hlstd{ride\textunderscore drunkdriver} & \emph{Q10: During the past 30 days, have you ridden in a car or other vehicle driven by} \\
+ & \emph{someone who had been drinking alcohol?} \\
+\hlstd{drive\textunderscore drunk} & \emph{Q11: During the past 30 days, how many times did you drive a car or other vehicle when}\\
+&\emph{you had been drinking alcohol?} \\
+\hlstd{drive\textunderscore text} & \emph{Q12: During the past 30 days, on how many days did you text or e-mail while driving a car}\\
+&\emph{or other vehicle?} \\
+\hlstd{carried\textunderscore weapon} & \emph{Q13: During the past 30 days, did you carry a weapon such as a gun, knife, or club?} \\
+\hlstd{unsafe\textunderscore school} & \emph{Q16: During the past 30 days, did you not go to school because you felt you}\\
+&\emph{would be unsafe at school or on your way to or from school?} \\
+\hlstd{bullied} & \emph{Q24: During the past 12 months, have you ever been bullied on school property?}\\
+\hlstd{sad} & \emph{Q26: During the past 12 months, did you ever feel so sad or hopeless almost every day for two}\\
+&\emph{weeks or more in a row that you stopped doing some usual activities?}\\
+\hlstd{days\textunderscore smoke} & \emph{Q33: During the past 30 days, on how many days did you smoke cigarettes?}\\
+\hlstd{days\textunderscore drink} & \emph{Q43: During the past 30 days, on how many days did you have at least one drink of alcohol?}\\
+\end{tabular}
+
+\subsection*{Practice}
+\begin{enumerate}
+%\begin{enumerate}
+\item Open the \hlstd{R Reference Guide} from the \hlstd{Lab Content} area of PolyLearn.
+\item Open \hlstd{RStudio} and then open a brand new \hlstd{Rmarkdown} document by clicking on the green plus sign on the top left of RStudio.  Delete everything in the Rmarkdown document.  Identify the \hlstd{Rmarkdown} tab of your \hlstd{R Reference Guide}. Copy and paste the three code chunks (header, set up chunk, and import data code chunk) into your Rmarkdown document. 
+\item   Identify the \hlstd{Lab Data Sets} folder on PolyLearn and download the \hlstd{yrbss2013} data set to a  location on your computer (i.e., desktop, STAT 217 folder).  Follow the steps in the \hlstd{Importing} tab of the \hlstd{R Reference Guide} to import the \hlstd{yrbss2013} data set and save your import code in an R chunk.
+  \item
+ Produce an appropriate summary of the variable \hlstd{sad}.  What proportion of the participants reported \texttt{yes}?  We will refer to this as the \emph{population proportion} ($p$).
+\item  We are going to randomly sample from the \hlstd{sad} variable.  Before we can do so, we need to set the random seed so that everyone in your group gets the same random sample.  In an R chunk, submit the code below.  However, change the seed from \hlstd{1234} to any number that your group wants to use.
+<<dim, eval=TRUE,tidy=FALSE>>=
+set.seed(1234)
+@
+\item The lines of code below (1) take a random sample of size $n=50$ without replacement from the \hlstd{sad} variable, (2) displays the values in the sample, and (3) summarizes the values in the sample.  In an R chunk, replicate this three times to take three different random samples.  What are the three sample proportions that you observed? \emph{Hint: make sure you change \hlstd{sample1} to \hlstd{sample2} or \hlstd{sample3} when you replicate the code!}
+<<samples, eval=F,tidy=FALSE>>=
+sample1<-sample(x=yrbss2013$sad,size=50,replace=FALSE)
+sample1
+addmargins(table(sample1))
+@
+\item 
+What is the relationship between your data distributions and the population distribution? Explain.
+\item 
+The distribution of many sample proportions from samples of the same size is called the sampling distribution of the sample proportion. According to the theory for the distribution of sample proportions, we can assume that the shape of the distribution is approximately normal when we expect to have at least 10 ``successes'' and 10 ``failures''. Should the distribution of many sample proportions from the \hlstd{sad} variable be approximately normally distributed for samples of size $n=50$? Why or why not?  \emph{(Be sure to use the population proportion that you identified in Question 4.)}
+\item 
+According to the theory for the distribution of sample proportions, 
+\begin{center}
+mean = $p$, and standard deviation = $\displaystyle\sqrt{\frac{p(1-p)}{n}}$
+\end{center}
+. Describe the mean and standard deviation of the distribution of the sample proportion of students that said \texttt{yes} to \hlstd{sad} for samples of size 50, and fully justify your answers with explanations or calculations. \emph{(Be sure to use the population proportion that you identified in Question 4.)}
+
+\item On a \emph{separate} sheet of paper, use the information from the previous two questions to \emph{sketch} the distribution of sample proportions for samples of size 50. Make sure it is legible and that your x-axis is labeled. You may want to check with your instructor or TA to confirm that you sketched it correctly.  Include the sketch here by: taking a picture of it, emailing it to yourself, and saving it in the \underline{same} location on your computer as this lab \texttt{.Rmd} file. Lastly, use the command provided to include the image in your html file (you may need to change the file name and extension in the code below, depending on how you saved your image).  \emph{Note: This commmand does \underline{not} go in an R chunk.}
+<<include, eval=F,tidy=FALSE>>=
+![](sketch.jpg)
+@
+\item 
+Provide an interpretation of the your sketch from the previous question.  What is this picture showing us?
+\item
+Suppose we had taken samples of size 100 from this population rather than samples of size 50.  Comment on how that would change, if at all, the \emph{shape}, \emph{mean}, and \emph{standard deviation} of the distribution of sample proportions for samples of size 100 (compared to samples of size 50).  Explain why.
+\begin{itemize}
+\item Shape: 
+\item Mean: 
+\item Standard deviation:   
+\end{itemize}
+
+\item 
+Consider the population proportion of \hlstd{sad} to be unknown.  Suppose you can only take ONE sample from this population, instead of many samples, and based on this ONE sample you want to \emph{estimate} the proportion of all teenagers who responded \texttt{yes} to the \hlstd{sad} variable. Go back to the \emph{first} sample you took in question 6, and based on this sample data calculate a 95\% confidence interval for the population proportion using the formula 
+\begin{center}
+$\displaystyle \hat{p} \pm z^*\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}$
+\end{center}
+.Use R as a calculator and do the calculation in an R chunk.  \emph{Hints: (1) Enter the lower and upper bound as two separate calcuations, (2) when multiplying two things you must use an asterisk...  3(5) results in an error, 3*5 results in 15.}
+\item  Did your confidence interval capture the actual population proportion of teenagers that responded \texttt{yes} to the \hlstd{sad} variable?  Explain.
+\item Provide an interpretation of your confidence interval (you can pretend like you don't know the actual population proportion).
+\item Submit this lab assignment as an html compiled from R Markdown. Make sure all names of group
+members who contributed to this lab assignment are on the html file.
+\end{enumerate}
+
+
+\end{document}

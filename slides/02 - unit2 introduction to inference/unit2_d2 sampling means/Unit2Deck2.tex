@@ -1,0 +1,816 @@
+
+
+\input{"C:/Users/spileggi/Google Drive/STAT 217/Slides/SlideStyle.tex"}
+
+
+
+\title[Unit 2 Deck 2]{Distribution of Sample Means and a Confidence Interval for the Population Mean}
+\author[Pileggi]{Shannon Pileggi}
+
+\institute[STAT 217]{STAT 217}
+
+\date{}
+
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}
+\frametitle{OUTLINE\qquad\qquad\qquad} \tableofcontents[hideallsubsections]
+\end{frame}
+
+
+
+
+%===========================================================================================================================
+\section[Overview]{Overview}
+%===========================================================================================================================
+
+%\subsection{}
+\begin{frame}[fragile]
+\frametitle{The Data}
+From the CDC's 2013 Youth Risk Behavior Surveillance System \\
+\vskip10pt
+ \resizebox{1.0\textwidth}{!}{
+\begin{tabular}{llllllll}
+\hline
+	&	gender	&	height\textunderscore m	&	weight\textunderscore kg	&	bmi	&	carried\textunderscore weapon	&	bullied	&	days\textunderscore drink	\\
+\hline
+1	&	female	&	1.73	&	84.37	&	28.2	&	yes	&	no	&	30	\\
+2	&	female	&	1.6	&	55.79	&	21.8	&	no	&	yes	&	1	\\
+3	&	female	&	1.5	&	46.72	&	20.8	&	no	&	yes	&	0	\\
+4	&	female	&	1.57	&	67.13	&	27.2	&	no	&	yes	&	0	\\
+5	&	female	&	1.68	&	69.85	&	24.7	&	no	&	no	&	0	\\
+6	&	female	&	1.65	&	66.68	&	24.5	&	no	&	no	&	1	\\
+7	&	male	&	1.85	&	74.39	&	21.7	&	no	&	no	&	0	\\
+8	&	male	&	1.78	&	70.31	&	22.2	&	yes	&	no	&	0	\\
+9	&	male	&	1.73	&	73.48	&	24.6	&	no	&	yes	&	0	\\
+10	&	male	&	1.83	&	67.59	&	20.2	&	no	&	no	&	0	\\
+$\vdots$	&	$\vdots$	&$\vdots$		&$\vdots$		&	$\vdots$	&$\vdots$		&	$\vdots$	&$\vdots$		\\
+8482	&	male	&	1.73	&	68.95	&	23	&	no	&	no	&	0	\\
+\hline
+\end{tabular}}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{The idea}
+\begin{columns}
+\column{0.70\textwidth}
+\includegraphics[width=1.0\textwidth]{Figures/boxplot_all.pdf}
+\column{0.35\textwidth}
+\begin{itemize}
+\item the entire data set represents a population
+\item each sample is of size $n=100$
+\item the blue line is the median BMI in the entire data set
+\end{itemize}
+\end{columns}
+\end{frame}
+
+
+
+%===========================================================================================================================
+\section[Simulation]{Simulation Example}
+%===========================================================================================================================
+\begin{frame}
+\tableofcontents[currentsection, hideallsubsections]
+\end{frame}
+
+%\subsection{}
+\begin{frame}
+\frametitle{Population distribution of \texttt{days\textunderscore drink}}
+For this exercise, consider the 8,482 observations from the YRBSS data set to be the \emph{entire} population of interest.  Now let's describe the \textbf{population distribution} of \texttt{days\textunderscore drink}.
+\begin{itemize}
+    \item[]
+    \item
+    Shape of the population distribution:
+    \item[]
+    \item
+    Mean of the population distribution:
+    \item[]
+    \item
+    Standard deviation of the population distribution:
+    \item[]
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Example data distributions from \texttt{days\textunderscore drink}}
+ Now let's take three random samples of size $n=10$ from the population distribution of \texttt{days\textunderscore drink}.  Each random sample represents a \textbf{data distribution}.\\
+ \vskip10pt
+ \hspace*{-20pt}
+ \resizebox{1.1\textwidth}{!}{
+ \begin{tabular}{|l|cccccccccc|ccc|}
+ \hline
+         & $x_1$ & $x_2$ & $x_3$ & $x_4$ & $x_5$ & $x_6$ & $x_7$ & $x_8$ & $x_9$ & $x_{10}$ & shape & $\bar{x}$ & $s$\\
+         \hline
+Sample 1 &       &       &       &       &       &       &       &       &       &          &   & \textcolor{white}{1234} &\textcolor{white}{1234}    \\
+[2.0ex]
+Sample 2 &       &       &       &       &       &       &       &       &       &          &    & &   \\
+[2.0ex]
+Sample 3 &       &       &       &       &       &       &       &       &       &          &    & &   \\
+[2.0ex]
+\hline
+\end{tabular}}
+\end{frame}
+
+\begin{frame}
+\frametitle{Many samples from \texttt{days\textunderscore drink}}
+ Let's repeat the process and take 1000 random samples of size $n=10$ from the population distribution of \texttt{days\textunderscore drink}.
+  \vskip5pt
+   \resizebox{1.0\textwidth}{!}{
+ \begin{tabular}{|l|cccccccccc|cc|}
+    \hline
+ 	& $x_1$ & $x_2$ & $x_3$ & $x_4$ & $x_5$ & $x_6$ & $x_7$ & $x_8$ & $x_9$ & $x_{10}$  & $\bar{x}$ & $s$\\
+    \hline
+Sample1	&	1	&	0	&	9	&	0	&	1	&	3	&	0	&	3	&	0	&	0	&	1.7	&	2.83	\\
+Sample2	&	0	&	0	&	0	&	0	&	0	&	0	&	1	&	1	&	3	&	0	&	0.5	&	0.97	\\
+Sample3	&	4	&	1	&	0	&	0	&	0	&	0	&	0	&	1	&	2	&	0	&	0.8	&	1.32	\\
+Sample4	&	0	&	0	&	0	&	0	&	0	&	0	&	2	&	0	&	0	&	1	&	0.3	&	0.67	\\
+Sample5	&	0	&	1	&	0	&	0	&	0	&	0	&	0	&	0	&	1	&	0	&	0.2	&	0.42	\\
+Sample6	&	0	&	0	&	0	&	3	&	0	&	0	&	0	&	1	&	6	&	2	&	1.2	&	1.99	\\
+Sample7	&	0	&	0	&	30	&	0	&	0	&	0	&	2	&	0	&	0	&	5	&	3.7	&	9.38	\\
+Sample8	&	0	&	0	&	9	&	1	&	1	&	0	&	0	&	0	&	8	&	0	&	1.9	&	3.51	\\
+Sample9	&	1	&	0	&	4	&	0	&	0	&	4	&	0	&	4	&	1	&	0	&	1.4	&	1.84	\\
+Sample10	&	0	&	0	&	0	&	1	&	0	&	0	&	0	&	4	&	0	&	0	&	0.5	&	1.27	\\
+Sample11	&	0	&	0	&	0	&	0	&	0	&	5	&	0	&	0	&	0	&	0	&	0.5	&	1.58	\\
+$\vdots$	&	$\vdots$	&	$\vdots$	&	$\vdots$	&	$\vdots$	&	$\vdots$	&	$\vdots$	&	$\vdots$	&	$\vdots$	&	$\vdots$	&	$\vdots$	&	$\vdots$	&	$\vdots$	\\
+Sample1000	&	0	&	0	&	13	&	0	&	0	&	3	&	0	&	0	&	0	&	15	&	3.1	&	5.84	\\
+\hline
+ \end{tabular}}
+  \end{frame}
+
+\begin{frame}
+\frametitle{Clicker}
+\begin{clicker}{What do you think will be the shape of the distribution of the 1000 sample means?}
+\begin{enumerate}
+    \item
+    bell-shaped
+    \item
+    left-skewed
+    \item
+    right-skewed
+    \item
+    uniform
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+\begin{frame}
+\frametitle{Simulated sampling distribution, example 1}
+The collection of the sample means from the 1000 samples of size $n=10$ represents a simulated \textbf{sampling distribution} of the sample mean.
+\begin{itemize}
+    \item[]
+    \item
+    Shape of the sampling distribution:
+    \item[]
+    \item
+    Mean of the sampling distribution:
+    \item[]
+    \item
+    Standard deviation of the sampling distribution:
+    \item[]
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Re-cap, example 1}
+\begin{columns}
+\column{0.33\textwidth}
+\includegraphics[width=1.0\textwidth]{Figures/PopnDaysDrink.pdf}
+\hspace*{0.3in}
+\begin{flushright}
+    mean = 1.45\\
+     sd  = 3.78
+\end{flushright}
+\column{0.33\textwidth}
+\includegraphics[width=1.0\textwidth]{Figures/Data1DaysDrink.pdf}
+\begin{flushright}
+    mean = 1.00\\
+     sd  = 2.31
+\end{flushright}
+\column{0.33\textwidth}
+\includegraphics[width=1.0\textwidth]{Figures/Sampling1DaysDrink.pdf}
+\begin{flushright}
+    mean = 1.39\\
+     sd  = 1.19
+\end{flushright}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{\grp}
+What do you think will happen to the distribution of sample means if we increase the sample size for each individual sample from $n=10$ to $n=200$? (The number of samples will stay the same at 1000.)
+\begin{clicker}{The shape will be \underline{\hspace{1in}}, the mean will \underline{\hspace{1in}}, the standard deviation will \underline{\hspace{1in}}.}
+\begin{enumerate}
+    \item
+    shape: right-skewed, left-skewed, approximately normal
+    \item
+    mean: increase, decrease, remain the same
+    \item
+    standard deviation: increase, decrease, remain the same
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+\begin{frame}
+\frametitle{Simulated sampling distribution, example 2}
+The collection of the sample means from the 1000 samples of size $n=200$ represents a simulated \textbf{sampling distribution} of the sample mean.
+\begin{itemize}
+    \item[]
+    \item
+    Shape of the sampling distribution:
+    \item[]
+    \item
+    Mean of the sampling distribution:
+    \item[]
+    \item
+    Standard deviation of the sampling distribution:
+    \item[]
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Re-cap, example 2}
+\begin{columns}
+\column{0.33\textwidth}
+\includegraphics[width=1.0\textwidth]{Figures/PopnDaysDrink.pdf}
+\hspace*{0.3in}
+\begin{flushright}
+    mean = 1.45\\
+     sd  = 3.78
+\end{flushright}
+\column{0.33\textwidth}
+\includegraphics[width=1.0\textwidth]{Figures/Data2DaysDrink.pdf}
+\begin{flushright}
+    mean = 1.55\\
+     sd  = 3.87
+\end{flushright}
+\column{0.33\textwidth}
+\includegraphics[width=1.0\textwidth]{Figures/Sampling2DaysDrink.pdf}
+\begin{flushright}
+    mean = 1.45\\
+     sd  = 0.23
+\end{flushright}
+\end{columns}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Summary}
+{\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{p{0.1cm} p{2cm} p{3.7cm} p{3.7cm}}
+\toprule
+& Feature & Example 1 ($n=10$) & Example 2 ($n=200$) \\
+\midrule
+\multicolumn{3}{l}{\emph{Observed in simulation}}  \\
+& Shape  & & \\
+& Mean   & & \\
+& Std Dev & & \\
+\midrule
+\multicolumn{3}{l}{\emph{According to theory}}  \\
+& Shape  & & \\
+& Mean   & & \\
+& Std Dev & & \\
+\bottomrule
+\end{tabular}}
+\end{frame}
+%===========================================================================================================================
+\section[Distribution of $\bar{x}$]{Distribution of Sample Means}
+%===========================================================================================================================
+\begin{frame}
+\tableofcontents[currentsection, hideallsubsections]
+\end{frame}
+
+%\subsection{}
+\begin{frame}
+\frametitle{Distribution of a Sample Means}
+\framesubtitle{OR: the sampling distribution of the sample mean}
+When sampling from a population with mean $\mu$ and standard deviation $\sigma$ the \textbf{sampling distribution} of the \textbf{sample mean} has
+\begin{center}
+mean $ =\mu$  and standard deviation $\displaystyle =\frac{\sigma}{\sqrt{n}}$
+\vskip50pt
+Saying the same thing, but with more notation:
+\vskip10pt
+mean($\bar{x}$) $ =\mu$, sd($\bar{x}$) $\displaystyle =\frac{\sigma}{\sqrt{n}}$
+\end{center}
+%\pause
+%$\displaystyle \mu_{\bar{x}}= \mbox{mean}(\bar{x})=\mu$\\
+%$\displaystyle \sigma_{\bar{x}} = \mbox{standard deviation}(\bar{x})=\frac{\sigma}{\sqrt{n}}$
+\end{frame}
+
+\begin{frame}
+\frametitle{Distribution of a Sample Means}
+\framesubtitle{OR: the sampling distribution of the sample mean}
+When the population is \underline{normally distributed}, then the distribution of sample means is \textbf{approximately normal} regardless of your sample size $n$. \\
+%\pause
+\vskip10pt
+That is,
+\begin{itemize}
+\item[]
+\item shape = normal
+\item mean = $\mu$
+\item standard deviation = $\displaystyle\frac{\sigma}{\sqrt{n}}$
+\item[]
+\end{itemize}
+for a normally distributed population, regardless of $n$.
+\end{frame}
+
+\begin{frame}
+\frametitle{Sampling Distribution of a Sample Mean}
+\textbf{Central Limit Theorem}\\
+\vskip10pt
+Regardless of the shape of the underlying population distribution, \underline{as the sample size $n$ increases} the distribution of sample means becomes approximately normal distribution.
+%\pause
+\vskip10pt
+That is, for large $n$,
+\begin{itemize}
+\item[]
+\item shape = normal
+\item mean = $\mu$
+\item standard deviation = $\displaystyle\frac{\sigma}{\sqrt{n}}$
+\item[]
+\end{itemize}
+\emph{regardless} of the shape of the underlying population distribution.\\
+\vskip10pt
+%\pause
+\emph{The distribution of sample means is usually close to bell shape when the sample size $n$ is at least 30.}
+\end{frame}
+
+%\begin{frame}
+%\frametitle{Sampling Distribution of a Sample Mean}
+%\rowcolors{3}{}{gray!20}
+%\resizebox{1.0\textwidth}{!}{
+%\begin{tabular}{lll}
+%    \textbf{Population}  & \textbf{Sample}  & \textbf{Sampling Distribution}  \\
+%    \textbf{Distribution} & \textbf{Size} & \textbf{of Sample Mean} \\
+%    \hline \\
+%    Normal & Large &\visible<2->{$\mu_{\bar{x}}=\mu$, $\displaystyle\sigma_{\bar{x}}=\frac{\sigma}{\sqrt{n}}$,} \visible<3->{$\displaystyle\bar{x}\sim N\left(\mu,\frac{\sigma}{\sqrt{n}}\right)$}\\
+%    [3ex]
+%    Normal & Small &  \visible<4->{$\mu_{\bar{x}}=\mu$, $\displaystyle\sigma_{\bar{x}}=\frac{\sigma}{\sqrt{n}}$,} \visible<5->{$\displaystyle\bar{x}\sim N\left(\mu,\frac{\sigma}{\sqrt{n}}\right)$}\\
+%    [3ex]
+%    Other & Large & \visible<6->{$\mu_{\bar{x}}=\mu$, $\displaystyle\sigma_{\bar{x}}=\frac{\sigma}{\sqrt{n}}$,} \visible<7->{$\displaystyle\bar{x}\sim N\left(\mu,\frac{\sigma}{\sqrt{n}}\right)$}\\
+%    [3ex]
+%    Other & Small & \visible<8->{$\mu_{\bar{x}}=\mu$, $\displaystyle\sigma_{\bar{x}}=\frac{\sigma}{\sqrt{n}}$,} \visible<9->{\textcolor{OrangeRed}{$\displaystyle\bar{x}$ not normally distributed}}
+%\end{tabular}}
+%\end{frame}
+
+\begin{frame}
+\frametitle{Sampling Distribution of a Sample Mean}
+\rowcolors{3}{}{gray!20}
+\resizebox{1.0\textwidth}{!}{
+\begin{tabular}{llcc}
+    \textbf{Population}  & \textbf{Sample}  & \multicolumn{2}{c}{\textbf{Distribution of Sample Means}}  \\
+    \textbf{Distribution} & \textbf{Size} & \emph{Mean, SD} &  \emph{Shape}\\
+    \hline \\
+    Normal & Large &$\mbox{mean}=\mu$, $\displaystyle \mbox{sd}=\frac{\sigma}{\sqrt{n}}$ & normal \\
+    [3ex]
+    Normal & Small & $\mbox{mean}=\mu$, $\displaystyle \mbox{sd}=\frac{\sigma}{\sqrt{n}}$& normal\\
+    [3ex]
+    Other & Large & $\mbox{mean}=\mu$, $\displaystyle \mbox{sd}=\frac{\sigma}{\sqrt{n}}$ & normal \\
+    [3ex]
+    Other & Small & $\mbox{mean}=\mu$, $\displaystyle \mbox{sd}=\frac{\sigma}{\sqrt{n}}$ & \textcolor{OrangeRed}{$\displaystyle\bar{x}$ not normal}
+\end{tabular}}
+\end{frame}
+
+
+\begin{frame}
+\begin{clicker}{Assume a simple random sample is used to gather data.  Then, as you collect more data ($n$ increases), which of the following is \underline{false}? }
+\begin{enumerate}
+    \item
+    You expect a histogram of the data distribution to look more and more like a normal distribution.
+    \item
+    You expect the data distribution to resemble more closely the population distribution.
+    \item
+    The sample mean tends to get closer to the population mean.
+    \item
+    By the central limit theorem, the sampling distribution tends to take on more of a bell shape.
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+\begin{frame}
+\begin{clicker}{Which of the following affects the variability in the sampling distribution of the sample mean?  Select all that apply}
+\begin{enumerate}
+    \item
+    the population mean
+    \item
+    the population standard deviation
+    \item
+    the sample size
+    \item
+    the number of samples collected
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+\begin{frame}
+The number of calories in a cheeseburger is normally distributed with a mean of 500 and a standard deviation of 100.  We take a random sample of 10 cheeseburgers.
+\begin{clicker}
+{Can we assume that the sampling distribution of the sample mean calories is approximately normally distributed?}
+\begin{enumerate}
+   \item
+   Yes, because the underlying population is normal
+   \item
+   No, because $n$ is small
+   \item
+   Yes, because $np>10$ and $n(1-p)>10$
+   \item
+   No, because one of $np>10$ and $n(1-p)>10$ is not satisfied
+   \item
+   Not enough information to determine.
+  \end{enumerate}
+\end{clicker}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Example}
+The number of calories in a cheeseburger is normally distributed with a mean of 500 and a standard deviation of 100.  Sketch:
+\begin{enumerate}
+\item the population distribution of calories in a cheeseburger
+\item the distribution of sample mean calories for samples of size $n=10$ cheeseburgers
+\end{enumerate}
+\vskip200pt
+\end{frame}
+
+
+%\begin{frame}
+%Heights of teenagers aged are approximately normally distributed with a mean of 1.69 meters and a standard deviation of 0.10 meters.
+%\begin{clicker}{Which would be less likely - for a randomly selected teenager to be taller than 1.75 meters, or for the average height in a group of 16 teenagers to be greater than 1.75 meters?}
+%\begin{enumerate}
+%    \item
+%    both events are equally likely
+%    \item
+%    less likely for a randomly selected teenager to be taller than 1.75 meters
+%    \item
+%    less likely for the average height in a group of 16 teenagers to be greater than 1.75 meters
+%    \item
+%    not enough information to determine
+%\end{enumerate}
+%\end{clicker}
+%\end{frame}
+
+\begin{frame}
+\frametitle{\grp}
+\includegraphics[width=0.24\textwidth]{Figures/DaysDrinkA.pdf}
+\includegraphics[width=0.24\textwidth]{Figures/DaysDrinkB.pdf}
+\includegraphics[width=0.24\textwidth]{Figures/DaysDrinkC.pdf}
+\includegraphics[width=0.24\textwidth]{Figures/DaysDrinkD.pdf}
+\begin{clicker}{Would it be surprising to see (and why?)}
+\begin{enumerate}
+    \item A teenager drink more than 4 days
+    \item The average number of days drink of 10 teenagers to be greater than 4
+    \item The average number of days drink of 50 teenagers to be greater than 4
+    \item The average number of days drink of 200 teenagers to be greater than 4
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+
+
+%===========================================================================================================================
+\section[CI for mean]{Confidence interval for a population mean}
+%===========================================================================================================================
+\begin{frame}
+\tableofcontents[currentsection, hideallsubsections]
+\end{frame}
+%\subsection{}
+
+\begin{frame}
+\frametitle{\grp}
+\includegraphics[width=0.24\textwidth]{Figures/DaysDrinkA.pdf}
+\includegraphics[width=0.24\textwidth]{Figures/DaysDrinkB.pdf}
+\includegraphics[width=0.24\textwidth]{Figures/DaysDrinkC.pdf}
+\includegraphics[width=0.24\textwidth]{Figures/DaysDrinkD.pdf}
+\begin{clicker}{Which of these plots do you think the 68-95-99.7 rule applies to?  Mark all that apply.}
+\begin{enumerate}
+    \item Plot A
+    \item Plot B
+    \item Plot C
+    \item Plot D
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{The idea}
+\begin{itemize}
+\item Before, we discussed the distribution of means when we take many samples from a population.
+\item In practice, we only take one sample from a population!  How do use one sample from a population to estimate the mean of a population?
+\item We use our estimates from our one sample ($\bar{x}, s$) to construct a confidence interval.
+\item This method relies on the properties of the normal distribution, which is why we need to assess if our sampling distribution is normal or not.
+\end{itemize}
+\end{frame}
+
+%\begin{frame}
+%\frametitle{Point estimate vs interval estimate}
+%A \textbf{point estimate} is a \textbf{single number} that is our `best guess' for the parameter.  Point estimates are given by data collected from a sample.  \\
+%\begin{itemize}
+%    \item
+%    the average amount spent on a haircut is \$40.12 ($\bar{x}=40.12$)
+%    \item
+%    50/67 students indicated they own a Mac laptop ($\hat{p}=0.75$)
+%\end{itemize}
+%\vskip10pt
+%%\pause
+%An \textbf{interval estimate} is an \textbf{interval of numbers} within which the \underline{true parameter} value is believed to fall.\\
+%\begin{itemize}
+%    \item
+%    What is a plausible range for the \textbf{population mean} ($\mu$) amount of money spent by all Cal Poly students on a haircut?
+%    \item
+%    What is a plausible range for the \textbf{population proportion} ($p$) of Cal Poly students that own a Mac laptop?
+%\end{itemize}
+%\end{frame}
+
+
+
+%
+%\begin{frame}
+%\frametitle{Standard Deviation versus Standard Error}
+%\begin{columns}
+%\column{0.3\textwidth}
+%\includegraphics[width=1.0\textwidth]{Figures/negativeskew.jpg}
+%\column{0.7\textwidth}
+%Suppose the distribution of GPA of ALL Cal Poly students is left-skewed with a mean of 3.3 and a standard deviation of 0.5
+%\end{columns}
+%\vskip15pt
+%\begin{columns}
+%\column{0.5\textwidth}
+%Values that are generally \textbf{unknown}:
+%\begin{itemize}
+%    \item  the population mean $\mu$
+%    \item  the population standard deviation $\sigma$
+%    \item  the standard deviation of the distribution of sample means, $\sigma/\sqrt{n}$
+%\end{itemize}
+%\column{0.5\textwidth}
+%Values that are \emph{estimated} from a sample of data:
+%\begin{itemize}
+%    \item  the sample mean $\bar{x}$
+%    \item  the sample standard deviation $s$
+%    \item  the \emph{standard error} of the mean, $s/\sqrt{n}$
+%    \item[]
+%\end{itemize}
+%\end{columns}
+%\end{frame}
+
+
+
+
+\begin{frame}
+\frametitle{CI for a population mean}
+\begin{align*}
+\bar{x} & \pm t^{*} \frac{s}{\sqrt{n}}\\
+\mbox{\emph{point estimate}} & \pm \mbox{\emph{critical value}} \times \mbox{\emph{standard error}}  \\
+\mbox{\emph{point estimate}} & \pm \mbox{\emph{margin of error}}
+\end{align*}
+\vskip5pt
+\begin{itemize}
+    \item
+    the \textbf{point estimate} is your best guess of a population parameter  $\rightarrow$ $\bar{x}$
+    \item
+    the \textbf{critical value} establishes your degree of confidence for that interval  $\rightarrow$ use $t^*$, $df=n-1$
+    \item
+    the \textbf{standard error} allows for uncertainty in that point estimate  $\rightarrow$ $\frac{s}{\sqrt{n}}$
+    \item
+   the \textbf{margin of error} is the (critical value $\times$ standard error), and is everything after the $\pm$  $\rightarrow$  $t^* \frac{s}{\sqrt{n}}$
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{The $t$-distribution}
+\begin{columns}
+\column{0.5\textwidth}&
+\includegraphics[width=1.0\textwidth]{Figures/tdistn.png}
+\column{0.5\textwidth}
+\begin{itemize}
+    \item
+    bell-shaped and symmetric about 0
+    \item
+    like the normal distribution, but ``fatter''
+    \item
+    characterized by the \emph{degrees of freedom} (df).
+    \item
+    $df=n-1$, determines how ``fat'' the $t$-distribution is
+\end{itemize}
+\end{columns}
+\vskip15pt
+\begin{center}
+Critical values for 95\% confidence level:
+\begin{tabular}{|ccccc|}
+\hline
+$t^*_{df=5}$ & $t^*_{df=20}$ & $t^*_{df=40}$ & $t^*_{df=500}$ & $z^*$ \\
+2.57 & 2.09 & 2.02 & 1.96 & 1.96 \\
+\hline
+\end{tabular}
+\end{center}
+\end{frame}
+
+%
+%\begin{frame}
+%\frametitle{General Form of  Confidence Interval:}
+%A \textbf{confidence interval} is an interval containing the most believable values for a \underline{parameter}.
+%\vskip5pt
+%\hspace{0.5in} point estimate $\pm$ critical value $\times$ standard error \\
+%\hspace{0.5in} point estimate $\pm$ margin of error
+%\vskip5pt
+%\begin{itemize}
+%    \item
+%    the \textbf{point estimate} is your best guess of a population parameter, like $\bar{x}$ or $\hat{p}$
+%    \item
+%    the \textbf{critical value} establishes your degree of confidence for that interval
+%    \item
+%    the \textbf{standard error} allows for uncertainty in that point estimate
+%    \item
+%   the \textbf{margin of error} is the (critical value $\times$ standard error), and is everything after the $\pm$
+%\end{itemize}
+%\end{frame}
+
+
+
+
+
+
+\begin{frame}
+\frametitle{Conditions required for a CI for $\mu$}
+\begin{enumerate}
+       \item
+        The observations are independent.
+        %\item[]
+        %\textcolor{OrangeRed}{If not, the $se$ tends to be \emph{underestimated}, resulting in CIs that are too narrow (invalid CIs).}
+        \item
+        The population distribution is normal \emph{or} we have a `large' sample size ($n\geq 30$).
+        %\item[]
+        %\textcolor{OrangeRed}{If not, the sampling distribution of $\bar{x}$ is not bell-shaped, and CIs produced by this method are not \emph{valid}.}
+    \end{enumerate}
+\end{frame}
+
+
+
+\begin{frame}[label=stepsci]
+\frametitle{Steps to constructing a confidence interval for a population mean.}
+\begin{enumerate}
+    \item
+    Check your conditions.
+    \item[]
+    \item
+    Identify $t^{*}$ for your specified level of confidence ($df=n-1$).
+    \item[]
+    \begin{tabular}{|ccccc|}
+\hline
+$t^*_{df=5}$ & $t^*_{df=20}$ & $t^*_{df=40}$ & $t^*_{df=500}$ & $z^*$ \\
+2.57 & 2.09 & 2.02 & 1.96 & 1.96 \\
+\hline
+\end{tabular}
+\item[] 
+    \item
+    Calculate the interval: $\displaystyle \bar{x} \pm t^{*} \times \frac{s}{\sqrt{n}}$
+    \item[]
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\frametitle{\grp}
+\begin{clicker}{Here we have sample data from 50 Cal Poly students regarding the amount spent on their last hair cut.  Use this to estimate the population average amount of money spent on haircuts by all Cal Poly students with a 95\% confidence interval.}
+\end{clicker}
+\begin{columns}
+\column{0.4\textwidth}
+\includegraphics[width=1.0\textwidth]{Figures/haircut_hist.pdf}
+\column{0.2\textwidth}
+\vskip15pt
+$n=50$\\
+$\bar{x}=40 $\\
+$s=25$
+\column{0.4\textwidth}
+\textcolor{white}{w}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+A 95\% CI for average amount spent on a haircut is (32.90,47.09).
+\begin{clicker}{Which of the following provide correct interpretations of this confidence interval?  Mark all that apply.}
+\begin{enumerate}
+    \item
+    With 95\% confidence, the average amount spent on a haircut by Cal Poly students in this sample is between 32.90 and 47.09.
+    \item
+    With 95\% confidence, Cal Poly students on average spend between 32.90 and 47.09 on a haircut.
+    \item
+    A randomly chosen Cal Poly student has a 0.95 probability of spending between 32.90 and 47.09 on a haircut.
+    \item
+    95\% of Cal Poly students spend between 32.90 and 47.09 on a haircut.
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+\begin{frame}
+\frametitle{Elements of an interpretation of a confidence interval}
+\begin{enumerate}
+    \item
+    State the confidence level
+    \item
+    Refer to the population
+    \item
+    State the parameter being estimated
+    \item
+    Utilize context
+    \item
+    Include a range of values
+    \item[]
+\end{enumerate}
+
+At the \bsans{1} \% confidence level, we estimate that the \bsans{2} \bsans{3} of \bsans{4} is in the interval \bsans{5}.
+\end{frame}
+
+\begin{frame}
+\frametitle{\grp}
+$\displaystyle \bar{x} \pm t^{*} \times \frac{s}{\sqrt{n}}$
+\begin{clicker}{What factors affect the width of the CI?}
+\begin{enumerate}
+\item
+\item[]
+\item[]
+\item
+\item[]
+\item[]
+\item
+\item[]
+\item[]
+\end{enumerate}
+\end{clicker}
+\end{frame}
+%%===========================================================================================================================
+%\section[$t$ distribution]{Using the $t$ distribution}
+%%===========================================================================================================================
+%
+%\begin{frame}
+%\tableofcontents[currentsection, hideallsubsections]
+%\end{frame}
+%
+%\subsection{}
+%
+%
+%\begin{frame}[label=introducet]
+%\frametitle{What is $t$?!}
+%\begin{itemize}
+%    %\item
+%    %When we calculate a confidence interval for a true population proportion, we only have to estimate one parameter: $p$.  The estimate of this parameter is $\hat{p}$.
+%    \item
+%    When we calculate a confidence interval for a true population mean, in practice we generally have to estimate two parameters: $\mu$ and $\sigma$.  The estimates of these parameters are $\bar{x}$ and $s$.
+%    \item
+%    The $t$-distribution is like the standard normal distribution (z) but ``fatter''. This accounts for the additional uncertainty in estimating two parameters instead of just one.
+%\end{itemize}
+%\end{frame}
+%
+%\begin{frame}
+%\frametitle{The $t$-distribution}
+%\begin{columns}
+%\column{0.6\textwidth}
+%\includegraphics[width=1.0\textwidth]{Figures/tdistn.png}
+%\column{0.4\textwidth}
+%\begin{itemize}
+%    \item
+%    bell-shaped and symmetric about 0
+%    \item
+%    like the normal distribution, but ``fatter''
+%    \item
+%    characterized by the \emph{degrees of freedom} (df).
+%    \item
+%    df determines how ``fat'' the $t$-distribution is
+%\end{itemize}
+%\end{columns}
+%\end{frame}
+%
+%
+%\begin{frame}
+%\frametitle{The $t$-table}
+%\begin{columns}
+%\column{0.37\textwidth}
+%\includegraphics[width=1.0\textwidth]{Figures/ttableOI.png}
+%\column{0.35\textwidth}
+%\includegraphics[width=1.0\textwidth]{Figures/ttableOIwithZ.png}
+%\end{columns}
+%\end{frame}
+%
+%\begin{frame}
+%Suppose I want to estimate the population mean GPA of Cal Poly students with a 90\% confidence interval.  I take a sample of 10 college students.
+%\begin{center}
+%$\bar{x} \pm t^* \times se_\bar{x}$
+%\end{center}
+%\begin{clicker}{What value of $t^*$ should I use?}
+%\begin{enumerate}
+%    \item  1.81
+%    \item  1.83
+%    \item  2.23
+%    \item  2.26
+%    \item none of the above
+%\end{enumerate}
+%\end{clicker}
+%\end{frame}
+
+
+
+\end{document} 

@@ -1,0 +1,939 @@
+
+
+\input{"C:/Users/spileggi/Google Drive/STAT 217/Slides/SlideStyle.tex"}
+
+
+
+\title[Unit 2 Deck 3]{Hypothesis Testing}
+\author[Pileggi]{Shannon Pileggi}
+
+\institute[STAT 217]{STAT 217}
+
+\date{}
+
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}
+\frametitle{OUTLINE\qquad\qquad\qquad} \tableofcontents[hideallsubsections]
+\end{frame}
+
+
+%===========================================================================================================================
+\section[Overview]{Overview}
+%===========================================================================================================================
+
+%\subsection{}
+\begin{frame}
+\frametitle{Overview}
+\textbf{Statistical inference} is drawing conclusions about a population based on a sample from that population.  Two methods of statistical inference are
+\begin{itemize}
+\item \emph{confidence intervals} - estimate a population parameter (with a range of values)
+\item \emph{hypothesis testing} - assess evidence for a specific (single) value for a population parameter
+\item[]
+\end{itemize}
+The population parameters we are going to analyze include:
+\begin{columns}
+\column{0.45\textwidth}
+\begin{itemize}
+    \item
+    one mean
+    \item
+    mean of a difference
+    \item
+    two means
+    \item
+    more than two means
+\end{itemize}
+\column{0.55\textwidth}
+\begin{itemize}
+    \item
+    one proportion
+    \item
+    \textcolor{gray}{N/A for STAT 217}
+    \item
+    two proportions
+    \item
+    more than two proportions
+\end{itemize}
+\end{columns}
+\end{frame}
+
+%===========================================================================================================================
+\section[$H_0$ and $H_a$]{$H_0$ and $H_a$}
+%===========================================================================================================================
+
+%\subsection{}
+\begin{frame}
+\frametitle{Hypothesis testing}
+A \textbf{hypothesis test} is a method of using data to \textbf{summarize the evidence about a hypothesis}.\\
+\vskip20pt
+\underline{My 7 steps for significance test about a hypothesis:}
+\begin{enumerate}
+    \item
+    Define the parameter of interest
+    \item
+    Hypotheses
+    \item
+    Identify the appropriate test
+    \item
+    Assumptions
+    \item
+    Test Statistic
+    \item
+    $p$-value
+    \item
+    Conclusion
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\frametitle{$H_0$ and $H_a$}
+\begin{itemize}
+    \item
+    We start with a null hypothesis ($H_0$) that represents the status quo.  This is generally a statement of no effect.
+    \item
+    The research question is represented in the alternative hypothesis ($H_a$).  This is a statement of effect, and it is what we are hoping to show.
+    \item
+    We conduct the test \underline{assuming the null hypothesis is true}.
+    \item
+    We then evaluate the test results to determine if there is enough evidence to reject the null in favor of the alternative (what we hope to show).
+    \item
+    Translating a research question into null and alternative hypotheses can be tricky.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{1. Define the parameter of interest}
+So far, we are focusing on two types of parameters:
+\begin{itemize}
+    \item
+    $\mu =$ population mean
+    \item
+    $p =$ population proportion
+\end{itemize}
+in the \emph{context} of the research question at hand.\\
+\vskip10pt
+\begin{columns}
+\column{0.5\textwidth}
+\begin{itemize}
+\item
+\underline{Research question:}
+Data shows that UCSB students spend \$52 on average for a haircut.  Do Cal Poly students spend the same?
+\item
+\underline{Parameter:} $\mu=$ population mean amount spent on a haircut by Cal Poly students
+\end{itemize}
+\column{0.5\textwidth}
+\begin{itemize}
+\item
+\underline{Research question:}
+A professor claims that 70\% of Cal Poly students own a Mac laptop.  Can we find evidence for or against this?
+\item
+\underline{Parameter:} $p=$ population proportion of Cal Poly students that own a Mac laptop
+\end{itemize}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Example research question}
+A professor claims that 70\% of Cal Poly students own a Mac laptop.  When we examine our sample data, we see that $\hat{p}=50/67=0.75$, or 75\% of students own a Mac laptop.  Do we have evidence for or against this claim?
+\vskip10pt
+Two possible explanations
+    \begin{itemize}
+        \item
+        The population proportion really is different than 0.7
+        \item
+        The population proportion is actually 0.7, but we observed 0.75 by random chance.
+\end{itemize}
+\vskip10pt
+This is why we do hypothesis testing!
+\end{frame}
+
+\begin{frame}
+\frametitle{2. State the hypotheses}
+A professor claims that 70\% of Cal Poly students own a Mac laptop.  When we examine our sample data, we see that $\hat{p}=50/67=0.75$, or 75\% of students own a Mac laptop.  Do we have evidence for or against this claim?
+\vskip10pt
+\begin{itemize}
+    \item
+    The null hypothesis is one of no effect - that the population proportion of Cal Poly students that own a Mac laptop is 0.7.
+    \item[]
+    $H_0$: $p=0.7$
+    \item
+    The alternative hypothesis is one of an effect - that the population proportion of Cal Poly student that own a Mac laptop is different than 0.7.
+    \item[]
+    $H_a$: $p \neq 0.7$
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Forms of the hypotheses}
+\underline{Hypotheses are always about a population parameter.}\\
+\vskip10pt
+\resizebox{1.0\textwidth}{!}{
+\begin{tabular}{ll}
+    \multicolumn{2}{l}{\textbf{Null Hypothesis}}\\
+    I think that the population proportion of  Cal  &  $H_0$: $p=0.7$ \\
+     Poly students that own a Mac laptop is 0.7. &\\
+    %& \\
+    [3ex]
+    \multicolumn{2}{l}{\textbf{Alternative Hypothesis}}\\
+    I think that the population proportion of Cal   & $H_a$: $p \neq 0.7$ \\
+    Poly students that own a Mac laptop differs from 0.7. & two-sided \\
+    %& \\
+    [2ex]
+     I think that the population proportion of  Cal   & $H_a$: $p < 0.7$ \\
+    Poly students that own a Mac laptop is less than 0.7. & one-sided\\
+    %& \\
+    [2ex]
+    I think that the population proportion of Cal  & $H_a$: $p > 0.7$\\
+     Poly students that own a Mac laptop is greater than 0.7. &  one-sided\\
+\end{tabular}}
+\end{frame}
+
+\begin{frame}
+\frametitle{\grp}
+Planned Parenthood wanted to see if a majority of Cal Poly students would support allowing those under the age of 18 to have access to birth control pills without their parent’s permission.
+\begin{clicker}{What would be the null and alternative hypothesis of their study?}
+\begin{enumerate}
+    \item
+    $H_0$: $p=0$ vs $H_a$: $p \neq 0$
+    \item
+    $H_0$: $p=0.5$ vs $H_a$: $p > 0.5$
+    \item
+    $H_0$: $p>0.5$ vs $H_a$: $p = 0.5$
+    \item
+    $H_0$: $\mu=0.5$ vs $H_a$: $\mu > 0.5$
+    \item
+    $H_0$: $\mu>0.5$ vs $H_a$: $\mu = 0.5$
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+\begin{frame}
+\frametitle{\grp}
+200 Cal Poly students were asked how many colleges they applied to: the sample had an average of 9.7 college applications with a standard deviation of 7.  The College Board website states that counselors recommend students apply to roughly 8 colleges.
+\begin{clicker}{Which of the following are the correct set of hypotheses to test if these data provide convincing evidence that the average number of colleges all Cal Poly students apply to is higher than recommended?}
+\begin{enumerate}
+    \item
+    $H_0$: $\mu=9.7$ vs $H_a$: $\mu > 9.7$
+    \item
+    $H_0$: $\mu=8$ vs $H_a$: $\mu > 8$
+    \item
+    $H_0$: $\bar{x}=8$ vs $H_a$: $\bar{x} > 8$
+    \item
+    $H_0$: $\mu=8$ vs $H_a$: $\mu > 9.7$
+    \item
+    $H_0$: $\mu>8$ vs $H_a$: $\mu = 9.7$
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+\begin{frame}
+\frametitle{\grp}
+In 2000, research indicated that the proportion of Americans who were vegetarian was 0.15.  A recent random sample of 1500 Americans shows that the proportion of Americans who are vegetarian is 0.17.  We would like to know the proportion of Americans who are vegetarian has changed since 2000.
+\begin{clicker}{What would be an appropriate null and alternative hypothesis?}
+\begin{enumerate}
+    \item
+    $H_0$: $\hat{p}=0.15$ vs $H_a$: $\hat{p} \neq 0.15$
+    \item
+    $H_0$: $p=0.15$ vs $H_a$: $p \neq 0.15$
+    \item
+    $H_0$: $\hat{p}=0.17$ vs $H_a$: $\hat{p} \neq 0.17$
+    \item
+    $H_0$: $p=0.17$ vs $H_a$: $p \neq 0.17$
+    \item
+    $H_0$: $\bar{x}=0.17$ vs $H_a$: $\bar{x} \neq 0.17$
+    \item
+    $H_0$: $\mu=0.15$ vs $H_a$: $\mu \neq 0.15$
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+
+%%\begin{frame}
+%%\frametitle{Clicker}
+%%\begin{clicker}
+%%{Which of the following does \underline{not} affect the margin of error for a confidence interval for $\mu$?}
+%%\begin{enumerate}[A.]
+%%    \item
+%%    the confidence level
+%%    \item
+%%    the sample mean
+%%    \item
+%%    the sample size
+%%    \item
+%%    the sample standard deviation
+%%    \item
+%%    all of the above affect the margin of error
+%%\end{enumerate}
+%%\end{clicker}
+%%\end{frame}
+
+
+%===========================================================================================================================
+\section[Hypothesis test about a mean]{Hypothesis test about a mean}
+%===========================================================================================================================
+\begin{frame}
+\tableofcontents[currentsection, hideallsubsections]
+\end{frame}
+%\subsection{}
+
+
+\begin{frame}
+\frametitle{1. Parameter of interest}
+\begin{itemize}
+\item
+\underline{Research question:}
+Data shows that UCSB students spend \$52 on average for a haircut.  Do Cal Poly students less than that?
+\item[]
+\item
+\underline{Parameter:} $\mu=$ true population mean amount spent on a haircut by Cal Poly students
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+Data shows that UCSB students spend \$52 on average for a haircut.  Do Cal Poly students less than that?
+\begin{columns}
+\column{0.5\textwidth}
+\begin{clicker}
+{What is an appropriate null hypothesis for this test?}
+\begin{enumerate}
+    \item
+    $H_0: \mu=52$
+    \item
+    $H_0: \bar{x}=40$
+    \item
+    $H_0: \mu=40$
+    \item
+    $H_0: \bar{x}=52$
+    \item
+    $H_0: p=52$
+    \item
+    $H_0: p=40$
+    \item
+    $H_0: \mu \neq 52$
+    \item
+    $H_0: \mu < 52$
+  \end{enumerate}
+\end{clicker}
+\column{0.5\textwidth}
+\begin{center}
+\includegraphics[width=0.8\textwidth]{Figures/haircut_hist.pdf}\\
+\vskip10pt
+$n=50$, $\bar{x}=40$, $s=25$
+\end{center}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{2. Hypotheses}
+\framesubtitle{parameter of interest: $\mu$}
+\begin{itemize}
+    \item
+    The null and alternative hypotheses are:
+    \item[]
+    \textcolor{OrangeRed}{$H_0$: $\mu=52$ vs $H_a$: $\mu < 52$}
+    \item
+    The value of $\mu$ in our hypothesis statement is called \textcolor{OrangeRed}{$\mu_0$}.  Here, $\mu_0=52$.  This is what we assume to be true about $\mu$ \textbf{under} the null hypothesis.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{3. Identify the appropriate test}
+What is the appropriate statistical test?
+\begin{itemize}
+    \item
+    hypothesis test about a mean
+    \item
+    one-sample t-test
+    \item
+    t-test
+\end{itemize}
+These are all the same test by different names.
+\end{frame}
+
+
+\begin{frame}
+\frametitle{4. Conditions}
+Are conditions met for this test?
+\begin{itemize}
+       \item
+        The observations are independent.
+        \item
+        The population distribution is normal \emph{or} we have a `large' sample size ($n\geq 30$).
+    \end{itemize}
+    \vskip10pt
+(These are the same conditions required for a CI for $\mu$.)
+\end{frame}
+
+\begin{frame}
+$H_0$: $\mu=52$ vs $H_a$: $\mu < 52$\\
+\begin{clicker}{Which of the following sample means do you think would provide the most evidence against $H_0$?}
+\begin{enumerate}
+    \item
+    $\bar{x}=20$
+    \item
+    $\bar{x}=30$
+    \item
+    $\bar{x}=40$
+    \item
+    $\bar{x}=50$
+    \item
+    not enough information to determine
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{5. The test statistic}
+The test statistic looks like a z-score: $\displaystyle z=\frac{\mbox{value}-\mbox{mean}}{\mbox{standard deviation}}$
+\vskip15pt
+\begin{center}
+$\displaystyle \mbox{test statistic} = \frac{\mbox{sample mean}-\mbox{null hypothesis mean}}{\mbox{standard error of the sample mean}}$\\
+\vskip10pt
+$\displaystyle t = \frac{\bar{x}-\mu_0}{se_{\bar{x}}}=\frac{\bar{x}-\mu_0}{s/\sqrt{n}}$
+\end{center}
+\vskip15pt
+This is a \textbf{t test statistic} because the test statistic follows a $t$ distribution with $n-1$ degrees of freedom.
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{5. The test statistic}
+$H_0$: $\mu=52$ vs $H_a$: $\mu < 52$, $n=50$, $\bar{x}=40$, $s=25$  \\
+\vskip10pt
+$\displaystyle t = $
+\vskip10pt
+%\vskip10pt
+This particular $t$ test statistic follows a $t$ distribution with \textcolor{OrangeRed}{$49$} degrees of freedom.
+\begin{center}
+\includegraphics[width=0.4\textwidth]{Figures/tsample.pdf} \hspace{0.2in}
+\includegraphics[width=0.4\textwidth]{Figures/t49.pdf}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{5. The test statistic}
+A \textbf{test statistic} describes how far our observed sample statistic falls from the parameter value given in the null hypothesis.  How?
+ \textcolor{OrangeRed}{It is the number of standard errors between the observed sample statistic and the parameter value given in the null hypothesis.}\\
+\vskip10pt
+If the test statistic falls `far' from the value suggested by the null hypothesis, it is evidence against the null hypothesis and in favor of the alternative hypothesis.
+\end{frame}
+
+\begin{frame}
+$H_0$: $\mu=52$ vs $H_a$: $\mu < 52$\\
+\begin{clicker}{Which of the following test statistics do you think would provide the most evidence against $H_0$?}
+\begin{enumerate}
+    \item
+    $t=-1$
+    \item
+    $t=-2$
+    \item
+    $t=-3$
+    \item
+    $t=-4$
+    \item
+    not enough information to determine
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{6. $p$-value}
+\begin{itemize}
+    \item
+    We \emph{quantify} the evidence against the null hypothesis in favor of the alternative with a $p$-value.  \\
+    \item
+    The $p$-value is the \textbf{probability} that the test statistic takes the observed value or a value more extreme, \emph{\underline{assuming $H_0$ is true}}.\\
+    \item
+    Since the $p$-value is always calculated under the assumption that $H_0$ is true, we always interpret this as evidence either supporting or not supporting the null hypothesis.
+    \item
+    \textbf{The smaller the $p$-value the stronger the evidence against $H_0$.}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[label=pslide]
+\frametitle{6. The $p$-value}
+The $p$-value is a \textcolor{OrangeRed}{one-tail} probability from the $t$-distribution because we had a \textcolor{OrangeRed}{one-sided $H_a$}.  This is given by the area under the curve of a $t$ distribution with 49 degrees of freedom \textcolor{OrangeRed}{less} than the value of the test statistic (because $H_a$ was \emph{less} than).
+\vskip15pt
+\begin{columns}
+\column{0.5\textwidth}
+$\displaystyle p\mbox{-value} =  Pr(t_{49}<-3.39)$\\
+\vskip10pt
+In \texttt{R}, we can calculate this p-value exactly:\textcolor{OrangeRed}{$p\mbox{-value}=0.0006$}
+\column{0.5\textwidth}
+\includegraphics[width=0.85\textwidth]{Figures/tshade.png}
+\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Results in R}
+\begin{lcverbatim}
+>t.test(survey$Haircut,mu=52,alternative="less")
+
+	One Sample t-test
+
+data:  survey$Haircut
+t = -3.3941, df = 49, p-value = 0.0006
+alternative hypothesis: true mean is less than 52
+95 percent confidence interval:
+ 32.8935 47.1064
+sample estimates:
+mean of x
+  40.0123
+\end{lcverbatim}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{6. $p$-value}
+\begin{itemize}
+    \item
+    \textcolor{OrangeRed}{All $p$-values are probabilities.}
+    \item
+    The smaller the $p$-value the stronger the evidence against $H_0$.
+    \item
+    A small $p$-value means that the sample data would be unusual if $H_0$ were true.
+    \item
+    When the $p$-value is `small' you may conclude that there is strong evidence against $H_0$.
+    \item
+    When the $p$-value is not `small' you may conclude that there is not strong evidence against $H_0$. This implies that the null hypothesis is plausible.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Elements of the $p$-value interpretation}
+\begin{itemize}
+\item To interpret the $p$-value, apply the definition of the $p$-value to the context of your research question.
+\item \emph{Definition:} the $p$-value is the probability that the test statistic takes the observed value or a value more extreme, assuming $H_0$ is true..
+\item \emph{Interpretation:}  If the average amount spent on a hair cut by Cal Poly students was truly equal to 52, the probability that we would observe test statistic as extreme or more extreme than -3.39 is 0.0006.
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{More ways we can think about the $p$-value}
+\begin{itemize}
+    \item
+    If the average amount spent on a hair cut by Cal Poly students was truly equal to 52, the probability that we would observe test statistic as extreme or more extreme than -3.39 is 0.0006. \\
+    \item
+    If the average amount spent on a hair cut by Cal Poly students was truly equal to 52, the probability that we would observe a sample mean less than or equal to 40 is 0.0006. \\
+    \item
+    That is, there is about a 0.06\% chance we would observe a test statistic that extreme or more extreme if the null hypothesis were true.\\
+    \item If we were to take 10,000 random samples from a population where the average amount spent on a hair cut was truly equal to 52, only 6 out of those 10,000 samples would have results as extreme as the one we observed in our sample.
+    \item
+    This \textbf{is} substantial evidence \emph{against} $H_0$; therefore, we have evidence in favor of $H_{A}$.
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+$H_0$: $\mu=52$ vs $H_a$: $\mu < 52$\\
+\begin{clicker}{Which of the following $p$-values do you think would provide the most evidence against $H_0$?}
+\begin{enumerate}
+    \item
+    $p=0.02$
+    \item
+    $p=0.23$
+    \item
+    $p=0.56$
+    \item
+    $p=0.72$
+    \item
+    not enough information to determine
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Making a decision}
+Based on the $p$-value, make a decision about $H_0$ based on a pre-specified \textbf{level of significance}, also known as $\alpha$.  We always select $\alpha$ \emph{before} looking at the data, and $\alpha$ is commonly set at 0.05.
+\begin{center}
+\begin{tabular}{ll}
+\multicolumn{2}{c}{Possible decisions:}\\
+\hline
+1. reject $H_0$, & $p$-value $\leq \alpha$ \\
+2. fail to reject $H_0$, & $p$-value $> \alpha$ \\
+\end{tabular}
+\end{center}
+%Confidence intervals are said to be $100(1-\alpha)\%$ intervals, so if you set a 0.05 level of significance, it would be appropriate to calculate at 95\% confidence interval.
+\vskip10pt
+Draw a number line:
+\vskip100pt
+\end{frame}
+
+\begin{frame}
+\begin{clicker}{For which of the following $p$-values would you reject $H_0$ at the $\alpha=0.05$ level of significance?}
+\begin{enumerate}
+    \item
+    $p=0.02$
+    \item
+    $p=0.23$
+    \item
+    $p=0.56$
+    \item
+    $p=0.72$
+    \item
+    not enough information to determine
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Starting a conclusion}
+\begin{columns}
+\column{0.49\textwidth}
+$p$-value $\leq \alpha$ 
+\begin{itemize}
+\item \emph{decision:} reject $H_0$
+\item \emph{conclusion:} we \textbf{do} have evidence in favor of $H_a$
+\item \emph{example:} We \textbf{do} have evidence that the population mean amount spent on a haircut is less than \$52.
+\end{itemize}
+\column{0.49\textwidth}
+$p$-value $>\alpha$
+\begin{itemize}
+\item \emph{decision:} fail to reject $H_0$
+\item \emph{conclusion:} we \textbf{do not} have evidence in favor of $H_a$
+\item \emph{example:} We \textbf{do not} have evidence that the population mean amount spent on a haircut is less than \$52.
+\end{itemize}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Statically significant}
+\begin{itemize}
+    \item
+    When an `effect' is so large that it would be rare to see such a difference by ordinary random variation, we say that the results are \emph{statistically significant}.
+    \item
+    When $p$-value $\leq \alpha$ and we reject $H_0$, we say that the result is \emph{statistically significant}.
+    \item
+    When $p$-value $> \alpha$ and we fail to reject $H_0$, we say that the result is \emph{not statistically significant}.
+\end{itemize}
+\vskip5pt
+\begin{center}
+\resizebox{1.0\textwidth}{!}{
+\begin{tabular}{|lllc|}
+    \multicolumn{1}{l}{\textbf{Result}} & \textbf{Interpretation} & \textbf{Decision} & \multicolumn{1}{c}{\textbf{Stat. Sig.?}}\\
+    \hline
+    $p$-value $\leq \alpha$ & evidence in favor of $H_a$ & reject $H_0$  & yes\\
+    $p$-value $> \alpha$ & no evidence in favor of $H_a$ & fail to reject $H_0$ & no\\
+    \hline
+\end{tabular}}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{7. Conclusion}
+Elements of a conclusion:
+\begin{enumerate}
+    \item \textbf{Decision about $H_0$:}
+    \item[] At the 0.05 level of significance, we reject the null hypotheses that the average amount spent on a haircut is equal to \$52.
+    \item \textbf{Statement about the parameter tested in context of the research question:}
+    \item[] We do have evidence that the population mean amount of money Cal Poly students spend on a hair cut is less than \$52.
+    \item \textbf{Provide a deeper connection of how this relates to the research question:}
+    \item[]  Because we have evidence that the population average amount spent on a haircut by Cal Poly students is less than \$52, this means that Cal Poly students tend to spend less than UCSB students, on average.
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\frametitle{Going further...}
+We found evidence that the population mean amount of money Cal Poly students spend on a hair cut is less than \$52.  How much less?  Is it meaningfully less than \$52?
+\vskip200pt
+\end{frame}
+
+%===========================================================================================================================
+\section[More discussion]{More discussion}
+%===========================================================================================================================
+\begin{frame}
+\tableofcontents[currentsection, hideallsubsections]
+\end{frame}
+%\subsection{}
+
+
+
+
+
+
+\begin{frame}
+The form of your alternative hypothesis determines how you calculate your $p$-value.
+\vskip140pt
+\textbf{You should establish  your null and alternative hypotheses \underline{before} you look at your data.}
+\end{frame}
+
+
+
+\begin{frame}
+What happens to the value of your test statistic and $p\mbox{-value}$ when different elements of your data change?
+\begin{center}
+$\displaystyle t = \frac{\bar{x}-\mu_0}{se_{\bar{x}}}=\frac{\bar{x}-\mu_0}{s/\sqrt{n}}$
+\end{center}
+\begin{itemize}
+    \item
+    $n \uparrow$ \hspace{0.1in}  $se$ \hspace{0.2in} $t$ \hspace{0.2in} $p$ \hspace{0.2in}
+    \item[]
+    \item
+    $s \uparrow$ \hspace{0.1in}  $se$ \hspace{0.2in} $t$ \hspace{0.2in} $p$ \hspace{0.2in}
+    \item[]
+    \item
+    $|\bar{x}-\mu_0| \uparrow$ \hspace{0.1in}  $se$ \hspace{0.2in} $t$ \hspace{0.2in} $p$ \hspace{0.2in}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\begin{clicker}
+{The $p$-value is}
+\begin{enumerate}
+    \item
+    the probability that the null hypothesis is true.
+    \item
+    the probability that the null hypothesis is false.
+    \item
+    the probability that the test statistic had the observed result or more extreme if the null hypothesis were true.
+    \item
+    the probability that the test statistic had the observed result or more extreme if the alternative hypothesis were true.
+    \item
+    A and C
+    \item
+    B and D
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Interpreting your decision for one-sided $H_a$}
+Consider testing that the average GPA of Cal Poly students is less than 3.50. ($H_0$: $\mu=3.5$ vs $H_a$: $\mu < 3.5$)
+\vskip10pt
+Write out a decision tree for `small' and `large' $p$-values:
+\vskip200pt
+\end{frame}
+
+\begin{frame}
+\frametitle{Interpreting your decision for two-sided $H_a$}
+Consider testing that the average GPA of Cal Poly students differs from 3.50.  ($H_0$: $\mu=3.5$ vs $H_a$: $\mu \neq 3.5$)
+\vskip10pt
+Write out a decision tree for `small' and `large' $p$-values:
+\vskip200pt
+\end{frame}
+
+%\begin{frame}
+%\frametitle{Interpreting your decision: reject $H_0$}
+%Consider testing that the average GPA of Cal Poly students is equal to 3.50.  Suppose you have different samples of data and a \textcolor{OrangeRed}{two-sided} $H_a$.\\
+%\begin{center}
+%    \underline{$H_0$: $\mu=3.5$ vs $H_a$: $\mu \textcolor{OrangeRed}{\neq} 3.5$}
+%\end{center}
+%\begin{columns}
+%\column{0.5\textwidth}
+%    \begin{itemize}
+%    \item
+%    suppose $\bar{x}=3.8$
+%    \item
+%    $p\mbox{-value}=0.03<0.05$
+%    \item
+%    reject $H_0$
+%    \item
+%    have evidence that $\mu$ \textcolor{OrangeRed}{differs} from 3.5
+%    \item
+%    our sample mean supports evidence that $\mu > 3.5$
+%    \end{itemize}
+%\column{0.5\textwidth}
+%    \begin{itemize}
+%     \item
+%    suppose $\bar{x}=3.3$
+%    \item
+%    $p\mbox{-value}=0.03<0.05$
+%    \item
+%    reject $H_0$
+%    \item
+%    have evidence that $\mu$ \textcolor{OrangeRed}{differs} from 3.5
+%        \item
+%    our sample mean supports evidence that $\mu < 3.5$
+%    \end{itemize}
+%\end{columns}
+%\vskip10pt
+%When you have a two-sided $H_a$, the \emph{direction} of your evidence is supported by your sample statistics.
+%\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Interpreting your decision: fail to reject $H_0$}
+\begin{itemize}
+\item fail to reject $H_0$ $\neq$ accept $H_0$!
+\item \textbf{never} accept $H_0$!
+\item Why?  Some context helps...
+\item[] Consider $H_0$: $\mu=3.5$ vs $H_a$: $\mu \neq 3.5$
+\end{itemize}
+\begin{lcverbatim}
+data:  gpa
+t = 0.43674, df = 49, p-value = 0.6642
+alternative hypothesis: true mean is not equal to 3.5
+95 percent confidence interval:
+ 3.256276 3.879075
+sample estimates:
+mean of x
+ 3.567676 
+\end{lcverbatim}
+\vskip200pt
+\end{frame}
+
+%\begin{frame}
+%\frametitle{Interpreting your decision: fail to reject $H_0$}
+%Consider testing that the mean amount spent on a hair cut is \$45.
+%\begin{center}
+% $H_0$: $\mu=45$    $H_a$: $\mu < 45$
+% \vskip10pt
+%$t=1.42$ \textcolor{OrangeRed}{(check the math yourself)} and $p\mbox{-value}=0.08$.
+% \end{center}
+%\begin{itemize}
+%    \item
+%    Since $p=0.08>0.05$, we fail to reject $H_0$; this is \textbf{not} a statistically significant result.
+%    \item
+%    We \textbf{cannot} ``accept'' $H_0$, because we don't know that the population mean is \$45 exactly.  A range of plausible values for the population mean is (\$32.90, \$47.09).  It is just plausible that \$45 is the population mean.
+%    \item
+%    When you \textbf{fail to reject} $H_0$, you state your conclusions using this double negative format.
+%    \item
+%    For example, if you fail to reject $H_0$, you conclude that the population mean amount spent on a haircut \textbf{is not significantly different from \$45}.
+%\end{itemize}
+%\end{frame}
+
+
+\begin{frame}
+\small{Public health officials are concerned about the \href{http://www.cnn.com/2016/01/05/health/flint-michigan-water-investigation/}{water crisis in Flint, Michigan}, where lead is seeping into the water supply.  The CDC recommends that an acceptable level of lead in blood is 5 micrograms per deciliter.  The officials take blood samples from 20 children from Flint, Michigan and find that the average lead blood level is $\bar{x}=8.3$; they test $H_0$: $\mu=5$ vs $H_a$: $\mu\neq5$ and get a $p$-value of 0.034.  What can be said at the $\alpha=0.05$ level of significance?}
+\begin{clicker}{ We \underline{(do/do not)} have statistically significant evidence that the \underline{(population/sample)} mean is \underline{(different from/equal to/greater than)} 5 micrograms per deciliter.}
+\begin{enumerate}
+    \item
+    do; population; different than
+    \item
+    do; sample; different than
+    \item
+    do; population; greater than
+    \item
+    do not; sample; greater than
+    \item
+    do not; population; equal to
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+\begin{frame}
+\frametitle{Study 25-35}
+Suppose I want to determine if students follow Dean Bailey's guidelines to study 25-35 hours a week.  I take data from a sample of students, and test the hypotheses $H_0$: $\mu=30$ vs  $H_a$: $\mu \neq 30$.  I get a $p\mbox{-value}=0.56$ so I fail to reject $H_0$.
+\begin{clicker}{A confidence interval for $\mu$ would...}
+\begin{enumerate}
+    \item
+    contain 30
+    \item
+    not contain 30
+    \item
+    contain 0.56
+    \item
+    not contain 0.56
+    \item
+    not enough information to determine
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+\begin{frame}
+\frametitle{Agreement of confidence intervals and hypothesis tests}
+Confidence intervals and hypothesis tests (almost) always agree, as long as the two methods use \emph{equivalent} levels of significance / confidence.   A \textbf{two-sided} hypothesis with $\alpha$ level of significance is equivalent to a $100\times(1-\alpha)\%$ CI.  Agreement examples: \\%(ie, a test conducted at $\alpha = 0.05$ should have a result that agrees with a 95\% CI).
+\vskip10pt
+\begin{tabular}{cc}
+\hline 
+$\alpha$ & confidence level \\
+\hline 
+0.01 & \\
+0.05 & 95\% \\
+0.10 & \\
+\hline 
+\end{tabular}
+\\
+\begin{itemize}
+        \item[]
+        \item
+        When you reject $H_0$ the corresponding CI \textbf{should not} include value in $H_0$.
+        \item
+        When you fail to reject $H_0$ the corresponding CI \textbf{should} include value in $H_0$.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{\grp}
+Suppose I performed a hypothesis test at the $\alpha=0.01$ level of significance about the average GPA of Cal Poly students as follows: $H_0$: $\mu=3.55$ vs $H_a$: $\mu\neq3.55$.  The test yielded a $p$-value of 0.03.
+\begin{clicker}{Using the same data, what can we say about a 99\% confidence interval for $\mu=$true mean GPA of Cal Poly students?}
+\begin{enumerate}
+    \item
+    a 99\% CI for $\mu$ would contain 3.55
+    \item
+    a 99\% CI for $\mu$ would not contain 3.55
+    \item
+    a 99\% CI for $\mu$ would contain 0.03
+    \item
+    a 99\% CI for $\mu$ would not contain 0.03
+    \item
+    there is not enough information to determine
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+
+
+%
+%\begin{frame}
+%\frametitle{Clicker}
+%\begin{clicker}{How is it possible for one sample that is 45\% male to yield a $p$-value of 0.04 or 0.32 in the previous example when testing $H_0$: $p=0.5$ vs $H_a$: $p\neq 0.5$?}
+%\begin{enumerate}[A.]
+%    \item
+%    This is not possible - two different samples both with 45\% male should have the same $p$-value result.
+%    \item
+%    A larger sample size could result in the smaller $p$-value, whereas a smaller sample size could result in the larger $p$-value.
+%    \item
+%    A larger sample size could result in the larger $p$-value, whereas a smaller sample size could result in the smaller $p$-value.
+%    \item
+%    It depends on the standard deviation in the samples.
+%\end{enumerate}
+%\end{clicker}
+%\end{frame}
+%
+
+
+
+%\begin{frame}
+%\frametitle{Clicker}
+%\begin{center}
+%$\displaystyle z = \frac{\hat{p}-p_0}{se_{p_0}}$
+%$\displaystyle=\frac{\hat{p}-p_0}{\sqrt{\frac{p_0(1-p_0)}{n}}}$
+%\end{center}
+%\begin{clicker}{Holding $p_0$ and $\hat{p}$ fixed, what would happen to the test statistic and $p$-value as the sample size increases?}
+%\begin{enumerate}[A.]
+%    \item
+%    $z$ increases, $p$-value increases
+%    \item
+%    $z$ decreases, $p$-value decreases
+%    \item
+%    $z$ decreases, $p$-value increases
+%    \item
+%    $z$ increases, $p$-value decreases
+%\end{enumerate}
+%\end{clicker}
+%\end{frame}
+
+
+
+
+\end{document} 

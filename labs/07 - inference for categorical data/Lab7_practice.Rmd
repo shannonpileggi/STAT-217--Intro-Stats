@@ -1,0 +1,115 @@
+---
+title: "Lab 7 Practice"
+author: "Group Members"
+date: "Date"
+output:
+  pdf_document:
+    toc: yes
+  html_document:
+    highlight: tango
+    theme: cerulean
+    toc: yes
+    toc_float:
+      collapsed: no
+      smooth_scroll: yes
+---
+
+
+```{r setup, include=FALSE}
+#Load your libraries
+library(mosaic)
+```
+
+
+# Background
+The U.S. Census Bureau is best known for conducting the census every 10 years, which attempts to count every resident of the United States.  Although population size data are valuable, very limited data are collected, and it is not collected frequently. 
+
+# The Data
+The U.S. Census Bureau initiated the American Community Survey (ACS) in 2005 to collect more detailed information about the population, such as income, benefits, health insurance, education, employment, etc.  Approximately 3.5 million households are surveyed annually, from which the data are used to allocate more than \$400 billion in state and federal funds each year.  Although the data are publicly available from the census website, it is quite large and contains many variables.  Here, we provide a random sample of 1000 observations and 10 variables from the American Community Survey in the data set acs.csv.
+
+* Sex = gender
+* Age =  age in years
+* MarStat =  marital status
+* Income =  annual income (in \$1,000s)
+* HoursWk =  hours of work per week
+* Race =  Asian, Black, White, or Other
+* USCitizen =  citizen vs non-citizen
+* HealthInsurance =  yes (have health insurance), no (no health insurance) 
+* Language =  native English speaker vs other
+
+
+# Practice
+
+### Question 1
+**Open the `R Reference Guide` from the `Lab Content` area of PolyLearn.**
+
+### Question 2
+**Open `RStudio` and then open the `Lab7_practice.Rmd` Rmarkdown. Note that the two code chunks needed (header, set up chunk) are already included in this Rmarkdown document.** 
+
+### Question 3
+**Identify the `Lab Data Sets` folder on PolyLearn and download the `acs` data set to a  location on your computer (i.e., desktop, STAT 217 folder).  Follow the steps in the `Importing` tab of the `R Reference Guide` to import the `acs` data set and save your import code in an R chunk.**
+
+
+### Question 4
+**Produce a `summary` of the data set.**
+
+### Question 5
+**If you examine a summary of the acs data set, you can see some weird features (`Age`has a maximum value of 130, `HealthInsurance` has been coded as both `yes` and `Yes`).  Before you can get started with data analysis, you should alway make sure your data are clean. Submit the following code to correct these unusual observations.  At the top of the R chunk, change `eval = F` to `eval = T`.  Be sure to also `submit` this chunk.  What changes do you notice between the original and the new summary?**
+```{r, eval = F}
+#re-code all entries of Age where Age is greater than 100 to NA
+acs$Age[acs$Age>100]<-NA
+#re-code erroneous health insurance values
+acs$HealthInsurance[acs$HealthInsurance=="Yes"]<-"yes"
+#drop Yes as a factor level
+acs$HealthInsurance<-factor(acs$HealthInsurance)
+summary(acs)
+```
+
+### Question 6
+**Describe the scope of the study.  What is (a) the sample, and (b) the population.**
+
+
+### Question 7
+**In 2010, President Obama implemented the Affordable Care Act to increase quality and affordability of health insurance. When this data was collected in 2005, the Affordable Care Act had not yet gone into effect. Let's examine the HealthInsurance variable.  What is the sample proportion of individuals that have health insurance (`HealthInsurance`) ? Make sure to show all of your work.**
+
+
+### Question 8
+**Perform the appropriate test at the $\alpha=0.05$ level of significance to determine if the proportion of Americans with health insurance in 2005 differed from 0.90 (ie, $H_0: p = 0.90$ vs $H_a: p \neq 0.90$). State a conclusion from this test (which should include an interpretation of both the hypothesis test and the confidence interval).**
+
+
+
+### Question 9
+**Were conditions satisfied for the analysis that you executed in the previous question?  Why or why not?**
+
+
+
+### Question 10
+**Some social services felt that there may be language barriers that affected whether or not individuals had health insurance. Examine the relationship between `HealthInsurance` and `Language` by calculating the proportion of native English speakers that have health insurance and the proportion of non-native English speakers that have health insurance. Make sure to show all of your work.**
+
+
+### Question 11
+**Conduct the appropriate test at the $\alpha=0.05$ level of significance to determine if there is a relationship between having health insurance and whether or not the individual's native langue is English.   State a conclusion from this test (which should include an interpretation of both the hypothesis test and the confidence interval).  If there is evidence of difference, be sure to also state which group tended to have higher rates of insurance coverage.**
+
+
+
+### Question 12
+**Now researchers want to know if there is an association between `HealthInsurance` and `Race`.  Produce a contingency table showing the relationship between these two variables. How many individuals in this study were white and had health insurance?**
+
+
+### Question 13 
+#### Optional - challenge question!
+**Perform the appropriate test at the $\alpha=0.05$ level of significance to determine if there is an association between having health insurance and race. State a conclusion from this test.**
+
+
+
+### Question 14
+#### Optional - challenge question!
+**Were conditions satisfied for the analysis that you executed in the previous question?  Why or why not?**
+
+
+### Question 15
+**Submit this lab assignment as an html compiled from R Markdown. Make sure all names of group members who contributed to this lab assignment are on the html file.**
+
+
+
+

@@ -1,0 +1,78 @@
+
+
+\documentclass{article}
+
+
+
+%\input{"C:/Users/smcclin/Documents/Labs R/labStyle.tex"}
+\input{"C:/Users/spileggi/Google Drive/STAT 217/Labs/labStyleNew.tex"}
+
+
+\begin{document}
+%\SweaveOpts{concordance=TRUE}
+
+\section*{Lab 3 Practice: Summarizing and Visualizing Data}
+
+
+\subsection*{Background}
+Alzheimer's Disease (AD) is a serious mental illness that affects an estimated 5.3 million Americans; it is the most common cause of dementia among the elderly.  Characterized by a progressive cognitive decline, AD has been notoriously difficult to diagnose due to symptom-overlap with other mental disorders; until recently, AD could only be confirmed posthumously.  Researchers are investigating identifying biomarkers in interdisciplinary research involving biostatisticians, neuroscientists, geneticists, and clinicians, among other experts.   
+
+\subsection*{The Data}
+The Alzheimer's Disease Neuroimaging Initiative (ADNI) is a longitudinal study that began in 2005, and is designed to track AD biomarkers, identify at-risk patients, and evaluate the efficacy of novel treatments.  The study consists of healthy individiduals (the control group) as well as adults with early Alzheimer's Disease (AD).  More details can be found on the website \web{http://adni.loni.usc.edu/about/}. The data set provided is \texttt{ADNI}, which contains information on 276 subjects and 7 variables. The mini mental state exam is a 30 question assessment commonly used to assess cognitive impairment. The Alzheimer's Disease Assessment Scale is a more comprehensive measure of cognitive impairment. The apolipoprotein E (APOE) gene, on chromosome 19, has variants associated with high risk of AD.  In this lab, your goal is to provide summary statistics and visualizations of the data.
+\\
+\vskip10pt
+\begin{tabular}{r|l}
+\hlstd{DX}   &  Alzheimer's disease diagnosis\\
+           & \hspace{0.2in} AD - Alzheimer's disease \\
+           & \hspace{0.2in} MCI - Mild cognitive impairment\\
+           & \hspace{0.2in} Normal - Normal cognitive function\\
+\hlstd{AGE} &  Age (years) \\
+\hlstd{APOE4} & Type of APOE4 variant (genetics)  \\
+            & \hspace{0.2in} 0 - No copies of the ApoE4 allele\\
+            & \hspace{0.2in} 1 - One copy of the ApoE4 allele\\  
+            & \hspace{0.2in} 2 - Two copies of the ApoE4 allele\\
+\hlstd{GENDER} &  Patient gender  \\
+\hlstd{MMSE} & Mini Mental State Exam (score out of 30, lower scores indicate more cognitive impairment)\\
+\hlstd{adas} & Alzheimer's Disease Assessment Scale (larger scores indicate greater dysfuction)\\
+\hlstd{WholeBrain}& Brain volume (mm$^3$)\\
+\end{tabular}
+
+\subsection*{Practice}
+\begin{enumerate}
+\item Open the \hlstd{R Reference Guide} from the \hlstd{Lab Content} area of PolyLearn.
+\item Open \hlstd{RStudio} and then open a brand new \hlstd{Rmarkdown} document by clicking on the green plus sign on the top left of RStudio.  Delete everything in the Rmarkdown document.  Identify the \hlstd{Rmarkdown} tab of your \hlstd{R Reference Guide}. Copy and paste the three code chunks (header, set up chunk, and import data code chunk) into your Rmarkdown document. 
+\item   Identify the \hlstd{Lab Data Sets} folder on PolyLearn and download the \hlstd{adni} data set to a  location on your computer (i.e., desktop, STAT 217 folder).  Follow the steps in the \hlstd{Importing} tab of the \hlstd{R Reference Guide} to import the \hlstd{adni} data set and save your import code in an R chunk.
+\item
+Use an R command to determine how many observations and variables are in the data set.
+\item
+For each variable in the data set, indicate if the variable represents a categorical or quantitative variable in reality (no R command needed, this is just your interpretation of the data).  
+\item
+Produce a \hlkwd{summary} of the data set.  Describe why the \hlstd{APOE4} variable is not summarized correctly.\item
+Submit the following code to recode the \hlstd{APOE4} variable to a factor, and then produce another summary of the data set.   Which APOE4 genetic variant is the least common?
+<<re-code, eval=FALSE>>=
+ADNI$APOE4 <- factor(ADNI$APOE4,labels=c("no copies","one copy","two copies"))
+@
+%\item
+%What is the standard deviation of age (\hlstd{AGE})?  Provide an interpreation of this value.
+\item
+What is the median value of Mini Mental State Exam (\hlstd{MMSE})?  Provide an interpretation of this value.
+%\item
+%What is the interquartile range of the Mini Mental State Exam (\hlstd{MMSE})?  Provide an interpretation of this value.
+\item
+What is the mean and the median of the Alzheimer's Disease Assessment Scale (\hlstd{adas})? What does the relationship between the mean and the median indicate about the direction of the skew between the variables, and why?  Produce a histogram of \hlstd{adas} to verify your answer.  
+\item
+Produce an appropriate figure to  visualize the relationship between Alzheimer's diagnosis (\hlstd{DX}) and the cognitive impairment test \hlstd{MMSE}.  Describe the trend that you observe.
+\item
+Produce summary statistics of the \hlstd{MMSE} score by Alzheimer's diagnosis (\hlstd{DX}).  What is the average \hlstd{MMSE} score for each diagnosis group?  This should be reflective of the figure you produced in the previous question.
+\item
+Produce an appropriate figure to  visualize the relationship between the two cognitive impairment test scores \hlstd{MMSE} and \hlstd{adas}.  Describe the trend that you observe.
+\item
+Produce a contingency table showing the relationship between Alzheimer's diagnosis (\hlstd{DX}) and the genetic variant \hlstd{APOE4}.  Among patients with a normal diagnosis, what percent have no copies of the ApoE4 allele?  Among patients with a Alzheimer's disease, what percent have no copies of the ApoE4 allele?  (Use R as a calculator to show your calculations in a R chunk.)  
+\item
+Submit this lab assignment as an \textbf{html} compiled from Rmarkdown.  Make sure names of \textbf{all} present lab group members who contributed to this lab assignment are listed on the html file.
+\end{enumerate}
+
+
+
+
+\end{document}

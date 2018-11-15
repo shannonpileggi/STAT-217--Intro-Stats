@@ -1,0 +1,114 @@
+---
+title: "Lab 6 Practice"
+author: "Group Members"
+date: "Date"
+output:
+  pdf_document:
+    toc: yes
+  html_document:
+    highlight: tango
+    theme: cerulean
+    toc: yes
+    toc_float:
+      collapsed: no
+      smooth_scroll: yes
+---
+
+```{r setup, include = FALSE}
+#Load your libraries
+library(mosaic)
+```
+
+# Background
+Research on the harmful effects of lead poisoning began in the 1970's.  Lead poisoning  affects the development of the nervous system and therefore has a higher impact in children than adults. Exposure can be occupational or recreational through contaminated air, soil, water, or food.  Effects of lead poisoning include learning disabilities and behavioral problems; high levels of exposure can lead to seizures, coma, and even death.
+
+
+# The Data
+The data presented here are from one of the first quantitative research articles on the topic, published in the _The Lancet_ in 1975. One-hundred and twenty-four children living near a lead-emitting smelter in El Paso, Texas were studied for two years.  Various tests were used to assess neurological responses, including standing on one foot, tandem walking, alternate tapping, tapping with a stylus, visual reaction time, and auditory reaction time.  Wechsler intelligence tests were also administered.  The investigators compared results between children with high blood level concentration and matched `control' children with low blood level concentration.  The data set is lead.csv.
+
+* Id = subject identifier 
+* Area = residence of the child in 8/72: 1=0-1 miles from smelter, 2=1-2.5 miles, 3=2.5-4 miles 
+* Sex = 1=male, 2=female 
+* Iqv_inf = information subtest in WISC and WPPSI 
+* Iqv_comp = comprehension subtest in WISC and WPPSI 
+* Iqv_ar = arithmetic subtest in WISC and WPPSI 
+* Iqv_ds = digit span subtest (WISC) and sentence completion (WPPSI) 
+* Iqv_raw = raw score/verbal IQ (this is total of previous 4 iqv) 
+* Iqp_pc = picture completion subtest in WISC and WPPSI 
+* Iqp_bd = block design subtest in WISC and WPPSI 
+* Iqp_oa = object assembly subtest (WISC), animal house subtest (WPPSI)
+* Iqp_cod = coding subtest (WISC), geometric design subtest (WPPSI)  
+* Iqp_raw = raw score/performance IQ 
+* HH_index = Hollingshead index of social status 
+* Iqv = verbal IQ 
+* Iqp = performance IQ
+* Iqf = full scale IQ
+* Iq_type = 1=WISC, 2=WPPSI 
+* Lead_type = **1**=blood lead less than 40 mg/100mL in both 1972 and 1973; **2**=blood lead greater than or equal to 40 mg/100mL in both 1972 and 1973; **3**=blood lead greater than or equal to 40 mg/100mL in 1972 and less than 40 in 1973
+* Ld72 = blood lead levels (micrograms/100mL) in 1972
+* Ld73 = blood lead levels (micrograms/100mL) in 1973
+* Fst2yrs = 1=child lived within 1 mile of smelter for $1^{st}$ two years, 2=child did not 
+* Totyrs = total number of years spent within 4.1 miles of smelter 
+* Pica = 1=yes, 2=no 
+* Colic = 1=yes, 2=no 
+* Clumsi = 1=yes, 2=no 
+* Irrit = 1=yes, 2=no 
+* Convul = 1=yes, 2=no 
+* X2Plat_r = # of taps for right hand in the 2-plate tapping test (# of taps in one 10 second trial) * X2Plat_l = # of taps for left hand in the 2-plate tapping test (# of taps in one 10 second trial) 
+* Visrea_r = visual reaction time right hand (milliseconds) 
+* Visrea_l = visual reaction time left hand (milliseconds) 
+* Audrea_r = auditory reaction time right hand (milliseconds) 
+* Audrea_l = auditory reaction time left hand (milliseconds)
+* FWT_r = finger-wrist tapping test right hand (# of taps in one 10 second trial) 
+* FWT_l = finger-wrist tapping test left hand (# of taps in one 10 second trial) 
+* Hyperact = Werry-Weiss-Peters scale for hyperactivitiy (as reported by parents); 0=no activity... 4=severely hyperactive 
+* Group = **control** = children whose blood-lead levels are less than 40 in 1972; **lead** = children whose blood-lead levels are greater than or equal to 40 in 1972  
+* age.years = age in years (4.5 = 4 years, 6 months) 
+
+# Practice
+
+### Question 1
+**Open the `R Reference Guide` from the `Lab Content` area of PolyLearn.**
+
+### Question 2
+**Open `RStudio` and then open the `Lab6_practice.Rmd` Rmarkdown. Note that the two code chunks needed (header, set up chunk) are already included in this Rmarkdown document.** 
+
+### Question 3
+**Identify the `Lab Data Sets` folder on PolyLearn and download the `lead` data set to a  location on your computer (i.e., desktop, STAT 217 folder).  Follow the steps in the `Importing` tab of the `R Reference Guide` to import the `lead` data set and save your import code in an R chunk.**
+
+
+### Question 4
+**What is the sample?  What is the population to which we can generalize results?**
+
+### Question 5
+**Perform the appropriate test to determine if we have evidence of a change in average blood lead levels of the children between 1972 (`Ld72`) and 1973 (`Ld73`).  State a conclusion from this test (which should include an interpretation of both the hypothesis test and the confidence interval).  If there is evidence of change, be sure to also state if the lead blood levels tended to increase or decrease over time.**
+
+### Question 6
+**Produce a figure to show the relationship between `Group` (lead vs control group) and full scale IQ (`Iqf`). What does this show about the relationship between the two variables?**
+
+### Question 7
+**Perform the  appropriate test to determine if we have evidence of a difference in average full scale IQ (`Iqf`) between the lead and control groups (`Group`).  State a conclusion from this test (which should include an interpretation of both the hypothesis test and the confidence interval).  If there is evidence of difference, be sure to also state which group tended to have higher full scale IQ.** 
+
+### Question 8
+**Were conditions satisfied for your previous analysis?  Why or why not?**
+
+
+### Question 9
+**The researchers had a separate classification of the children other than the `Group` variable.  The `Lead_type` variable classifies the children into one of three groups (see data dictionary above).  Because these groups are labeled as 1, 2, 3, R is treating the groups as quantitative numbers.  Submit the code below to have R treat this variable as a categorical variable.  At the top of the R chunk, change `eval = F` to `eval = T`.  Be sure to also `submit` this chunk.**
+```{r, eval = F}
+lead$Lead_type <- factor(lead$Lead_type)
+```
+
+### Question 10
+**Produce a figure to show the relationship between `Lead_type` and finger wrist tapping of the right hand (`FWT_r`).  Which group tends to have the lowest finger wrist tapping ability?**
+
+### Question 11
+#### Optional - challenge question!
+**Perform the appropriate test to determine if finger wrist tapping ability (`FWT_r`) differs by `Lead_type`. State a conclusion from this test.**
+
+### Question 12
+#### Optional - challenge question!
+**Following up on the previous question, use the Tukey method to perform pairwise comparisons of the groups. Which groups show a significant difference in the population mean finger wrist tapping ability? Report and interpret the confidence interval for this comparison.**
+
+### Question 13
+**Submit this lab assignment as an html compiled from R Markdown. Make sure all names of group members who contributed to this lab assignment are on the html file.**

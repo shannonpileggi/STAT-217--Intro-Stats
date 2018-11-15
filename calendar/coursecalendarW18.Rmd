@@ -1,0 +1,366 @@
+---
+title: "STAT 217 Course Calendar"
+author: "Shannon Pileggi"
+date: ""
+output: html_document
+---
+
+
+```{r}
+library(htmlTable)
+library(R2HTML)
+library(htmltools)
+
+week<-11
+
+assignments <- matrix(ncol=5, nrow=week*2)
+colnames(assignments) <- c("Monday","Tuesday","Wednesday","Thursday","Friday")
+rownames(assignments) <- c(rep(c("<b>Due by 8am</b>","<b>In class</b>"),10), "", "")
+
+#--------------------------------------------------------------------
+# Week 1
+#--------------------------------------------------------------------
+
+assignments[1,"Monday"] <- "1. Read the syllabus. <br/> 
+                     2. Download or buy the textbook. <br/> 
+                     3. Browse the PolyLearn site. <br/>
+                     4. Read Advice from previous students."
+
+
+assignments[2,"Monday"] <- "Unit 1 Deck 1: Introduction"
+  
+
+assignments[1,"Tuesday"] <- "1. Topic Readiness: Unit 1 Deck 1 <br/>
+                     2. Initial Course Survey <br/>
+                     3. Syllabus quiz <br/>
+                     4. Upload profile picture to PolyLearn"
+  
+assignments[2,"Tuesday"] <- "Unit 1 Deck 1: Foundations of statistics"
+
+
+assignments[1,"Wednesday"] <- "Topic Readiness: Unit 1 Deck 2"
+
+assignments[2,"Wednesday"] <- "Unit 1 Deck 2: Exploring variables"
+
+
+  
+assignments[1,"Thursday"] <- "1. Watch: How to install R (2:03), 
+                             <br/> 2. Install R on your laptop if you plan on using instead of lab computers (see R installation links)"
+
+assignments[2,"Thursday"] <- "DataCamp Lab 1"
+
+assignments[1,"Friday"] <- "<i>Recommendation:</i> <br/>
+                    try Unit 1 Deck 1 Practice (not graded)"
+
+#--------------------------------------------------------------------
+# Week 2
+#--------------------------------------------------------------------
+
+assignments[3,"Monday"] <- "<i>Holiday!</i>"
+
+
+assignments[4,"Monday"] <- "<i>No class!</i>"
+
+assignments[3,"Tuesday"] <- "N/A"
+
+assignments[4,"Tuesday"] <- "Unit 1 Deck 2: Exploring variables"
+
+assignments[3,"Wednesday"] <- "N/A" 
+
+assignments[4,"Wednesday"] <- "<b>Quiz</b>; Unit 1 Deck 2: Exploring variables"
+
+
+assignments[3,"Thursday"] <- "1. Watch: 
+                            <br/> &nbsp;&nbsp; + Getting started with RMarkdown (6:19), 
+                            <br/> &nbsp;&nbsp; + Installing and loading R packages (3:56), 
+                            <br/> &nbsp;&nbsp; + Importing data and saving the import code (4:23) 
+  <br/> 2. DataCamp Lab 2"
+
+assignments[4,"Thursday"] <- "Lab 2 Practice: Intro to data"
+
+assignments[3,"Friday"] <- "<i>Recommendation:</i>  
+                            <br/> &nbsp;&nbsp; + Review formulas provided on Exam 1 Cover Sheet 
+<br/> &nbsp;&nbsp; + Try Unit 1 Deck 2 Practice (not graded)
+<br/> &nbsp;&nbsp; + Try Worksheet 1 from Unit 1 Practice Worksheets (not graded)"
+
+assignments[4,"Friday"] <- ""
+  
+#--------------------------------------------------------------------
+# Week 3
+#--------------------------------------------------------------------
+
+assignments[5,"Monday"] <- "Project Readiness, and <br/> Topic Readiness: Unit 1 Deck 3 Part A"
+
+
+assignments[6,"Monday"] <- "Unit 1 Deck 3: Associations"
+
+assignments[5,"Tuesday"] <- "Topic Readiness: Unit 1 Deck 3 Part B"
+
+assignments[6,"Tuesday"] <- "Unit 1 Deck 3: Associations"
+
+assignments[5,"Wednesday"] <- "<i>Recommendation:</i> <br/> 
+Try Unit 1 Deck 3 Practice and Worksheet 2 <br/> 
+from Unit 1 Practice Worksheets (not graded)" 
+
+assignments[6,"Wednesday"] <- "<b>Quiz</b>; Unit 1 Deck 4: Probability"
+
+
+assignments[5,"Thursday"] <- "DataCamp Lab 3"
+
+assignments[6,"Thursday"] <- "Lab 3 Practice: Summarizing and visualizing data"
+
+assignments[5,"Friday"] <-  "Project Phase 1: Team Selection
+<br/> <br/>
+<i>Recommendation:</i> <br/> 
+Try Unit 1 Deck 4 Practice, and <br/> practice problems on slides 18-29 in Unit 1 Deck 4 (check Unit 1 Deck 4 ANSWERS)
+"
+
+assignments[6,"Friday"] <-  ""
+
+
+#--------------------------------------------------------------------
+# Week 4
+#--------------------------------------------------------------------
+
+assignments[7,"Monday"] <- "First exam check in due"
+
+
+assignments[8,"Monday"] <- "<b>Exam 1</b>"
+
+assignments[7,"Tuesday"] <- "Topic Readiness: Unit 2 Deck 1 Part A"
+
+assignments[8,"Tuesday"] <- "Unit 2 Deck 1: Sampling Distributions for a Proportion"
+
+assignments[7,"Wednesday"] <- "Topic Readiness: Unit 2 Deck 1 Part B" 
+
+assignments[8,"Wednesday"] <- "Unit 2 Deck 1: Confidence Interval for a Proportion"
+
+
+assignments[7,"Thursday"] <- "DataCamp Lab 4a"
+
+assignments[8,"Thursday"] <- "Lab 4a Practice: Sampling distribution and CI for a population proportion (Notice new lab groups: 8am - Unit 2 Lab Groups and 9am - Unit 2 Lab Groups)"
+
+assignments[7,"Friday"] <-  'Project Phase 2a: Project proposal AND 
+<a href="https://docs.google.com/spreadsheets/d/16BSkx41WpepPtvicd7_D2Cj_eMXGBYLywu61hHDwdbE/edit#gid=0" target="_blank">Click here to sign up for Project Phase 2b: Project proposal meeting</a>'
+
+
+assignments[8,"Friday"] <-  "<i>Recommendation:</i> <br/> 
+ Unit 2 Deck 1 Part A Practice (not graded)"
+
+
+#--------------------------------------------------------------------
+# Week 5
+#--------------------------------------------------------------------
+
+assignments[9,"Monday"] <- "NA"
+
+
+assignments[10,"Monday"] <- "Unit 2 Deck 1: Understanding the CI"
+
+assignments[9,"Tuesday"] <- "<i>Recommendation:</i> <br/> 
+try Unit 2 Deck 1 Part B Practice (not graded), review Exam 1 Solutions <br/><br/>  
+Topic Readiness: Unit 2 Deck 2, Part A"
+
+assignments[10,"Tuesday"] <- "Unit 2 Deck 2: Sampling Distributions for a Mean"
+
+assignments[9,"Wednesday"] <- "Topic Readiness: Unit 2 Deck 2, Part B" 
+
+assignments[10,"Wednesday"] <- "<b>Quiz</b>; Unit 2 Deck 2: CI for a Mean"
+
+
+assignments[9,"Thursday"] <- "DataCamp Lab 4b"
+
+assignments[10,"Thursday"] <- "Lab 4b Practice: Sampling distribution and CI for a population mean"
+
+assignments[9,"Friday"] <-  "<i>Recommendation:</i> <br/>  
+try Unit 2 Deck 2 Part B Practice, and Worksheets 3 and 4 from Unit 2 Practice worksheets (not graded)"
+
+assignments[10,"Friday"] <-  "Complete Project Phase 2b this week (nothing to submit)"
+
+
+#--------------------------------------------------------------------
+# Week 6
+#--------------------------------------------------------------------
+
+assignments[11,"Monday"] <- "Phase 2c: Project proposal revision, and <br/> Topic Readiness: Unit 2 Deck 3 Part A "
+
+
+assignments[12,"Monday"] <- "Unit 2 Deck 3: Intro to hypothesis testing"
+
+assignments[11,"Tuesday"] <- "Topic Readiness: Unit 2 Deck 3 Part B <br/> and <br/>
+Mid-quarter feedback survey "
+
+assignments[12,"Tuesday"] <- "Unit 2 Deck 3: Intro to hypothesis testing"
+
+assignments[11,"Wednesday"] <- "NA" 
+
+assignments[12,"Wednesday"] <- "<b>Quiz</b>; Unit 2 Deck 3: Intro to hypothesis testing"
+
+
+assignments[11,"Thursday"] <- "DataCamp Lab 5"
+
+assignments[12,"Thursday"] <- "Lab 5 Practice: Inference for a single mean"
+
+assignments[11,"Friday"] <-  "<i>Recommendation:</i> <br/> 
+try Unit 2 Deck 3 Part A Practice,
+<br/> <br/> 
+Review formulas provided on Exam 2 Cover Sheet"
+
+assignments[12,"Friday"] <-  ""
+
+#--------------------------------------------------------------------
+# Week 7
+#--------------------------------------------------------------------
+
+assignments[13,"Monday"] <- "<i>Holiday!</i>"
+
+
+assignments[14,"Monday"] <- "<i>No class!</i>"
+
+assignments[13,"Tuesday"] <- "NA"
+
+assignments[14,"Tuesday"] <- "Unit 2 Deck 3: Intro to hypothesis testing"
+
+assignments[13,"Wednesday"] <- "Topic Readiness Unit 2 Deck 4
+<br/> <br/> 
+<i>Recommendation:</i> <br/> 
+try Unit 2 Deck 3 Part B Practice" 
+
+assignments[14,"Wednesday"] <- "<b>Quiz</b>; Unit 2 Deck 4: Type I/II errors"
+
+
+assignments[13,"Thursday"] <- "N/A"
+
+assignments[14,"Thursday"] <- "Lab: Project Day"
+
+assignments[13,"Friday"] <-  "Dr. Pileggi has office hours 10am-12pm 
+<br/> <br/>
+Project Phase 3: Data collection due by 1pm"
+
+assignments[14,"Friday"] <-  "
+<i>Recommendation:</i> <br/> 
+Try Unit 2 Deck 4 Practice and Worksheet 5 from Unit 2 Practice Worksheets (not graded)
+<br/> <br/>
+Try practice problems on slides 14-24 in Unit 2 Deck 4 (check Unit 2 Deck 4 ANSWERS)
+<br/> <br/>
+watch review videos:
+<br/> &nbsp;&nbsp; + Review of sampling distributions, Dr. Pileggi (5:06)
+<br/> &nbsp;&nbsp; + Review of confidence intervals, Dr. Pileggi (4:22)
+<br/> &nbsp;&nbsp; + What is a p-value?  Dr. Pileggi (10:33)"
+
+#--------------------------------------------------------------------
+# Week 8
+#--------------------------------------------------------------------
+
+assignments[15,"Monday"] <- ""
+
+
+assignments[16,"Monday"] <- "<b>Exam 2</b>"
+
+assignments[15,"Tuesday"] <- "Topic Readiness: Unit 3 Deck 1 Part A"
+
+assignments[16,"Tuesday"] <- "Unit 3 Deck 1: Inference for paired data"
+
+assignments[15,"Wednesday"] <- "N/A" 
+
+assignments[16,"Wednesday"] <- "Unit 3 Deck 1: Inference for 2 means"
+
+
+assignments[15,"Thursday"] <- "DataCamp Lab 6"
+
+assignments[16,"Thursday"] <- "Lab 6 Practice: Inference for quantitative data <br/><br/> (Notice new lab groups: 8am - Unit 3 Lab Groups and 9am - Unit 3 Lab Groups)"
+
+assignments[15,"Friday"] <-  ""
+
+assignments[16,"Friday"] <-  ""
+
+#--------------------------------------------------------------------
+# Week 9
+#--------------------------------------------------------------------
+
+assignments[17,"Monday"] <- "Topic Readiness: Unit 3 Deck 1 Part B"
+
+
+assignments[18,"Monday"] <- "Unit 3 Deck 1: Inference for >2 means <br/><br/>
+<i>Recommendation:</i>
+review Exam 2 Solutions "
+
+assignments[17,"Tuesday"] <- "Topic Readiness: Unit 3 Deck 2 Part A <br/><br/>
+<i>Recommendation:</i> <br/> 
+try Unit 3 Deck 1 Practice (not graded) and Worksheet 6 from Unit 3 Practice Worksheets"
+
+assignments[18,"Tuesday"] <- "Unit 3 Deck 2: Inference for one proportion"
+
+assignments[17,"Wednesday"] <- "Project Phase 4: Preliminary report <br/> <br/>
+<i>Dr. Pileggi's office hours are 11:10-12:00</i>" 
+
+assignments[18,"Wednesday"] <- "<b>Quiz</b>; Unit 3 Deck 2: Inference for 2 proportions"
+
+
+assignments[17,"Thursday"] <- "DataCamp Lab 7"
+
+assignments[18,"Thursday"] <- "Lab 7 Practice: Inference for categorical data"
+
+assignments[17,"Friday"] <-  ""
+
+assignments[18,"Friday"] <-  ""
+
+#--------------------------------------------------------------------
+# Week 10
+#--------------------------------------------------------------------
+
+assignments[19,"Monday"] <- "Topic Readiness: Unit 3 Deck 2 Part B"
+
+assignments[20,"Monday"] <- "Unit 3 Deck 2: Inference for >2 proportions"
+
+assignments[19,"Tuesday"] <- "Topic Readiness: Unit 3 Deck 3 Part A <br/> <br/> 
+<i>Recommendation:</i> <br/> 
+try Unit 3 Deck 2 Practice and Worksheet 7 from Unit 3 Practice Worksheets (not graded) "
+
+assignments[20,"Tuesday"] <- "Unit 3 Deck 3: Correlation and regression"
+
+assignments[19,"Wednesday"] <- "Topic Readiness: Unit 3 Deck 3 Part B" 
+
+assignments[20,"Wednesday"] <- "<b>Quiz</b>; Unit 3 Deck 3: Correlation and regression"
+
+
+assignments[19,"Thursday"] <- "DataCamp Lab 8"
+
+assignments[20,"Thursday"] <- "Lab 8 Practice: Correlation and Simple Linear Regression"
+
+
+assignments[19,"Friday"] <- 'Due: <br/> &nbsp;&nbsp; + Lab 8 Practice due
+<br/> &nbsp;&nbsp; + Phase 5a: Final report
+<br/> &nbsp;&nbsp; + Phase 5b: Peer evaluation
+<br/> &nbsp;&nbsp; + University course evaluations (see your email/PolyLearn)
+<br/> &nbsp;&nbsp; + <a href="https://goo.gl/forms/64BspQ0O4YgvLTc93" target="_blank">Dr. Pileggi course evaluations</a>'
+
+assignments[20,"Friday"] <-  "<i>Recommendations:</i>  
+<br/> &nbsp;&nbsp; + try Unit 3 Deck 3 Practice (not graded)
+<br/> &nbsp;&nbsp; + try Worksheet 8 from Unit 3 Practice Worksheets (not graded)
+<br/> &nbsp;&nbsp; + review the Final Exam Cover Sheet
+<br/> &nbsp;&nbsp; + review practice problems in Unit 3 Deck 4 (and Unit 3 Deck 4 ANSWERS)
+"
+
+
+#--------------------------------------------------------------------
+# Week 11
+#--------------------------------------------------------------------
+
+assignments[21,"Monday"] <- "Dr. Pileggi's office hours 2:00-3:00"
+
+assignments[21,"Tuesday"] <- "Dr. Pileggi's office hours 10:00-11:00"
+
+assignments[21,"Wednesday"] <- "<b>Final Exam</b> <br/> Sec 01 (8am class) <br/> Wed, March 21 <br/> 7:10am - 10:00am <br/><br/> Dr. Pileggi's office hours 11:00-12:00"
+
+assignments[21,"Friday"] <- "<b>Final Exam</b> <br/> Sec 02 (9am class) <br/> Fri, March 23 <br/> 7:10am - 10:00am"
+
+# x<-
+htmlTable(assignments, align="lllll", tspanner= c("Week 1 (1/8 - 1/12)"," Week 2 (1/15 - 1/19)","Week 3 (1/22 - 1/26)", "Week 4 (1/29 - 2/2)", "Week 5 (2/5 - 2/9)", "Week 6 (2/12 - 2/16)", "Week 7 (2/19 - 2/23)",
+"Week 8 (2/26 - 3/2)","Week 9 (3/5 - 3/9)", "Week 10 (3/12 - 3/16)", "Finals (3/19 - 3/23)"), 
+          n.tspanner=rep(2,week),   col.rgroup = c("none", "#F0F8FF"),
+          col.columns = c("none","#F5F5F5" ),
+          css.cell = "padding-left: 1em; padding-right: 1em;")
+
+# write(x,file="C:/Users/spileggi/Google Drive/STAT 217/calendar.txt")
+```

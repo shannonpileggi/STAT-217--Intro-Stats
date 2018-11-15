@@ -1,0 +1,625 @@
+
+
+\input{"C:/Users/spileggi/Google Drive/STAT 217/Slides/SlideStyle.tex"}
+
+
+
+\title[Unit 1 Deck 4]{Probability and Exam Practice}
+\author[Pileggi]{Shannon Pileggi}
+
+\institute[STAT 217]{STAT 217}
+
+\date{}
+
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}
+\frametitle{OUTLINE\qquad\qquad\qquad} \tableofcontents[hideallsubsections]
+\end{frame}
+
+
+
+%===========================================================================================================================
+\section[Probability]{Probability}
+%===========================================================================================================================
+\begin{frame}
+\tableofcontents[currentsection, hideallsubsections]
+\end{frame}
+%\subsection{}
+
+\begin{frame}
+\frametitle{Probability}
+\begin{columns}
+\column{0.7\textwidth}
+In 2013, \href{http://www.nytimes.com/2013/05/14/opinion/my-medical-choice.html?_r=0}{Angelina Jolie} got a double mastectomy because doctors told her that with the BRCA1 gene she has an 87\% risk of breast cancer.
+\begin{clicker}{Would you get a double mastectomy under these circumstances? (If you are male, consider the question to be ``Would you want your mother to get a double mastectomy under these circumstances?'')}
+\begin{enumerate}
+    \item
+    Yes
+    \item
+    No
+\end{enumerate}
+\end{clicker}
+\column{0.3\textwidth}
+\includegraphics[width=1.0\textwidth]{Figures/Angelina.jpg}
+\end{columns}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Probability}
+\begin{itemize}
+    \item
+    Everyday you experience events in which the outcome is uncertain - these are \textbf{random phenomena}
+        \begin{itemize}
+            \item
+            There is a 70\% chance of rain today
+            \item
+            A new cancer treatment is successful for 40\% of patients
+            \item
+            The probability that I win the lottery is 1 in one million
+        \end{itemize}
+    \item
+    \textbf{Probability} is the way we \emph{quantify} uncertainty or randomness.
+    \item
+    You have to \emph{interpret} probability in \textbf{your everyday lives}.
+    \item
+    You have to \emph{interpret} probability in \textbf{statistical analysis}.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Probability and Randomness}
+The \textbf{probability} of an outcome is the proportion of times that an outcome would occur in a long run of observations, or trials.
+    Basic rules of probability are:
+    \begin{itemize}
+        \item
+         A probability is always a number between 0 and 1.
+         \item
+         The sum of all of the probabilities for all the possible outcomes equal 1.
+    \end{itemize}
+\vskip10pt
+Sometimes probabilities are reported percents, in which case it should be between 0 and 100\%.
+\end{frame}
+
+%\begin{frame}
+%\begin{clicker}{Which of the following are not valid probabilities?  Mark all that apply.}
+%\begin{enumerate}
+%    \item
+%    0.01
+%    \item
+%    -0.50
+%    \item
+%    1.05
+%    \item
+%    88\%
+%    \item
+%    107\%
+%\end{enumerate}
+%\end{clicker}
+%\end{frame}
+
+\begin{frame}
+\frametitle{Thought exercise}
+By yourself...  here is a number line from zero to one that represents probabilities.  Draw a cutoff point, and label it with a number, such that you classify probabilities as
+\begin{itemize}
+\item small - an event with this probability would be unusual to happen by random chance
+\item not so small - it would not be unusual for an event with this probability happen by random chance
+\end{itemize}
+\vskip10pt
+Below is an example with 0.5 as a cutoff.  Draw \textbf{your} cutoff point where \textbf{you} see fit.\\
+\vskip10pt
+\includegraphics[width=0.7\textwidth]{Figures/probcutoff.png}
+\end{frame}
+
+\begin{frame}
+\frametitle{Finding probabilities}
+\begin{itemize}
+    \item
+    Make \emph{assumptions} about your random process in order to calculate a probability (e.g., each roll of the die is equally likely)
+    \item
+    \emph{Estimate} a probability with a sample proportion from a \emph{long run} of observations (e.g., collect large amounts of data from which you an estimate a probability)
+    \item
+    \emph{Estimate} a probability from simulating outcomes
+\end{itemize}
+\end{frame}
+
+
+
+
+\begin{frame}
+\frametitle{The Monty Hall Problem}
+\begin{itemize}
+    \item
+    In the game show Let's Make a Deal you choose one of three doors and win what is behind it.
+    \item
+    One door has a Cadillac and the two others have goats.
+    \item
+    The host knows where the Cadillac is and opens one of the doors you did not choose to reveal a goat.
+    \item
+    You are offered the chance to stay with your door or switch to last unopened door.
+\end{itemize}
+\begin{clicker}{Do you have better chances of winning if you}
+\begin{enumerate}
+    \item
+    stay
+    \item
+    switch
+    \item
+    either stay or switch has equal chance of winning
+\end{enumerate}
+\end{clicker}
+%\href{http://www.bbc.co.uk/news/magazine-24045598}{Monty Hall problem: The probability puzzle that will makes your head melt}
+\end{frame}
+
+\begin{frame}
+\frametitle{Play Let's Make A Deal!}
+\begin{itemize}
+    \item
+    Pair up; assign one person to be the host and other to be the contestant.  Get 3 index cards; write \emph{goat} on 2, and \emph{car} on 1.
+    \item
+    Simulation 1: Host shuffles cards, and can see prizes.  Contestant selects a card; host reveals one card that is a goat; contestant employs \emph{stay} strategy.  Record prize won; repeat 15 times.
+    \item
+    Simulation 2: Host shuffles cards, and can see prizes.  Contestant selects a card; host reveals one card that is a goat; contestant employs \emph{switch} strategy.  Record prize won; repeat 15 times.
+\end{itemize}
+\resizebox{1.0\textwidth}{!}{
+\begin{tabular}{|l|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|l|}
+\hline
+Repetition & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 &  10 & 11 & 12 & 13 &14 & 15 & \# cars \\
+\hline
+STAY  &  &  &  &  &  &  &  &  &  &   &  &  &  & &  & \\
+\hline
+SWITCH  &  &  &  &  &  &  &  &  &  &   &  &  &  & &  & \\
+\hline
+\end{tabular}}
+\end{frame}
+
+\begin{frame}
+\frametitle{Plot class results}
+Number of car wins under STAY strategy:\\
+\vskip50pt
+\begin{center}
+\begin{tabular}{cccccccccccccccc}
+\hline
+0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 &  10 & 11 & 12 & 13 &14 & 15 \\
+\end{tabular}
+\end{center}
+Number of car wins under SWITCH strategy:\\
+\vskip50pt
+\begin{center}
+\begin{tabular}{cccccccccccccccc}
+\hline
+0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 &  10 & 11 & 12 & 13 &14 & 15 \\
+\end{tabular}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Simulate Let's Make A Deal!}
+Open this website in internet explorer to do a \emph{long run} simulation with \emph{many} games.
+\begin{center}
+\href{http://www.grand-illusions.com/simulator/montysim.htm}{http://www.grand-illusions.com/simulator/montysim.htm}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Interpret the results}
+The probability of winning under the \emph{stay} strategy is \underline{\hspace{0.5in}}; the probability of winning under the \emph{switch} strategy is \underline{\hspace{0.5in}}.
+\vskip10pt
+That is, if you play the game repeatedly under the same conditions, then after a very large number of games, your proportion of wins under the \emph{stay} strategy should be very close to \underline{\hspace{0.5in}}.
+\end{frame}
+
+
+\begin{frame}
+\frametitle{\grp}
+\begin{clicker}{Suppose a weather forecaster states that the probability of rain in SLO tomorrow is 0.30.  Which of the following statements are \textbf{true}?}
+\begin{enumerate}
+    \item
+    It will rain in 30\% of SLO tomorrow.
+    \item
+    It will rain 30\% of the day tomorrow.
+    \item
+    Out of 10 days with the exact same weather conditions as tomorrow, it would rain on exactly 3 of those days.
+    \item
+    In the long run, among many days with the exact same weather conditions as tomorrow, it would rain on 30\% of those days.
+    \item
+    More than one statement is true.
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+%\begin{frame}
+%\begin{clicker}{Suppose the Atlanta Braves are better than the Philadelphia Phillies.  Sports announcers declare that the Atlanta Braves have a 2/3 probability of beating the Philadelphia Phillies in any given game.  Which of the following statements are \textbf{true}?}
+%\begin{enumerate}
+%    \item
+%    In the next game played, the Braves are guaranteed to win.
+%    \item
+%    If they play each other 3 times, the Braves are guaranteed to win exactly twice.
+%    \item
+%    If they play each other 30 times, the Braves are guaranteed to win exactly 20 times.
+%    %\item
+%    %The proportion of games won by the Falcons would be more variable in 10 games compared to 100 games.
+%\end{enumerate}
+%\end{clicker}
+%\end{frame}
+
+
+\begin{frame}
+\frametitle{Interpreting probabilities}
+\begin{center}
+\includegraphics[width=0.8\textwidth]{Figures/ProbabilityInterpretation.jpg}
+\end{center}
+Substitutions:
+\begin{itemize}
+\item ``definitely not'' =  ``highly unlikely''
+\item  ``definitely'' = ``highly likely''
+\end{itemize}
+%\vskip10pt
+%\href{http://mathwithbaddrawings.com/2015/09/23/what-does-probability-mean-in-your-profession/}{How different professions interpret probabilities}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Summary}
+Interpreting a probability is important in statistical inference.  Remember the framework for statistical reasoning...
+\begin{enumerate}
+    \item
+    The data arose from random chance
+    \item
+    The data didn't arise from random chance - something is really going on here
+\end{enumerate}
+We assume the chance model is true, and then we determine how likely it is for our observed data to come from the chance model.  When we determine that it is unlikely, or that the probability is `small', we conclude that we have evidence that something is really going on.
+\end{frame}
+
+
+
+
+%===========================================================================================================================
+\section[Practice]{Exam Practice Questions}
+%===========================================================================================================================
+\begin{frame}
+\tableofcontents[currentsection, hideallsubsections]
+\end{frame}
+
+%\subsection{}
+\begin{frame}
+A researcher asks 1000 families how many times a year they go out to eat.
+\begin{clicker}{Which sample statistic would be an appropriate measure of central tendency for the data?}
+    \begin{enumerate}
+        \item
+        the interquartile range
+        \item
+        the standard deviation
+        \item
+        the sample mean
+        \item
+        the sample proportion
+    \end{enumerate}
+\end{clicker}
+\end{frame}
+
+\begin{frame}
+In a study about Facebook and researchers found that ``using facebook made people feel worse about themselves.'' Study participants completed online surveys regarding their feelings as well as time spent on facebook over the course of the day.
+\begin{clicker}{Which of the following represents a variable in that study?}
+\begin{enumerate}
+    \item
+    number of participants
+    \item
+    they received 5 text messages a day
+    \item
+    average life satisfaction score among all participants
+    \item
+    how much facebook was used in a day
+    \item
+    percent of females in the study
+    \item
+    more than one is a variable
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Data from a statistics class survey}
+\begin{columns}
+\column{0.65\textwidth}
+\resizebox{1.0\textwidth}{!}{
+\begin{tabular}{|ccccc|}
+    \hline
+    gender & sleep & bedtime & countries & dread \\
+    \hline
+    male   & 5.0    & 12-2   & 12  & low \\
+    female & 7.0    & 12-2   & 7   & high \\
+    male   & 6.5  & 10-12  & 1   & high \\
+    female & 8.0   & 8-10   & 2   & medium \\
+    female & 7.3    & 10-12  & 9   & high \\
+    \hline
+\end{tabular}}
+\vskip10pt
+\resizebox{1.0\textwidth}{!}{
+\begin{tabular}{r|l}
+    gender & male/female\\
+    sleep & amount of sleep in a typical night (hours) \\
+    bedtime & time frame for nightly bedtime\\
+    countries & number of countries visited\\
+    dread &  level of dread towards statistics \\
+          & (low, medium, high) \\
+\end{tabular}}
+\column{0.35\textwidth}
+\begin{clicker}{Which variables are quantitative?}
+\begin{enumerate}
+    \item
+    sleep, bedtime, countries
+    \item
+    sleep
+    \item
+    bedtime, countries
+    \item
+    dread, bedtime
+    \item
+    sleep, countries
+\end{enumerate}
+\end{clicker}
+\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{verbatim}
+ min Q1 median   Q3 max    mean       sd  n
+   0 20     25 49.5 180 40.1194 41.59892 67
+\end{verbatim}
+\includegraphics[width=0.5\textwidth,trim=0mm 85mm 0mm 20mm, clip]{Figures/haircut.pdf}
+\begin{clicker}{This data summary shows the distribution of amount spent on a haircut by 67 STAT 217 students.  Which of the following statements is \emph{true}?}
+    \begin{enumerate}
+      \item
+      This is a left skewed distribution.
+      \item
+      Fewer students spent \$20-\$25 on a haircut than \$25-\$49.50.
+      \item
+      25\% of students reported spending more than \$49.50.
+      \item
+      50\% of students reported spending less than or equal to \$40.11.
+      \item
+      More than one statement is true.
+    \end{enumerate}
+\end{clicker}
+\end{frame}
+
+
+%\begin{frame}
+%Participants in the 2006 General Social Survey were asked if gun control should be stricter after the 9/11 tragedy and about their political affiliation.
+%\begin{columns}
+%\column{0.5\textwidth}
+%\resizebox{1.0\textwidth}{!}{
+%\begin{tabular}{|l|cc|r|}
+%    \hline
+%    & More Strict & Less Strict & Total \\
+%    \hline\hline
+%    Democrat & 454 & 62 & 516 \\
+%    Independent & 195 & 37 & 232 \\
+%    Republican & 363 & 104 & 467 \\
+%    \hline\hline
+%    Total & 1012 & 203 & 1215 \\
+%    \hline
+%\end{tabular}}
+%\column{0.5\textwidth}
+%\begin{clicker}{What is the proportion of Republicans that think gun control laws should be stricter?}
+%\begin{enumerate}
+%    \item
+%    363 / 1215
+%    \item
+%    363 / 1012
+%    \item
+%    363 / 467
+%    \item
+%    1012 / 1215
+%    \item
+%    467 / 1215
+%\end{enumerate}
+%\end{clicker}
+%\end{columns}
+%\end{frame}
+
+\begin{frame}
+%\begin{columns}
+%\column{0.6\textwidth}
+%\resizebox{1.0\textwidth}{!}{
+\begin{center}
+\begin{tabular}{|l|cc|r|}
+    \hline
+    & More Strict & Less Strict & Total \\
+    \hline\hline
+    Democrat & 454 & 62 & 516 \\
+    Republican & 363 & 104 & 467 \\
+    \hline\hline
+    Total & 817 & 166 & 983 \\
+    \hline
+\end{tabular}%}
+\end{center}
+%\column{0.4\textwidth}
+\begin{clicker}{Participants in the 2006 General Social Survey were asked if gun control should be stricter after the 9/11 tragedy and about their political affiliation.  Which proportions should you compare if you want to determine if political affiliation is associated with views on gun control?}
+\begin{enumerate}
+    \item
+    817 / 983 vs 516 / 983
+    \item
+    516 / 983 vs 467 / 983
+    \item
+    454 / 516 vs 454 / 817
+    \item
+    454 / 516 vs 363 / 467
+    \item
+    454 / 817 vs 62 / 166
+\end{enumerate}
+\end{clicker}
+%\end{columns}
+\end{frame}
+
+\begin{frame}
+\begin{clicker}{What is the \emph{main} difference between observational studies and experiments?}
+\begin{enumerate}
+    \item
+    Experiments take place in a lab while observational studies do not need to.
+    \item
+    In an observational study we only look at what happened in the past.
+    \item
+    Most experiments use random assignment while observational studies do not.
+    \item
+    Observational studies are completely useless since no causal inference can be made based on their findings.
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+\begin{frame}
+Students complain that a chemistry exam is too hard, while the professor says that the the exam is not too hard.
+\begin{clicker}{  If exam scores are left-skewed, which measure are they using to describe `typical' exam performance and justify their arguments?}
+  \begin{enumerate}
+        \item
+        the students are using the mean, whereas the professor is using the median
+        \item
+        the students are using the median, whereas the professor is using the mean
+        \item
+        both the professor and the students are using the mean
+        \item
+        both the professor and the students are using the median
+    \end{enumerate}
+\end{clicker}
+\end{frame}
+
+\begin{frame}
+Historians use text analysis to attempt to attribute authorship of unknown works.  From examining a body of known works of approximately 1000 words, author X uses `thee' on average 14 times with a standard deviation of 3, and author Y uses `thee' on average 20 times with a standard deviation of 2.  The $z$-score for the unknown work relative to author X is 1.67, and the $z$-score for the unknown work relative to author Y is -0.5.
+\begin{clicker}{Which of the following statements is  \emph{true}?}
+    \begin{enumerate}
+        \item
+        the number of times `thee' is used is more consistent with author X than author Y
+        \item
+        the number of times `thee' is used in the unknown work is 17
+        \item
+        the unknown work uses 0.5 fewer ``thee's'' than typical for author Y
+        \item
+        the unknown work uses 1 fewer thee than typical for author Y
+    \end{enumerate}
+\end{clicker}
+\end{frame}
+
+\begin{frame}
+\small{A news story reported ``Better fathers have smaller testicles'' based on research by Emory anthropologist Dr. James Rilling.  Biological fathers of children aged 1 or 2 years old who were currently cohabitating with the child's mother were recruited through using flyers posted around the Emory University campus, at local parks, daycare centers, and with an electronic advertisement on Facebook.  Dr. Rilling used MRI scans to measure testes size and a self-report questionnaires to assess parenting involvement.}
+\begin{clicker}{\small{This is a \underline{\hspace{0.5in}} study, and therefore we \underline{\hspace{0.5in}} conclude that smaller testicle size causes men to be better fathers.  \underline{\hspace{0.5in}} bias could have entered the study by the method of the participant recruitment.}}
+\begin{enumerate}
+    \small{
+    \item
+    observational, cannot, sampling
+    \item
+    experimental, can, sampling
+    \item
+    observational, cannot, response
+    \item
+    observational, can, response}
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+%
+%\begin{frame}
+% Suppose we find that female students take longer to answer true/false questions than male students.  However, once the grade of the student in the course was accounted for (A or not A), it appeared that male students students took longer to answer true/false questions than female students.
+%\begin{clicker}
+%{How can this result be interpreted?}
+%    \begin{enumerate}
+%        \item
+%        grade is a biased variable
+%        \item
+%        grade is a confounding variable
+%        \item
+%        being female causes students to be slower on the true/false questions
+%        \item
+%        length of time to answer the true/false questions is an outlier
+%    \end{enumerate}
+%\end{clicker}
+%\end{frame}
+
+
+\begin{frame}
+Scores on the verbal section of the SAT have a mean of 500 and a standard deviation of 100. Scores are normally distributed.
+\begin{clicker}
+{What proportion of verbal SAT scores are higher than 600?}
+\begin{enumerate}
+    \item
+    0.025
+    \item
+    0.05
+    \item
+    0.16
+    \item
+    0.32
+    \item
+    0.68
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+
+
+
+\begin{frame}
+Suppose we are interested in the relationship between age and exercise habits.  We randomly sample 3000 adults, and we collect information on their age and how many minutes a week they exercised.
+\begin{clicker}{Which figure would be most appropriate to begin to visualize if there is an association?}
+    \begin{enumerate}
+        \item
+        dot plot
+        \item
+        histogram
+        \item
+        scatterplot
+        \item
+        side by side boxplot
+        \item
+        barplot
+    \end{enumerate}
+\end{clicker}
+\end{frame}
+
+\begin{frame}
+\begin{clicker}{Suppose that battery life of a laptop follows a normal distribution with a mean of 7 hours and a standard deviation of 2 hours.  The 80$^{th}$ percentile of of battery life is}
+\begin{enumerate}
+    \item
+    less than 7 hours
+    \item
+    greater than 7 hours
+    \item
+    less than 2 hours
+    \item
+    7 hours
+    \item
+    2 hours
+    \item
+    not enough information to determine
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+
+%
+%\begin{frame}
+%Policy makers are concerned with the rising cost of undergraduate education, and they want to estimate how much students are spending on average for text books.  Survey administrators obtain a list of all accredited four year colleges or universities in the United States (approximately 2800) from which they randomly select 300 colleges to participate in the study.  Within these 300 colleges, they randomly select 50 students to interview regarding the amount spent on textbooks that semester.
+%\begin{clicker}{This study design can best be described as a}
+%\begin{enumerate}
+%    \item
+%    simple random sample
+%    \item
+%    cluster sample
+%    \item
+%    stratified sample
+%    \item
+%    convenience sample
+%\end{enumerate}
+%\end{clicker}
+%\end{frame}
+
+
+
+\end{document} 

@@ -1,0 +1,1219 @@
+
+
+\input{"C:/Users/spileggi/Google Drive/STAT 217/Slides/SlideStyle.tex"}
+
+
+
+\title[Unit 3 Deck 1]{Inference for Quantitative Data}
+\author[Pileggi]{Shannon Pileggi}
+
+\institute[STAT 217]{STAT 217}
+
+\date{}
+
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}
+\frametitle{OUTLINE\qquad\qquad\qquad} \tableofcontents[hideallsubsections]
+\end{frame}
+
+
+%===========================================================================================================================
+\section[The Data]{The Data}
+%===========================================================================================================================
+%\subsection{}
+\begin{frame}
+\frametitle{Beat the Blues}
+\begin{itemize}
+    \item
+    enrolled patients with depression/anxiety
+    \item
+    randomly assigned them to Treatment as Usual (TAU) or BtheB, a new treatment delivery therapy via computers
+    \item
+    measured depression via Beck Depression Inventory (BDI) at baseline (pre-treatment), and 2, 4, 6, and 8 month follow up
+    \item
+    BDI scores range from 0 to 63 with higher scores indicating more severe depression
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\begin{clicker}{Is this study observational or experimental?}
+\begin{enumerate}
+    \item
+    observational
+    \item
+    experimental
+\end{enumerate}
+\end{clicker}
+\begin{enumerate}
+    \item[]
+    \item[]
+    \item
+    Describe the \underline{sample}:
+    \item[]
+    \item[]
+    \item
+    Describe the \underline{population}:
+    \item[]
+    \item[]
+\end{enumerate}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{The first 6 observations in the data set}
+\begin{lcverbatim}
+> head(BtheB)
+  drug length treatment bdi.pre bdi.2m bdi.4m bdi.6m bdi.8m
+1   No    >6m       TAU      29      2      2     NA     NA
+2  Yes    >6m     BtheB      32     16     24     17     20
+3  Yes    <6m       TAU      25     20     NA     NA     NA
+4   No    >6m     BtheB      21     17     16     10      9
+5  Yes    >6m     BtheB      26     23     NA     NA     NA
+6  Yes    <6m     BtheB       7      0      0      0      0
+\end{lcverbatim}
+\end{frame}
+
+
+%===========================================================================================================================
+\section[Paired t-test]{Paired t-test}
+%===========================================================================================================================
+\begin{frame}
+\tableofcontents[currentsection, hideallsubsections]
+\end{frame}
+%\subsection{}
+
+\begin{frame}[fragile]
+\underline{The research question}: Do depression levels change from baseline (pre-treatment) to 2 months follow-up post treatment? Ie, regardless of treatment group, does participating in a clinical trial have an effect on depression levels?
+\vskip20pt
+\begin{columns}
+\column{0.3\textwidth}
+\underline{First six observations:}
+\begin{lcverbatim}
+  bdi.pre bdi.2m
+1      29      2
+2      32     16
+3      25     20
+4      21     17
+5      26     23
+6       7      0
+\end{lcverbatim}
+\column{0.7\textwidth}
+\begin{enumerate}
+\item
+What types of variables do we have?
+\item[]
+\item
+Are they ``paired''?
+\item[]
+\item
+How many groups are we studying?
+\item[]
+\item
+How can we approach the problem?
+\item[]
+\end{enumerate}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+%\frametitle{Clicker}
+\begin{clicker}{Which scenarios represent paired measurements (or \emph{dependent} samples)?  Mark \underline{all} that apply.}
+\begin{enumerate}
+    \item
+    In order to study the efficacy of a new sunscreen, 50 volunteers put a standard sunscreen on their left arm and the new sunscreen on their right arm.  After 3 hours, degree of redness was assessed for each arm.
+    \item
+    Newer baseball stadiums are thought to attract more fans.  Attendance records in the old stadium was compared to attendance records in the new stadium for 10 teams.
+    \item
+    The General Social Survey (GSS) compared the number of hours worked per week among college graduates and non-college graduates.
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+\begin{frame}[fragile]
+\underline{Parameter of interest}: $\mu_d=\mu_{pre}-\mu_{2m}$ = population mean difference in depression scores between baseline and two month follow-up
+\vskip20pt
+\begin{columns}
+\column{0.40\textwidth}
+\begin{lcverbatim}
+> BtheB$diff2m<-
+  BtheB$bdi.pre-BtheB$bdi.2m
+
+  bdi.pre bdi.2m diff2m
+1      29      2     27
+2      32     16     16
+3      25     20      5
+4      21     17      4
+5      26     23      3
+6       7      0      7
+\end{lcverbatim}
+\column{0.60\textwidth}
+Three possible scenarios:
+\begin{itemize}
+\item
+No change:
+\item[]
+\item[]
+\item
+Improvement:
+\item[]
+\item[]
+\item
+Worsening:
+\item[]
+\item[]
+\end{itemize}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Answering the research question}
+We can answer the research question of interest with:
+\begin{itemize}
+    \item
+    A confidence interval for $\mu_d$
+    \item
+    A hypothesis test of $H_0$: $\mu_d=0$
+    \item[]
+    (this is the paired t-test)
+    \item
+    This is essentially the same inference about a mean that we have already learned
+\end{itemize}
+\vskip10pt
+Conditions required for \emph{both} the CI and HT:
+\begin{enumerate}
+    \item
+    independent observations
+    \item
+    normal underlying population distribution OR $n \geq 30$
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\frametitle{Checking condition 1: independent observations}
+\vskip5pt
+\includegraphics[width=0.80\textwidth]{Figures/pairedconditions.png}\\
+\vskip10pt
+The difference in depression scores between baseline and two month follow-up for person 1 is not related to the difference in depression scores between baseline and two month follow-up for person 2 (and for all other subjects in the study).  This condition regarding independent observations is satisfied.
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Checking condition 2}
+The differences in depression scores has a slight right skew; however, the sample size is $n=97>30$ so this condition is satisfied.
+\vskip10pt
+\begin{lcverbatim}
+> favstats(BtheB$diff2m)
+ min Q1 median Q3 max     mean       sd  n missing
+ -17  0      5 11  41 6.237113 9.474498 97       3
+\end{lcverbatim}
+\vskip10pt
+\begin{columns}
+\column{0.7\textwidth}
+Summary data needed for both CI and HT:
+\begin{itemize}
+    \item[]
+    $n=$
+    \item[]
+    $\bar{x}_d=$
+    \item[]
+    $s_d=$
+\end{itemize}
+\column{0.3\textwidth}
+\includegraphics[width=1.0\textwidth]{Figures/histdiff2m.pdf}
+\end{columns}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{95\% confidence interval for $\mu_d$}
+\begin{center}
+$\bar{x}_d\pm t^* \times \frac{s_d}{\sqrt{n}}$
+\end{center}
+\begin{columns}
+\column{0.6\textwidth}
+based on a 95\% conf. level\\
+and $df=n-1=97-1=96$\\
+$t^*=1.98$ (from R) \\
+%\pause
+\vskip10pt
+%\begin{center}
+$se=s_d/\sqrt{n}=9.47/\sqrt{97}=0.96$
+%\end{center}
+%\pause
+\vskip10pt
+%\begin{center}
+$6.23 \pm 1.98 \times 0.96$\\
+%\end{center}
+\vskip10pt
+%\pause
+%\begin{center}
+$6.23 \pm 1.90$\\
+%\end{center}
+%\pause
+\vskip10pt
+%\begin{center}
+95\% CI for $\mu_d$: (4.33,8.13)
+%\end{center}
+\column{0.4\textwidth}
+%\pause
+\begin{clicker}{What is the margin of error for this confidence interval?}
+\begin{enumerate}
+    \item
+    0.05
+    \item
+    0.96
+    \item
+    1.90
+    \item
+    1.98
+    \item
+    3.80
+\end{enumerate}
+\end{clicker}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Interpretation}
+\begin{itemize}
+    \item
+    Literal interpretation of the interval:
+    \item[]
+    \item[]
+    \item
+    Does it include zero?
+    \item[]
+    \item[]
+    \item
+    What does that mean?
+    \item[]
+    \item[]
+    \item
+    Answer the research question:
+    \item[]
+    \item[]
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\begin{clicker}{The 95\% CI for $\mu_d$ is (4.33,8.33).  Which of the following would be a \emph{plausible} $p$-value when testing the hypotheses $H_0$: $\mu_d=0$ vs $H_a$: $\mu_d\neq 0$?}
+\begin{enumerate}
+    \item
+    0.03
+    \item
+    0.23
+    \item
+    0.53
+    \item
+    0.73
+    \item
+    not enough information to determine
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Paired t-test}
+$H_0$: $\mu_d=0$ vs $H_a$: $\mu_d \neq 0$\\
+\vskip20pt
+$\displaystyle t=\frac{\bar{x}_d-\mu_0}{s_d/\sqrt{n}} =\frac{6.23-0}{9.47/\sqrt{97}}=6.47$
+\vskip20pt
+This $t$ test statistic follows a $t$ distribution with 96 ($n-1$) degrees of freedom.  The $p$-value is found by a two-tailed area under the $t$ distribution.
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Results in R}
+\begin{lcverbatim}
+#These two commands give equivalent results.  Why?
+
+> t.test(BtheB$diff2m,mu=0)
+
+> t.test(BtheB$bdi.pre,BtheB$bdi.2m,paired=TRUE)
+
+
+	One Sample t-test
+
+data:  BtheB$diff2m
+t = 6.4836, df = 96, p-value = 3.869e-09
+alternative hypothesis: true mean is not equal to 0
+95 percent confidence interval:
+ 4.327579 8.146647
+sample estimates:
+mean of x
+ 6.237113
+\end{lcverbatim}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Interpret the p-value}
+\includegraphics[width=0.4\textwidth]{Figures/t96mod.png}\\
+If there really was no difference in average depression scores between baseline and 2 months (ie, if $H_0$ true), then the probability that we would observe a test statistic less than -6.48 or greater than 6.48 is really small ($3.869 \times 10^{-9}$).  This presents evidence against $H_0$.
+\end{frame}
+
+\begin{frame}
+\frametitle{Conclusion in context}
+\begin{enumerate}
+    \item \textbf{Decision about $H_0$:}
+    \item[]
+    \item[]
+    \item \textbf{Statement about the parameter tested in context of the research question:}
+    \item[]
+    \item[]
+    \item[]
+    \item \textbf{Provide a deeper connection of how this relates to the research question:}
+    \item[]
+    \item[]
+    \item[]
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\begin{clicker}
+{What type of error could we have committed here?}
+\begin{enumerate}
+   \item
+   a Type I error
+   \item
+   a Type II error
+   \item
+   either
+   \item
+   neither
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Meaningful?}
+\begin{lcverbatim}
+	One Sample t-test
+
+data:  BtheB$diff2m
+t = 6.4836, df = 96, p-value = 3.869e-09
+alternative hypothesis: true mean is not equal to 0
+95 percent confidence interval:
+ 4.327579 8.146647
+sample estimates:
+mean of x
+ 6.237113
+\end{lcverbatim}
+The results are statistically signficant.  But is it meaningful?
+\vskip200pt
+\end{frame}
+
+\begin{frame}
+Suppose I am dealing with paired data from a randomized clinical trial regarding weight before and after a treatment intending to assist in weight loss.  $\mu_d$ represents the average of post-treatment weight minus the pre-treatment weight.  A 95\% CI for $\mu_d$ is (0.5, 6.7).
+\begin{clicker}{What can we infer from this CI?}
+\begin{enumerate}
+    \footnotesize{
+    \item
+    the treatment \underline{is not effective} because the CI includes 1, indicating that there is no difference in weight loss before and after treatment
+    \item
+    the treatment \underline{is effective} for weight loss because the post-treatment weights are on average less than the pre-treatment weights
+    \item
+    the treatment \underline{is not effective} for weight loss because treatment is causing patients to gain weight, rather than lose weight, on average
+    \item
+    there is not enough information to determine whether or not the treatment is effective}
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+
+
+
+
+%===========================================================================================================================
+\section[Two sample t-test]{Two sample t-test}
+%===========================================================================================================================
+\begin{frame}
+\tableofcontents[currentsection, hideallsubsections]
+\end{frame}
+%\subsection{}
+
+\begin{frame}[fragile]
+\underline{The research question}: Do depression levels differ at baseline (\texttt{bdi.pre}) between patients who were and were not already on antidepressant drugs (\texttt{drugs})?  OR: Is there an association between baseline depression scores and whether or not patients take antidepressant drugs?
+\vskip10pt
+\begin{columns}
+\column{0.3\textwidth}
+\underline{First six observations:}
+\begin{lcverbatim}
+  drug bdi.pre
+1   No      29
+2  Yes      32
+3  Yes      25
+4   No      21
+5  Yes      26
+6  Yes       7
+\end{lcverbatim}
+\column{0.7\textwidth}
+\begin{enumerate}
+\item
+What types of variables do we have?
+\item[]
+\item
+Are they ``paired''?
+\item[]
+\item
+How many groups are we studying?
+\item[]
+\item
+How can we approach the problem?
+\item[]
+\end{enumerate}
+\end{columns}
+\end{frame}
+
+
+
+
+\begin{frame}
+\begin{clicker}{Which figure would be appropriate to begin to visually assess if there is an association between depression scores and whether or not patients take antidepressant drugs?}
+\begin{enumerate}
+    \item
+    dot plot
+    \item
+    histogram
+    \item
+    single boxplot
+    \item
+    side by side boxplot
+    \item
+    barplot
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+\begin{frame}
+\frametitle{Is there an association?}
+\begin{center}
+\includegraphics[width=0.7\textwidth]{Figures/bpbdipredrug.pdf}
+\end{center}
+\end{frame}
+
+
+\begin{frame}
+\begin{clicker}{Which of these scenarios represent a two sample comparison?}
+\begin{enumerate}
+    \item
+    We take a random sample of 100 Cal Poly students and test if the average GPA differs from 3.3.
+    \item
+    We take a random sample of 100 Cal Poly students and test if the average GPA differs between males and females.
+    \item
+    We take a random sample of 100 Cal Poly students and test if the average GPA changes before and after attending a workshop on study habits.
+    \item
+    We take a random sample of 100 Cal Poly students and test if the average GPA differs by political affiliation (democrat, republican, independent).
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\underline{Parameters of interest}: \\
+$\mu_{yes}= $population mean baseline BDI score among patients who are on antidepressants \\
+$\mu_{no}= $population mean baseline BDI score among patients who are not on antidepressants \\
+\vskip20pt
+\begin{columns}
+\column{0.40\textwidth}
+\underline{First six observations:}
+\begin{lcverbatim}
+  drug bdi.pre
+1   No      29
+2  Yes      32
+3  Yes      25
+4   No      21
+5  Yes      26
+6  Yes       7
+\end{lcverbatim}
+\column{0.60\textwidth}
+Three possible scenarios:
+\begin{itemize}
+\item
+No difference:
+\item[]
+\item[]
+\item
+Difference:
+\item[]
+\item[]
+\item
+Difference:
+\item[]
+\item[]
+\end{itemize}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Answering the research question}
+We can answer the research question of interest with:
+\begin{itemize}
+    \item
+    A confidence interval for $\mu_{yes}-\mu_{no}$
+    \item
+    A hypothesis test of $H_0$: $\mu_{yes}=\mu_{no}$
+    \item[]
+    (this is the two sample t-test)
+\end{itemize}
+\vskip10pt
+Conditions required for \emph{both} the CI and HT:
+\begin{enumerate}
+    \item
+    independent observations (in each of the two groups)
+    \item
+    normal underlying population distribution OR
+    \item[]
+    $n \geq 30$ in \emph{each} group
+\end{enumerate}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Possible outcomes}
+\begin{columns}
+\column{0.5\textwidth}
+If we fail to reject $H_0$: $\mu_1=\mu_2$ or if the 95\% CI for $\mu_1-\mu_2$ includes 0, then
+\begin{itemize}
+    \item
+   What is the relationship between the population mean depression scores?
+   \item[]
+   \item[]
+    \item
+    Is there evidence of an association between pre-treatment BDI score and antidepressant drug use?
+    \item[]
+    \item[]
+\end{itemize}
+\column{0.5\textwidth}
+If we reject $H_0$: $\mu_1=\mu_2$ or if the 95\% CI for $\mu_1-\mu_2$ does not include 0, then
+\begin{itemize}
+    \item
+   What is the relationship between the population mean depression scores?
+   \item[]
+   \item[]
+    \item
+    Is there evidence of an association between pre-treatment BDI score and antidepressant drug use?
+    \item[]
+    \item[]
+\end{itemize}
+\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{The data}
+\begin{lcverbatim}
+> favstats(BtheB$bdi.pre~BtheB$drug)
+  BtheB$drug min Q1 median    Q3 max     mean        sd  n missing
+         No   7 14   20.5 27.50  40 21.55357  8.974549 56       0
+        Yes   2 17   24.0 34.25  49 25.59091 12.577792 44       0
+\end{lcverbatim}
+\vskip20pt
+Summary data needed for both CI and HT:
+\begin{columns}
+\column{0.3\textwidth}
+\begin{itemize}
+    \item[]
+    \underline{Yes group}
+    \item[]
+    $n_1=$
+    \item[]
+    $\bar{x}_1=$
+    \item[]
+    $s_1=$
+\end{itemize}
+\column{0.3\textwidth}
+\begin{itemize}
+    \item[]
+    \underline{No group}
+    \item[]
+    $n_2=$
+    \item[]
+    $\bar{x}_2=$
+    \item[]
+    $s_2=$
+\end{itemize}
+\column{0.3\textwidth}
+\includegraphics[width=1.0\textwidth]{Figures/histbdipre.pdf}
+\end{columns}
+\end{frame}
+
+
+
+\begin{frame}
+\begin{clicker}{Which of the following data would provide the \emph{most} evidence against $H_0$: $\mu_{1}=\mu_{2}$?}
+\begin{enumerate}
+    \item
+    $\bar{x}_1=25$, $\bar{x}_2=19$
+    \item
+    $\bar{x}_1=25$, $\bar{x}_2=21$
+    \item
+    $\bar{x}_1=25$, $\bar{x}_2=23$
+    \item
+    $\bar{x}_1=25$, $\bar{x}_2=27$
+    \item
+    $\bar{x}_1=25$, $\bar{x}_2=29$
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{95\% confidence interval for $\mu_{1} - \mu_{2}$}
+\begin{center}
+$\displaystyle (\bar{x}_1 - \bar{x}_2) \pm t^*\times se$ where $\displaystyle se =\sqrt{\frac{s_1^2}{n_1}+\frac{s_2^2}{n_2}}$
+\end{center}
+\vskip90pt
+\begin{itemize}
+\item
+The df for $t^*$ is a complicated formula that you do not need to know.  The $t^*$ for a 95\% CI with $df=74.9$ is 1.99.
+\item
+We are calculating this CI under the assumption of \emph{unequal variances}.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Hypothesis test of $H_0$: $\mu_{1}=\mu_{2}$}
+\begin{center}
+$\displaystyle t=\frac{(\bar{x}_1 - \bar{x}_2)-0}{se}$ where $\displaystyle se=\sqrt{\frac{s_1^2}{n_1}+\frac{s_2^2}{n_2}}$\\
+\end{center}
+\vskip90pt
+We are calculating this test statistic under the assumption of \emph{unequal variances}.
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Interpretation}
+\begin{itemize}
+    \item
+    Literal interpretation of the interval:
+    \item[]
+    \item[]
+    \item
+    Does it include zero?
+    \item[]
+    \item[]
+    \item
+    What does that mean?
+    \item[]
+    \item[]
+    \item
+    Answer the research question:
+    \item[]
+    \item[]
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Two sample t-test assuming unequal variances}
+\begin{center}
+$H_0$: $\mu_1=\mu_2$ vs $H_a$: $\mu_1\neq\mu_2$
+\end{center}
+\begin{lcverbatim}
+> t.test(BtheB$bdi.pre~BtheB$drug)
+
+	Welch Two Sample t-test
+
+data:  BtheB$bdi.pre by BtheB$drug
+t = -1.7995, df = 74.911, p-value = 0.07597
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ -8.5069019  0.4322266
+sample estimates:
+ mean in group No mean in group Yes
+         21.55357          25.59091
+\end{lcverbatim}
+\vskip5pt
+\small{$^*$ Note the order of subtraction in the R output:  R analyzes this as $\mu_{no} - \mu_{yes}$.  You know this because the sample mean for group \texttt{No} is presented first, and the sample mean for group \texttt{Yes} is presented second.}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Interpret the p-value}
+\includegraphics[width=0.4\textwidth]{Figures/t96V2mod.png}\\
+If average depression scores among patients who do and do not take anti-depressents really is the same (ie, if $H_0$ true), then the probability that we would observe a test statistic less than -1.79 or greater than 1.79 is 0.075.  This probability isn't that small, and does not present evidence against $H_0$.
+\end{frame}
+
+\begin{frame}
+\frametitle{Conclusion in context}
+\begin{enumerate}
+    \item \textbf{Decision about $H_0$:}
+    \item[]
+    \item[]
+    \item \textbf{Statement about the parameter tested in context of the research question:}
+    \item[]
+    \item[]
+    \item[]
+    \item \textbf{Provide a deeper connection of how this relates to the research question:}
+    \item[]
+    \item[]
+    \item[]
+\end{enumerate}
+\end{frame}
+
+
+\begin{frame}
+\begin{clicker}{Which of the following are \underline{true}?  Mark \underline{all} that apply.}
+\begin{enumerate}
+    \item
+    We could have committed a Type I error.
+    \item
+    We could have committed a Type II error.
+    \item
+    There is evidence of an association between antidepressant drug use and depression scores.
+    \item
+    There is no evidence of an association between antidepressant drug use and depression scores.
+    \item
+    We have evidence that using antidepressant drugs causes people to have higher depression scores.
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+
+
+%===========================================================================================================================
+\section[ANOVA]{ANOVA}
+%===========================================================================================================================
+\begin{frame}
+\tableofcontents[currentsection, hideallsubsections]
+\end{frame}
+%\subsection{}
+
+
+\begin{frame}[fragile]
+\frametitle{A new variable}
+Suppose we create a variable defining patient history before they enrolled in the clinical trial.  The variable is defined as:
+\begin{enumerate}
+    \item
+    \texttt{history} $= 1$: \texttt{drug} $=$ no; \texttt{length} $<$ 6m
+    \item
+    \texttt{history} $= 2$: \texttt{drug} $=$ no; \texttt{length} $>$ 6m
+    \item
+    \texttt{history} $= 3$: \texttt{drug} $=$ yes; \texttt{length} $<$ 6m
+    \item
+    \texttt{history} $= 4$: \texttt{drug} $=$ yes; \texttt{length} $>$ 6m
+\end{enumerate}
+\begin{columns}
+\column{0.5\textwidth}
+\begin{lcverbatim}
+  drug length bdi.pre history
+1   No    >6m      29       2
+2  Yes    >6m      32       4
+3  Yes    <6m      25       3
+4   No    >6m      21       2
+5  Yes    >6m      26       4
+6  Yes    <6m       7       3
+\end{lcverbatim}
+\column{0.5\textwidth}
+\begin{clicker}{The \texttt{history} variable is...}
+\begin{enumerate}
+    \item
+    quantitative
+    \item
+    categorical
+\end{enumerate}
+\end{clicker}
+\end{columns}
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\underline{The research question}: Do patients' baseline depression levels differ by patient history? OR Is there an association between baseline depression score and patient history?
+\vskip20pt
+\begin{columns}
+\column{0.5\textwidth}
+\underline{First six observations:}
+\begin{lcverbatim}
+  drug length bdi.pre history
+1   No    >6m      29       2
+2  Yes    >6m      32       4
+3  Yes    <6m      25       3
+4   No    >6m      21       2
+5  Yes    >6m      26       4
+6  Yes    <6m       7       3
+\end{lcverbatim}
+\column{0.6\textwidth}
+\begin{enumerate}
+\item
+What types of variables do we have?
+\item[]
+\item
+Are they ``paired''?
+\item[]
+\item
+How many groups are we studying?
+\item[]
+\item
+How can we approach the problem?
+\item[]
+\end{enumerate}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Is there an association?}
+\begin{center}
+\includegraphics[width=0.7\textwidth]{Figures/bpbdihistory.pdf}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Motivation}
+\begin{itemize}
+    \item
+    We have already learned a hypothesis test for comparing two population means (two-sample $t$-test)
+    \item[]
+    $H_0: \mu_1=\mu_2$
+    \item[]
+    $H_a: \mu_1 \neq \mu_2$
+    \item[]
+    \item
+    When we are interested in comparing $>$2 groups (and hence, $>$2 means) we can use ANOVA (analysis of variance)
+    \item[]
+    $H_0: \mu_1=\mu_2=\mu_3=\ldots \mu_g$ for $g$ groups
+    \item[]
+    $H_a$: at least one mean is different than the others
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\begin{center}
+\includegraphics[width=0.9\textwidth]{Figures/mineboxplot.png}
+\end{center}
+\begin{clicker}{Which plots show groups with means that are \underline{most} and \underline{least} likely to be significantly different from each other?}
+\begin{enumerate}
+    \item
+    most I; least II
+    \item
+    most II; least III
+    \item
+    most I; least III
+    \item
+    most III; least II
+    \item
+    most II; least I
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+\begin{frame}
+\frametitle{Conclusion}
+$H_0: \mu_1=\mu_2=\mu_3=\ldots \mu_g$ vs \\
+$H_a$: at least one mean different than the others
+\vskip15pt
+\begin{columns}
+\column{0.5\textwidth}
+\underline{If $p$-value $>\alpha$}
+\begin{itemize}
+    \item
+    fail to reject $H_0$
+    \item
+    there is not sufficient evidence to suggest that population means differ significantly
+    \item
+    there is no evidence of an association between the two variables
+    \item[]
+    \item[]
+\end{itemize}
+\column{0.5\textwidth}
+\underline{If $p$-value $\leq\alpha$}
+\begin{itemize}
+    \item
+    reject $H_0$
+    \item
+    there is evidence that at least one population means differs from the others
+    \item
+    there is evidence of an association between the two variables
+    \item
+    cannot determine which population means differ (yet)
+\end{itemize}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Conditions}
+\begin{enumerate}
+    \item
+    observations are independent (in each of the $g$ groups)
+    \item[]
+    \textcolor{OrangeRed}{This means that the baseline depression scores are independent from patient to patient within each of the four patient history groups.}
+    \item
+    normal underlying population distribution OR $n \geq 30$ in each group
+    \item[]
+    \textcolor{OrangeRed}{This means that the baseline depression scores are approximately normally distributed OR $n \geq 30$ in each of the four patient history groups.}
+    \item
+    each group has (about) the same variability
+    \item[]
+    \textcolor{OrangeRed}{This means that the standard deviation of the baseline depression scores is about the same in each of the four patient history groups.}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Checking conditions}
+\begin{lcverbatim}
+> favstats(BtheB$bdi.pre~BtheB$history)
+history min    Q1 median    Q3 max     mean        sd  n missing
+      1   9 13.75   19.5 27.00  40 20.87500  8.931198 24       0
+      2   7 14.75   21.0 29.25  40 22.06250  9.115522 32       0
+      3   2 11.00   21.0 33.00  49 22.12000 13.185598 25       0
+      4  14 22.50   30.0 37.00  47 30.15789 10.361591 19       0
+\end{lcverbatim}
+\vskip10pt
+\begin{center}
+\includegraphics[width=0.35\textwidth]{Figures/histbdipre.pdf}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{The Mechanics}
+For ANOVA...
+\vskip10pt
+\begin{columns}
+\column{0.5\textwidth}
+\underline{you do need to know}
+\begin{itemize}
+    \item
+    how to set up $H_0$ and $H_a$
+    \item
+    state a conclusion regarding $H_0$ and $H_a$ based on the p-value
+\end{itemize}
+\column{0.5\textwidth}
+\underline{you don't need to know}
+\begin{itemize}
+    \item
+    how to calculate the test statistic
+    \item
+    how to shade areas for the p-value
+\end{itemize}
+\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Results in R}
+\small{$H_0: \mu_1=\mu_2=\mu_3=\mu_4$ vs $H_a$: at least one mean differs}
+%\vskip15pt
+\begin{lcverbatim}
+> results <- aov(BtheB$bdi.pre ~ BtheB$history)
+> summary(results)
+              Df Sum Sq Mean Sq F value Pr(>F)
+BtheB$history  3   1118   372.8   3.404 0.0208
+Residuals     96  10516   109.5
+\end{lcverbatim}
+\begin{clicker}{\small{The p-value is 0.0208.  What is your conclusion?}}
+\begin{enumerate}
+\small{
+    \item
+    reject $H_0$; we have evidence that the mean BDI differs in all 4 history groups
+    \item
+    reject $H_0$; we have evidence that at least one mean BDI differs from the others
+    \item
+    fail to reject $H_0$; we have evidence that the mean BDI is the same in all 4 history groups
+    \item
+    fail to reject $H_0$; we do not have evidence that the mean BDI differs in the 4 history groups}
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+\begin{frame}
+\frametitle{Multiple Comparisons}
+\begin{itemize}
+    \item
+    When you reject $H_0: \mu_1=\mu_2=\mu_3$ in one-way ANOVA, it is of interest to determine exactly which means differ and to what extent they differ
+    \item
+    This results in \emph{pairwise comparisons}.  If you have 4 groups, there are 6 pairwise comparisons:
+    \begin{enumerate}
+        \item
+        group 1 vs group 2
+        \item
+        group 1 vs group 3
+        \item
+        group 1 vs group 4
+        \item
+        group 2 vs group 3
+        \item
+        group 2 vs group 4
+        \item
+        group 3 vs group 4
+    \end{enumerate}
+    \item
+    For each comparison, we can answer this by either testing  $H_0: \mu_1=\mu_2$ or by calculating a confidence interval for $\mu_1-\mu_2$
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{BUT...}
+But this means we are doing \emph{multiple} testing, or calculating \emph{multiple} confidence intervals
+\begin{itemize}
+    \item
+    this inflates the \emph{overall} Type I error rate of the multiple tests taken together
+    \item
+    this deflates the \emph{overall} coverage of the confidence intervals taken together
+\end{itemize}
+\begin{tabular}{p{3cm} p{7cm}}
+    \hline
+    Number of tests & Chance of at least one Type I error \\
+    \hline
+    1   &  5\% \\
+    3   & 14.3\% \\
+    5   & 22.6\% \\
+    10   & 40.1\% \\
+    20   & 64.2\% \\
+    50   & 92.3\%\\
+    100   & 99.4\% \\
+\end{tabular}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Multiple testing techniques}
+\begin{itemize}
+    \item
+    The goal of multiple testing/confidence interval techniques is to \textbf{control} the overall Type I error rate in a \emph{set} of tests or the overall confidence level in a \emph{set} of confidence intervals
+    \item
+    There are many techniques available
+    \begin{itemize}
+        \item
+        Fisher method
+        \item
+        Bonferroni method
+        \item
+        Tukey method
+    \end{itemize}
+    \item
+    For STAT 217, we will utilize the \textbf{Tukey method} for confidence intervals for pairwise comparisons.
+    \begin{itemize}
+        \item
+        gives overall confidence level very close to desired level
+        \item
+        confidence intervals are slightly narrower than other methods
+        \item
+        the formula is complex and you do not need to know it
+        \item
+        you can get the results in R
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Multiple Comparisons Results}
+\begin{lcverbatim}
+> TukeyHSD(results)
+> plot(TukeyHSD(results))
+        diff        lwr       upr     p adj
+2-1 1.187500 -6.2017875  8.576787 0.9749056
+3-1 1.245000 -6.5750868  9.065087 0.9755714
+4-1 9.282895  0.8797670 17.686022 0.0243165
+3-2 0.057500 -7.2468503  7.361850 0.9999968
+4-2 8.095395  0.1699716 16.020818 0.0433700
+4-3 8.037895 -0.2906418 16.366431 0.0626362
+\end{lcverbatim}
+\begin{columns}
+\column{0.4\textwidth}
+%\includegraphics[width=1.0\textwidth]{tukey_CI.png}\\
+\includegraphics[width=0.90\textwidth]{Figures/tukey.pdf}
+\column{0.6\textwidth}
+\begin{clicker}{How many pairwise comparisons indicate differences between the population means?}
+\hspace{0.1in} 0  \hspace{0.1in} 1 \hspace{0.1in}  2 \hspace{0.1in}  3  \hspace{0.1in} 4 \hspace{0.1in}  5 \hspace{0.1in}  6
+\end{clicker}
+\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{4-1 Results}
+\begin{lcverbatim}
+        diff        lwr       upr     p adj
+4-1 9.282895  0.8797670 17.686022 0.0243165
+\end{lcverbatim}
+We have evidence of a difference in mean BDI score among patients in history group 4 versus 1.  But is this meaningful?
+\vskip200pt
+\end{frame}
+
+%===========================================================================================================================
+\section[Summary]{Summary}
+%===========================================================================================================================
+\begin{frame}
+\tableofcontents[currentsection, hideallsubsections]
+\end{frame}
+%\subsection{}
+
+
+\begin{frame}
+\frametitle{Interpreting the $p$-value}
+The $p$-value represents the \textbf{strength} of the \textbf{evidence}:\\
+\begin{itemize}
+    \item
+    small $p$-values mean you have strong evidence of an association between two variables
+    \item
+    small $p$-values do not mean you have evidence of a strong association between two variables
+    \item
+    large $p$-values mean there is no evidence of an association
+    \item[]
+\end{itemize}
+Other measures represent the \textbf{strength} of the \textbf{association}:\\
+\begin{itemize}
+    \item
+    difference of means: ($\bar{x}_1-\bar{x}_2$)
+\end{itemize}
+The \textbf{strength} of the \textbf{association} can help you assess if an observed difference is meaningful.
+\end{frame}
+
+\begin{frame}
+\small{A researcher investigated if eye color of the mother (brown vs blue) is associated with birth weight of a baby (in pounds).}
+\begin{center}
+\includegraphics[width=0.80\textwidth]{Figures/ex_ttest.png}
+\end{center}
+\begin{clicker}{\small{What is the best conclusion from this analysis?  We \underline{(do/do not)} have strong evidence that weight of babies differs by mother's eye color, and the effect of eye color is \underline{(strong/weak)}.}}
+\small{
+\begin{enumerate}
+    \item
+    do; strong
+    \item
+    do not; strong
+    \item
+    do; weak
+    \item
+    do not; weak
+\end{enumerate}}
+\end{clicker}
+\end{frame}
+
+
+\begin{frame}[label=methods]
+\frametitle{Different methods}
+\resizebox{1.0\textwidth}{!}{
+\begin{tabular}{|lllll|}
+    \hline
+    \textbf{Method} & \textbf{Use} & \textbf{Variables} & \textbf{Estimation} & \textbf{Testing}\\
+     \hline
+    Single mean &  quantitative response & one quantitative variable  & CI for $\mu$ & $H_0$: $\mu=\mu_0$\\
+    \emph{(one-sample $t$-test)}                  & in single group & & &\\
+    \hline
+    $^*$Two means & quantitative response &  one quantitative variable and & CI for $\mu_1-\mu_2$ & $H_0$: $\mu_1=\mu_2$\\
+    \emph{(two-sample $t$-test)}                   &  in two groups & one categorical variable & &\\
+    \hline
+    Dependent means & quantitative response & two paired & CI for $\mu_d$ & $H_0$: $\mu_d=0$\\
+    \emph{(paired $t$-test)} & measured on same observation & quantitative variables & & \\
+    \hline
+    $^*$ANOVA &  quantitative response & one quantitative variable and & Tukey pairwise & $H_0$: $\mu_1=\mu_2=\cdots=\mu_g$\\
+                       & in $>2$ groups & one categorical variable & intervals &\\
+    \hline
+\end{tabular}}
+\vskip10pt
+\footnotesize{$^*$The starred methods can answer the question ``Is there an association?''  If we reject $H_0$, then we conclude that some sort of association is present in the two variables.}
+\end{frame}
+
+
+\end{document} 

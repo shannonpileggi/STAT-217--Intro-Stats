@@ -1,0 +1,1103 @@
+
+
+\input{"C:/Users/spileggi/Google Drive/STAT 217/Slides/SlideStyle.tex"}
+
+
+
+\title[Unit 3 Deck 2]{Inference for Categorical Data}
+\author[Pileggi]{Shannon Pileggi}
+
+\institute[STAT 217]{STAT 217}
+
+\date{}
+
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}
+\frametitle{OUTLINE\qquad\qquad\qquad} \tableofcontents[hideallsubsections]
+\end{frame}
+
+
+%===========================================================================================================================
+\section[The Data]{The Data}
+%===========================================================================================================================
+%\subsection{}
+\begin{frame}
+\frametitle{Overview of Statistical Methods}
+\begin{columns}
+\column{0.47\textwidth}
+\underline{Quantitative response (means)}
+\begin{itemize}
+    \item
+    one sample t-test
+    \item
+    paired t-test
+    \item
+    two sample t-test
+    \item
+    anova
+\end{itemize}
+\column{0.53\textwidth}
+\underline{Categorical response (proportions)}
+\begin{itemize}
+    \item
+    one sample z-test
+    \item
+    \textcolor{gray}{N/A for STAT 217}
+    \item
+    two sample z-test
+    \item
+    chi-squared test
+\end{itemize}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Gardasil vaccinations}
+\begin{itemize}
+    \item
+    HPV is a sexually transmitted virus with links to certain types of cancer
+    \item
+    the FDA approved the Gardasil vaccination in 2006 to protect against HPV
+    \item
+    Gardasil is a three shot sequence recommended for women age 9-26
+    \item
+     the study subjects are 1413 females aged 11-26 who
+     \begin{enumerate}
+     \item
+     made their first ``Gardasil visit'' to a Johns Hopkins Medical Institution clinic between 2006 and 2008, and
+     \item
+      had 12 months to complete the regimen
+\end{enumerate}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\begin{clicker}{Is this study observational or experimental?}
+\begin{enumerate}
+    \item
+    observational
+    \item
+    experimental
+\end{enumerate}
+\end{clicker}
+\begin{enumerate}
+    \item[]
+    \item[]
+    \item
+    Describe the \underline{sample}:
+    \item[]
+    \item[]
+    \item
+    Describe the \underline{population}:
+    \item[]
+    \item[]
+\end{enumerate}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{The first 6 observations in the data set}
+\begin{lcverbatim}
+> head(gardasil)
+  AgeGroup          Race Completed      InsuranceType
+1    18-26         white       yes           military
+2    18-26         white       yes           military
+3    18-26         white        no      private payer
+4    11-17         white       yes           military
+5    11-17 other/unknown        no           military
+6    11-17         black        no medical assistance
+\end{lcverbatim}
+\resizebox{1.0\textwidth}{!}{
+\begin{tabular}{r|l}
+\texttt{AgeGroup} &		11-17; 18-26  \\
+\texttt{Race} &			white, black, Hispanic, other/unknown  \\
+\texttt{Completed} &		completion of three-shot sequence 12 months (yes, no) \\
+\texttt{InsuranceType} &	medical assistance, private payer, hospital based, military   \\
+\end{tabular}}
+\end{frame}
+
+
+
+
+%===========================================================================================================================
+\section[One sample z-test]{One sample z-test}
+%===========================================================================================================================
+\begin{frame}
+\tableofcontents[currentsection, hideallsubsections]
+\end{frame}
+%\subsection{}
+
+\begin{frame}[fragile]
+\underline{The research question}: Suppose the CDC claims that the completion rate for the Gardasil vaccination is 35\%.  Do we have evidence for or against this claim?
+\vskip10pt
+\begin{columns}
+\column{0.3\textwidth}
+\begin{lcverbatim}
+> head(gardasil)
+   Completed
+1        yes
+2        yes
+3         no
+4        yes
+5         no
+6         no
+
+> addmargins(table(gardasil$Completed))
+
+  no  yes  Sum
+ 944  469 1413
+ \end{lcverbatim}
+\column{0.7\textwidth}
+\begin{enumerate}
+\item
+What types of variables do we have?
+\item[]
+\item
+How many groups are we studying?
+\item[]
+\item
+How can we approach the problem?
+\item[]
+\item[]
+\item[]
+\item[]
+\item[]
+\item[]
+\end{enumerate}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Parameter of interest}
+\begin{clicker}{What is the parameter of interest?}
+\begin{enumerate}
+    \item
+    whether or not a female completes the shot sequence
+    \item
+    the observed sample proportion of females that complete the shot sequence
+    \item
+    the population proportion of females that complete the shot sequence
+    \item
+    the number of females that complete the shot sequence
+    \item
+    the population mean number of shots that a female gets
+    \item
+    if the observed sample proportion of females that complete the shot sequence is different than 0.35
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Answering the research question }
+We can answer the research question of interest with:
+\begin{itemize}
+    \item
+    A confidence interval for $p$
+    \item
+    A hypothesis test of $H_0$: $p=0.35$ vs $H_a$: $p \neq 0.35$
+    \item[]
+    (this is the one sample z-test)
+ \end{itemize}
+ \vskip10pt
+    The value of $p$ in our hypothesis statement is called \textcolor{OrangeRed}{$p_0$}.  Here, $p_0=0.35$.  This is what we assume to be true about $p$ \textbf{under} the null hypothesis.
+
+\end{frame}
+
+\begin{frame}
+\frametitle{The possibilities}
+469 out of 1413 (33.2\%) completed the vaccination sequence
+\vskip10pt
+$H_0: p=0.35$ vs $H_a: p \neq 0.35$\\
+\vskip10pt
+\begin{enumerate}
+    \item
+    It could be that the population proportion that completes the vaccination sequence really is 0.35, and we observed 33.2\% by random chance in our sample.  This idea corresponds to the null hypothesis.
+    \item
+    It could be that the population proportion that completes the vaccination sequence is not 0.35.  This idea corresponds to the alternative hypothesis.
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\frametitle{Conditions required for the one sample z-test}
+\begin{enumerate}
+    \item
+    independent observations
+    \item[]
+    %\textcolor{OrangeRed}{whether or not one female completes the shot sequence is independent from the other females' completion of the shot sequence}
+    \item[]
+    \item[]
+    \item
+    at least 10 observed 'successes' and 10 observed 'failures'
+    \item[]
+    \item[]
+    \item[]
+    %\textcolor{OrangeRed}{we have 469 females that completed the sequence ($>10$) and 944 females that did not complete the sequence ($>10$) so this condition is satisfied}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\frametitle{One sample z-test}
+The test statistic looks like a $z$-score $\displaystyle \left(z=\frac{x-\mu}{\sigma}\right)$:
+\begin{center}
+$\displaystyle \mbox{test statistic} = \frac{\mbox{sample proportion}-\mbox{null hypothesis proportion}}{\mbox{standard error under $H_0$}}$
+\end{center}
+\vskip10pt
+$\displaystyle z = \frac{\hat{p}-p_0}{se_{p_0}}=\frac{\hat{p}-p_0}{\sqrt{\frac{p_0(1-p_0)}{n}}}=$%\frac{0.332-0.35}{\sqrt{\frac{0.35(1-0.35)}{1413}}}=\frac{-0.018}{0.013}=-1.43$
+\vskip10pt
+This is a \textbf{z test statistic} because the test statistic follows a standard normal distribution (a normal distribution with a mean of 0 and a standard deviation of 1).
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Results in R}
+\begin{lcverbatim}
+> prop.test(469,1413,p=0.35,correct=F)
+
+	1-sample proportions test without continuity correction
+
+data:  469 out of 1413, null probability 0.35
+X-squared = 2.0308, df = 1, p-value = 0.1541
+alternative hypothesis: true p is not equal to 0.35
+95 percent confidence interval:
+ 0.3078495 0.3568977
+sample estimates:
+        p
+0.3319179
+\end{lcverbatim}
+Even though we performed the one sample z-test, R reports a chi-squared test statistic.  This has equivalent results to the $z$ test statistic because $z=\sqrt{\chi^2_1}$.
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Interpret the p-value}
+\small{A sample proportion of $\hat{p}=0.332$ is 1.43 standard errors below the claimed null hypothesis proportion of 0.35.}\\
+\begin{columns}
+\column{0.33\textwidth}
+\includegraphics[width=1.0\textwidth]{Figures/z143phat.pdf}\\
+\includegraphics[width=1.0\textwidth]{Figures/z143ts.pdf}
+\column{0.67\textwidth}
+\begin{itemize}
+\item
+If the proportion of females that complete the Gardasil vaccination sequence really is 0.35, the probability that we would see a sample proportion less than 0.332 or greater than 0.368 is 0.154.
+\item[]
+\item[]
+\item
+If the proportion of females that complete the Gardasil vaccination sequence really is 0.35, the probability that we would see a test statistic less than -1.43 or greater than 1.43 is 0.154.
+\item[]
+\item[]
+\end{itemize}
+\end{columns}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Conclusion in context}
+\begin{enumerate}
+    \item \textbf{Decision about $H_0$:}
+    \item[]
+    \item[]
+    \item \textbf{Statement about the parameter tested in context of the research question:}
+    \item[]
+    \item[]
+    \item[]
+    \item \textbf{Provide a deeper connection of how this relates to the research question:}
+    \item[]
+    \item[]
+    \item[]
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\begin{clicker}
+{This decision could have been the result of... (mark all that apply)}
+\begin{enumerate}
+   \item
+   a Type I error
+   \item
+   a Type II error
+   \item
+   a correct decision
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+\begin{frame}
+\begin{clicker}
+{A 95\% confidence interval for the population proportion would...}
+\begin{enumerate}
+   \item
+   include 0
+   \item
+   not include 0
+   \item
+   include 0.95
+   \item
+   not include 0.95
+   \item
+   include 0.35
+   \item
+   not include 0.35
+   \item
+   include 0.15
+   \item
+   not include 0.15
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+\begin{frame}
+\frametitle{Review: Conditions required for the confidence interval}
+\begin{enumerate}
+    \item
+    independent observations
+    \item[]
+    \textcolor{OrangeRed}{whether or not one female completes the shot sequence is independent from the other females' completion of the shot sequence}
+    \item
+    at least 10 'successes' and 10 'failures'
+    \item[]
+    \textcolor{OrangeRed}{we have 469 females that completed the sequence ($>10$) and 944 females that did not complete the sequence ($>10$) so this condition is satisfied}
+\end{enumerate}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Review: 95\% confidence interval for $p$}
+\begin{center}
+$\displaystyle \hat{p} \pm z^{*} \times \sqrt{\frac{\hat{p}(1-\hat{p})}{n}}$
+\end{center}
+\begin{columns}
+\column{0.6\textwidth}
+based on a 95\% conf. level\\
+$z^*=1.96$  \\
+%\pause
+\vskip10pt
+%\begin{center}
+$se=\sqrt{\frac{0.332\times(1-0.332)}{1413}}=0.0125$
+%\end{center}
+%\pause
+\vskip10pt
+%\begin{center}
+$0.332 \pm 1.96 \times 0.0125$\\
+%\end{center}
+\vskip10pt
+%\pause
+%\begin{center}
+$0.332 \pm 0.025\\
+%\end{center}
+%\pause
+\vskip10pt
+%\begin{center}
+95\% CI for $p$: (0.307, 0.357)
+%\end{center}
+\column{0.4\textwidth}
+%\pause
+\begin{clicker}{What is the margin of error for this confidence interval?}
+\begin{enumerate}
+    \item
+    0.0125
+    \item
+    0.025
+    \item
+    0.05
+    \item
+    0.95
+    \item
+    1.96
+ \end{enumerate}
+\end{clicker}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\begin{clicker}{Which of the following is a correct interpretation of the (0.31, 0.36) interval?}
+\begin{enumerate}
+    \item
+    We are 95\% confident that the population proportion of females that complete the Gardasil vaccination sequence is in the interval (0.31, 0.36).
+    \item
+    We are 95\% confident that among the 1413 females in this study, the proportion that complete the Gardasil vaccination sequence is in the interval (0.31, 0.36).
+    \item
+    Between 31 to 36\% of the time, we are 95\% confident that we will reject the null hypothesis.
+    \item
+    Between 31 to 36\% of the time, we are 95\% confident that we will find a statistically significant result.
+\end{enumerate}
+\end{clicker}
+
+\end{frame}
+
+
+%===========================================================================================================================
+\section[Two sample z-test]{Two sample z-test}
+%===========================================================================================================================
+\begin{frame}
+\tableofcontents[currentsection, hideallsubsections]
+\end{frame}
+
+%\subsection{}
+
+\begin{frame}[fragile]
+\underline{The research question}: Does completion rate differ by age group?
+\vskip10pt
+\begin{columns}
+\column{0.4\textwidth}
+\underline{First six observations:}
+\begin{lcverbatim}
+> head(gardasil)
+  AgeGroup      Completed
+1    18-26           yes
+2    18-26           yes
+3    18-26            no
+4    11-17           yes
+5    11-17            no
+6    11-17            no
+\end{lcverbatim}
+\column{0.6\textwidth}
+\begin{enumerate}
+\item
+What types of variables do we have?
+\item[]
+\item
+How many groups are we studying?
+\item[]
+\item
+How can we approach the problem?
+\item[]
+\end{enumerate}
+\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{lcverbatim}
+> addmargins(table(gardasil$AgeGroup,gardasil$Completed))
+          no  yes  Sum
+  11-17  454  247  701
+  18-26  490  222  712
+  Sum    944  469 1413
+\end{lcverbatim}
+\vskip10pt
+\begin{clicker}{Which two proportions should you compare to determine if completion rate differs by age group?}
+\begin{enumerate}
+    \item
+    701/1413 vs 712/1413
+    \item
+    469/1413 vs 944/1413
+    \item
+    701/1413 vs 469/1413
+    \item
+    247/701 vs 222/712
+    \item
+    247/469 vs 222/469
+    \item
+    490/944 vs 222/469
+    \item
+    454/701 vs 247/701
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+
+\begin{frame}
+\underline{Parameters of interest}: \\
+$p_{1}= $ population proportion of 11-17 year old females who complete the Gardasil vaccination sequence \\
+$p_{2}= $ population proportion of 18-26 year old females who complete the Gardasil vaccination sequence \\
+\vskip10pt
+We can answer the research question of interest with:
+\begin{itemize}
+    \item
+    A hypothesis test of $H_0$: $p_{1}=p_{2}$ vs $H_a$: $p_{1}\neq p_{2}$
+    \item[]
+    (this is the two sample z-test)
+     \item
+    A confidence interval for $p_{1}-p_{2}$. Three possible scenarios:
+    \item[]
+    {\renewcommand{\arraystretch}{1.3}
+    \begin{tabular}{lll}
+    No difference & $p_{1}-p_{2} = 0 & \rightarrow p_{1}=p_{2}$ \\
+    Difference    & $p_{1}-p_{2} > 0 & \rightarrow p_{1}>p_{2}$ \\
+    Difference    & $p_{1}-p_{2} < 0 & \rightarrow p_{1}< p_{2}$  \\
+    \end{tabular}}
+ %   \begin{itemize}
+%        \item
+%        No difference: $p_{1}-p_{2} = 0 \rightarrow p_{1}=p_{2}$
+%        \item
+%        Difference: $p_{1}-p_{2} > 0 \rightarrow p_{1}>p_{2}$
+%        \item
+%        Difference: $p_{1}-p_{2} < 0 \rightarrow p_{1}< p_{2}$
+%    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\begin{clicker}{Which of these scenarios represent a two sample comparison?}
+\begin{enumerate}
+    \item
+    We take a random sample of 100 Cal Poly students and test proportion that participate in Greek life differs from 0.2.
+    \item
+    We take a random sample of 100 Cal Poly students and test if the proportion that participate in Greek life differs among males and females.
+    \item
+    We take a random sample of 100 Cal Poly students and ask them in their Sophomore and Senior year if they participate in Greek life, and we want to know if the proportion that participates in Greek life changes over year in school.
+    \item
+    We take a random sample of 100 Cal Poly students and test if the proportion that participate in Greek life differs by where they grew up (ie, west, south, northeast, midwest).
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+\begin{frame}
+\frametitle{Conditions required for the CI for $p_1-p_2$}
+\begin{enumerate}
+    \item
+    independent observations
+    \item[]
+    \item[]
+    \item[]
+    %\textcolor{OrangeRed}{whether or not one female completes the shot sequence is independent from the other females' completion of the shot sequence in \emph{each} of the 11-17 and 18-26 age groups}
+    \item
+    check to see that you have at least 10 observed `successes' and 10 observed `failures' in \emph{each} group
+    \item[]
+    \item[]
+    \item[]
+       %\begin{itemize}
+       %     \item
+       %     among 11-17 year olds, there are 247 (\textcolor{ForestGreen}{\checkmark}) that completed the sequence and 454 (\textcolor{ForestGreen}{\checkmark}) that did not
+       %     \item
+       %     among 18-26 year olds, there are 222 (\textcolor{ForestGreen}{\checkmark}) that completed the sequence and 490(\textcolor{ForestGreen}{\checkmark}) that did not
+        %\end{itemize}
+    %\item[]
+    %\textcolor{OrangeRed}{this condition ascertains if the sampling distribution of the difference in sample proportions is approximately normal}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\frametitle{Confidence interval for $p_1-p_2$}
+\begin{center}
+$(\hat{p}_1-\hat{p}_2) \pm z^*\times se$
+\end{center}
+\vskip10pt
+11-17 females: $\hat{p}_1=247/701=0.352$ \\
+18-26 females: $\hat{p}_1=222/712=0.312$
+\begin{align*}
+     se&=\sqrt{\frac{\hat{p}_1(1-\hat{p}_1)}{n_1}+\frac{\hat{p}_2(1-\hat{p}_2)}{n_2}}\\
+    &=\sqrt{\frac{0.352(1-0.352)}{701}+\frac{0.312(1-0.312)}{712}}\\
+    &=0.025
+\end{align*}
+\end{frame}
+
+\begin{frame}
+\frametitle{Interpret the CI}
+\begin{itemize}
+    \item
+    We are 95\% confident that the difference in the population proportion of 11-17 year old females and 18-26 year old females that complete the Gardasil vaccination sequence is in the interval (-0.009, 0.089).
+    \item
+    Because this interval includes 0, it is plausible that the population proportion of 11-17 year old females who complete the Gardasil vaccination sequence is equal to the population proportion of 18-26 year old females who complete the Gardasil vaccination sequence
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\begin{clicker}{Researchers want to know if wearing glasses differs by males and females.  We calculated a 95\% CI for the true proportion difference of men and women ($p_{men}-p_{women}$) who wear glasses who wear glasses to be (0.01,0.03).  Which of the following statements is \underline{true}? Mark \underline{all} that apply.}
+\begin{enumerate}
+    \item
+    In general, the proportion of men and women who wear glasses is small.
+    \item
+    There is evidence that a higher proportion of males wear glasses compared to females.
+    \item
+    There is evidence that a higher proportion of females wear glasses compared to males.
+    \item
+    It is plausible that the proportion of females who wear glasses is equal to the proportion of males who wear glasses.
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+\begin{frame}
+We calculated a 95\% CI for the true proportion difference of men who wear glasses and women who wear glasses to be (0.01,0.03).
+\begin{clicker}{If I used the same data to calculate a CI for $p_{women}-p_{men}$ instead of $p_{men}-p_{women}$, what would the CI be?}
+\begin{enumerate}
+    \item
+    the same
+    \item
+    $(-0.03, 0.01)$
+    \item
+    $(-0.03, -0.01)$
+    \item
+    $(-0.01, 0.03)$
+    \item
+    not enough information to determine
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+\begin{frame}
+\begin{clicker}{Consider doing the two sample z-test for $H_0$: $p_{1}=p_{2}$ vs $H_a$: $p_{1}\neq p_{2}$.  Based on the 95\% CI for $p_1-p_2$ of (-0.009, 0.089), you would expect to}
+\begin{enumerate}
+    \item
+    reject $H_0$
+    \item
+    fail to reject $H_0$
+    \item
+    accept $H_0$
+    \item
+    find a statistically significant result
+    \item
+    not enough information to determine
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+\begin{frame}
+\frametitle{Conditions required for the two sample z-test}
+\begin{enumerate}
+    \item
+    independent observations
+    \item[]
+    \item[]
+    \item[]
+    %\textcolor{OrangeRed}{whether or not one female completes the shot sequence is independent from the other females' completion of the shot sequence in \emph{each} of the 11-17 and 18-26 age groups}
+    \item
+    check to see that you have at least 10 observed `successes' and 10 observed `failures' in \emph{each} group
+    \item[]
+    \item[]
+    \item[]
+       %\begin{itemize}
+       %     \item
+       %     among 11-17 year olds, there are 247 (\textcolor{ForestGreen}{\checkmark}) that completed the sequence and 454 (\textcolor{ForestGreen}{\checkmark}) that did not
+       %     \item
+       %     among 18-26 year olds, there are 222 (\textcolor{ForestGreen}{\checkmark}) that completed the sequence and 490(\textcolor{ForestGreen}{\checkmark}) that did not
+        %\end{itemize}
+    %\item[]
+    %\textcolor{OrangeRed}{this condition ascertains if the sampling distribution of the difference in sample proportions is approximately normal}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\frametitle{The test statistic}
+\begin{center}
+$\displaystyle z=\frac{(\hat{p}_1-\hat{p}_2)-0}{se_0}$
+\end{center}
+\vskip5pt
+where $se_0$ is the standard error calculated assuming $H_0$ true.
+\vskip5pt
+\begin{enumerate}
+    \item
+    $\displaystyle\hat{p}=\frac{x_1 + x_2}{n_1 + n_2}=\frac{247+222}{701+712}=\frac{469}{1413}=0.332$
+    \item
+    \small{
+    \begin{eqnarray*}
+    se_0 &=& \sqrt{\frac{\hat{p}(1-\hat{p})}{n_1}+\frac{\hat{p}(1-\hat{p})}{n_2}} \\
+         &=& \sqrt{\hat{p}(1-\hat{p})\left(\frac{1}{n_1}+\frac{1}{n_2}\right)}\\
+         &=&\sqrt{0.332(1-0.332)\left(\frac{1}{701}+\frac{1}{712}\right)} \\
+         &=& 0.025
+    \end{eqnarray*}}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Results in R}
+\begin{lcverbatim}
+> prop.test(c(247,222),c(701,712),correct=F)
+
+	2-sample test for equality of proportions without continuity correction
+
+data:  c(247, 222) out of c(701, 712)
+X-squared = 2.62, df = 1, p-value = 0.1055
+alternative hypothesis: two.sided
+95 percent confidence interval:
+ -0.008517967  0.089630022
+sample estimates:
+   prop 1    prop 2
+0.3523538 0.3117978
+\end{lcverbatim}
+Even though we performed the one sample z-test, R reports a chi-squared test statistic.  This has equivalent results to the $z$ test statistic because $z=\sqrt{\chi^2_1}$.
+\end{frame}
+
+\begin{frame}
+$H_0$: $p_1=p_2$ vs $H_a$: $p_1 \neq p_2$, $p$-value $=0.1055$
+\begin{clicker}{Which is a \emph{correct} interpretation of this $p$-value?}
+\begin{enumerate}
+    \item
+    Fail to reject $H_0$.
+    \item
+    The probability that the two proportions are equal is 0.1055.
+    \item
+    The probability that we committed a type I error is 0.1055.
+    \item
+    The probability that we observe a test statistic as extreme or more extreme than 1.60 if the two proportions really are equal is  0.1055.
+    \item
+    The probability that we observe a test statistic as extreme or more extreme than 1.60 if the two proportions really are unequal is  0.1055.
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+\begin{frame}
+\frametitle{Conclusion in context}
+\begin{enumerate}
+    \item \textbf{Decision about $H_0$:}
+    \item[]
+    \item[]
+    \item \textbf{Statement about the parameter tested in context of the research question:}
+    \item[]
+    \item[]
+    \item[]
+    \item \textbf{Provide a deeper connection of how this relates to the research question:}
+    \item[]
+    \item[]
+    \item[]
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+Do people who drink caffeinated beverages have a higher occurrence of heart disease than people who do not drink caffeinated beverages? 200 caffeinated beverage drinkers and 150  non-caffeinated beverage drinkers report whether or not they have heart disease.
+\begin{clicker}{To answer this question would you use proportions or means AND paired or not paired measurements?}
+\begin{enumerate}
+    \item
+    Two proportions from not paired measurements
+    \item
+    Two proportions from paired measurements
+    \item
+    Two means from not paired measurements
+    \item
+    Two means from paired measurements
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+
+%===========================================================================================================================
+\section[Chi-squared test]{Chi-squared test}
+%===========================================================================================================================
+\begin{frame}
+\tableofcontents[currentsection, hideallsubsections]
+\end{frame}
+%\subsection{}
+
+\begin{frame}[fragile]
+\underline{The research question}: Does completion rate differ by insurance type?
+\vskip10pt
+\begin{columns}
+\column{0.5\textwidth}
+\underline{First six observations:}
+\begin{lcverbatim}
+> head(gardasil)
+  Completed       InsuranceType
+1       yes            military
+2       yes            military
+3        no       private payer
+4       yes            military
+5        no            military
+6        no  medical assistance
+\end{lcverbatim}
+\column{0.5\textwidth}
+\begin{enumerate}
+\item
+What types of variables do we have?
+\item[]
+\item
+How many groups are we studying?
+\item[]
+\item
+How can we approach the problem?
+\item[]
+\end{enumerate}
+\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{lcverbatim}
+> addmargins(table(gardasil$InsuranceType,gardasil$Completed))
+
+                       no  yes  Sum
+  hospital based       45   39   84
+  medical assistance  220   55  275
+  military            209  122  331
+  private payer       470  253  723
+  Sum                 944  469 1413
+
+> prop.table(table(gardasil$InsuranceType,gardasil$Completed),
+        margin=1) #row proportion
+
+                            no       yes
+  hospital based     0.5357143 0.4642857
+  medical assistance 0.8000000 0.2000000
+  military           0.6314199 0.3685801
+  private payer      0.6500692 0.3499308
+\end{lcverbatim}
+\end{frame}
+
+\begin{frame}
+\frametitle{The chi-squared test}
+\begin{center}
+Equivalent ways of stating the hypotheses:
+\end{center}
+\begin{columns}
+\column{0.5\textwidth}
+\begin{itemize}
+    \item[$H_0$:]
+     the two variables are independent
+    \item[$H_a$:]
+     the two variables are dependent
+\end{itemize}
+\column{0.5\textwidth}
+\begin{itemize}
+    \item[$H_0$:]
+     the two variables are not associated
+    \item[$H_a$:]
+     the two variables are associated
+\end{itemize}
+\end{columns}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Gardasil data}
+\begin{tabular}{lrrrrr}
+\hline
+                   & hospital & medical  &   & private &\\
+                   & based &  assistance & military  & payer & Total\\
+\hline
+yes       &  &  &  & & 469 \\
+no       &  &  &  & & 944 \\
+\hline
+Total           & 84  & 275 & 331 & 723 & 1413
+\end{tabular}\\
+\vskip10pt
+If there was no association between \texttt{Completed} and \texttt{InsuranceType} (ie, $H_0$ true), how many females would you expect to see complete the shot sequence on the hospital based insurance?
+\vskip5pt
+\begin{enumerate}
+    \item
+    What is the overall proportion of completion?
+    \item
+    Apply that to the total number on hospital based insurance.
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\frametitle{Expected cell counts}
+If $H_0$ true,\\
+\vskip5pt
+$\displaystyle \mbox{\textcolor{OrangeRed}{Expected cell count}} = \frac{\mbox{Row total}\times \mbox{Column total}}{\mbox{Total sample size}}$\\
+\vskip20pt
+\begin{tabular}{lrrrrr}
+\hline
+                   & hospital & medical  &   & private &\\
+                   & based &  assistance & military  & payer & Total\\
+\hline
+yes              & 39 \textcolor{OrangeRed}{(27.9)} & 55 \textcolor{OrangeRed}{(91.2)} & 122 \textcolor{OrangeRed}{(109.9)} & 253 \textcolor{OrangeRed}{(240.0)} & 469 \\
+no               & 45 \textcolor{OrangeRed}{(56.1)} & 220 \textcolor{OrangeRed}{(183.7)} & 209 \textcolor{OrangeRed}{(221.1)} & 470 \textcolor{OrangeRed}{(483.0)} & 944 \\
+\hline
+Total           & 84  & 275 & 331 & 723 & 1413
+\end{tabular}
+\end{frame}
+
+\begin{frame}
+\frametitle{Conditions for the $\chi^2$ test}
+\begin{enumerate}
+    \item
+    observations are independent within each of the groups
+    \item[]
+    \item[]
+    \item[]
+    %\textcolor{OrangeRed}{whether or not a females completes the Gardasil vaccination sequence is independent from whether or not the other females complete the Gardasil vaccination sequence (in each of the four different insurance type groups)}
+    \item
+    expected cell count $\geq 5$ in all cells
+    \item[]
+    \item[]
+    \item[]
+   % \item[]
+    % \textcolor{OrangeRed}{this allows us to have valid inference}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\frametitle{The test statistic}
+\begin{tabular}{lrrrrr}
+\hline
+                   & hospital & medical  &   & private &\\
+                   & based &  assistance & military  & payer & Total\\
+\hline
+yes              & 39 \textcolor{OrangeRed}{(27.9)} & 55 \textcolor{OrangeRed}{(91.2)} & 122 \textcolor{OrangeRed}{(109.9)} & 253 \textcolor{OrangeRed}{(240.0)} & 469 \\
+no               & 45 \textcolor{OrangeRed}{(56.1)} & 220 \textcolor{OrangeRed}{(183.7)} & 209 \textcolor{OrangeRed}{(221.1)} & 470 \textcolor{OrangeRed}{(483.0)} & 944 \\
+\hline
+Total           & 84  & 275 & 331 & 723 & 1413
+\end{tabular}
+\vskip20pt
+The \textbf{chi-squared test statistic} summarizes the difference between the observed and expected counts.\\
+\vskip10pt
+$\displaystyle \chi^2=\sum\frac{(\mbox{observed count}-\mbox{\textcolor{OrangeRed}{expected count}})^2}{\mbox{\textcolor{OrangeRed}{expected count}}}$\\
+\vskip10pt
+with $df=$ (number of rows $- 1$) $\times$ (number of columns $- 1$)
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{lcverbatim}
+> chisq.test(gardasil$Completed,gardasil$InsuranceType,correct=F)
+
+	Pearson's Chi-squared test
+
+data:  gardasil$Completed and gardasil$InsuranceType
+X-squared = 31.283, df = 3, p-value = 7.411e-07
+\end{lcverbatim}
+\begin{clicker}{What can we conclude? \underline{\hspace{1in}}; we \underline{(do/do not)} have any evidence of an association between completion and insurance type.}
+\begin{enumerate}
+    \item
+    Reject $H_0$; do
+    \item
+    Reject $H_0$; do not
+    \item
+    Fail to reject $H_0$; do
+    \item
+    Fail to reject $H_0$; do not
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+\begin{frame}[fragile]
+If your data can go in a 2x2 contingency table, the two proportion $z$-test and the $\chi^2$ test will give you equivalent results.\\
+\begin{lcverbatim}
+> addmargins(table(gardasil$AgeGroup,gardasil$Completed))
+          no  yes  Sum
+  11-17  454  247  701
+  18-26  490  222  712
+  Sum    944  469 1413
+
+> prop.test(c(247,222),c(701,712),correct=F)
+> chisq.test(gardasil$AgeGroup,gardasil$Completed,correct=F)
+\end{lcverbatim}
+Both test results yield a $p$-value of 0.1055.
+\begin{columns}
+\column{0.1\textwidth}
+\column{0.9\textwidth}
+\begin{itemize}
+    \small{
+    \item[Two sample z-test:] Fail to reject $H_0$; we do not have evidence that the proportion of 11-17 year olds that complete the vaccination sequence differs from the proportion of 18-26 year olds that complete the vaccination sequence
+    \item[Chi-squared test:] Fail to reject $H_0$; there is no evidence of an association between age group and completion of the vaccination sequence}
+\end{itemize}
+\end{columns}
+\end{frame}
+
+
+
+%===========================================================================================================================
+\section[Summary]{Summary}
+%===========================================================================================================================
+\begin{frame}
+\tableofcontents[currentsection, hideallsubsections]
+\end{frame}
+
+%\subsection{}
+
+\begin{frame}
+\frametitle{Attending religious services weekly by gender}
+\resizebox{1.0\textwidth}{!}{
+\begin{tabular}{|l|ccc|ccc|ccc|}
+    \hline
+            & \multicolumn{3}{|c|}{\textbf{Case A}} & \multicolumn{3}{|c|}{\textbf{Case B}} & \multicolumn{3}{|c|}{\textbf{Case C}} \\
+            & Yes  & No   & n   & Yes  & No   & n   & Yes  & No   & n \\
+    \hline
+    Female  & 52 & 48 & 100 & 104 & 96 & 200 & 5200 & 4800 & 10,000 \\
+    Male    & 50 & 50 & 100 & 100 & 100 & 200 & 5000 & 5000 & 10,000  \\
+    \hline
+            & \multicolumn{3}{|l|}{$\hat{p}_F=0.52$} & \multicolumn{3}{|l|}{$\hat{p}_F=0.52$} & \multicolumn{3}{|l|}{$\hat{p}_F=0.52$}\\
+            & \multicolumn{3}{|l|}{$\hat{p}_M=0.50$} & \multicolumn{3}{|l|}{$\hat{p}_M=0.50$} & \multicolumn{3}{|l|}{$\hat{p}_M=0.50$}\\
+            & \multicolumn{3}{|l|}{$\chi^2=0.08$} & \multicolumn{3}{|l|}{$\chi^2=0.16$} & \multicolumn{3}{|l|}{$\chi^2=8.0$}\\
+            & \multicolumn{3}{|l|}{$p$-value$=0.78$} & \multicolumn{3}{|l|}{$p$-value$=0.69$} & \multicolumn{3}{|l|}{$p$-value$=0.005$}\\
+    \hline
+\end{tabular}}\\
+\vskip10pt
+\begin{clicker}{Case \underline{(A/B/C)} shows the strongest association between gender and attendance; case \underline{(A/B/C)} shows the strongest evidence of an association between gender and attendance.}
+\end{clicker}
+\end{frame}
+
+\begin{frame}
+\frametitle{Interpreting the $p$-value}
+The $p$-value represents the \textbf{strength} of the \textbf{evidence}:\\
+\begin{itemize}
+    \item
+    small $p$-values mean you have strong evidence of an association between two variables
+    \item
+    small $p$-values do not mean you have evidence of a strong association between two variables
+    \item
+    large $p$-values mean there is no evidence of an association
+    \item[]
+\end{itemize}
+Other measures represent the \textbf{strength} of the \textbf{association}:\\
+\begin{itemize}
+    \item
+    difference of means: ($\bar{x}_1-\bar{x}_2$)
+    \item
+    difference of proportions: ($\hat{p}_1-\hat{p}_2$)
+\end{itemize}
+The \textbf{strength} of the \textbf{association} can help you assess if an observed difference is meaningful.
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{\grp}
+\small{A researcher investigated if the proportion of non-athletes (group 1) and athletes (group 2) that are on the Dean's List differs.}
+\begin{lcverbatim}
+data:  c(1000, 1100) out of c(10000, 10000)
+X-squared = 5.3206, df = 1, p-value = 0.02108
+alternative hypothesis: two.sided
+95 percent confidence interval:
+ -0.018495941 -0.001504059
+sample estimates:
+prop 1 prop 2
+  0.10   0.11
+\end{lcverbatim}
+\begin{clicker}{\small{What is the best conclusion from this analysis?  We \underline{(do/do not)} have strong statistically significant evidence that the proportion of students on the Dean's list differs by athlete status, and the effect of athlete status is \underline{(strong/weak)}.}}
+\begin{enumerate}
+\vspace*{-12pt}
+\begin{columns}
+\column{0.1\textwidth}
+\column{0.4\textwidth}
+    \item
+    do; strong
+    \item
+    do not; strong
+\column{0.4\textwidth}
+    \item
+    do; weak
+    \item
+    do not; weak
+\end{columns}
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+\begin{frame}[label=methods]
+\frametitle{Different methods}
+\resizebox{1.0\textwidth}{!}{
+\begin{tabular}{|lllll|}
+    \hline
+    \textbf{Method} & \textbf{Use} & \textbf{Variables} & \textbf{Estimation} & \textbf{Testing}\\
+     \hline
+    Single mean &  quantitative response & one quantitative variable  & CI for $\mu$ & $H_0$: $\mu=\mu_0$\\
+    \emph{(one-sample $t$-test)}                  & in single group & & &\\
+    \hline
+    $^*$Two means & quantitative response &  one quantitative variable and & CI for $\mu_1-\mu_2$ & $H_0$: $\mu_1=\mu_2$\\
+    \emph{(two-sample $t$-test)}                   &  in two groups & one categorical variable & &\\
+    \hline
+    Dependent means & quantitative response & two paired & CI for $\mu_d$ & $H_0$: $\mu_d=0$\\
+    \emph{(paired $t$-test)} & measured on same observation & quantitative variables & & \\
+    \hline
+    $^*$ANOVA &  quantitative response & one quantitative variable and & Tukey pairwise & $H_0$: $\mu_1=\mu_2=\cdots=\mu_g$\\
+                       & in $>2$ groups & one categorical variable & intervals &\\
+    \hline
+    \hline
+    Single proportion & categorical response  & one categorical variable & CI for $p$ & $H_0$: $p=p_0$\\
+    \emph{(one-sample $z$-test)}                  & in single group & & &\\
+    \hline
+    $^*$Two proportions &  categorical response  & two categorical variables &  CI for $p_1-p_2$ & $H_0$: $p_1=p_2$\\
+    \emph{(two-sample $z$-test)}                   &  in two groups & & &\\
+    \hline
+    $^*$$X^2$ test & categorical response & two categorical variables & N/A & $H_0$: no association/\\
+                       & in $\geq 2$ groups & & &\hspace*{0.2in} vars independent\\
+    \hline
+\end{tabular}}
+\vskip10pt
+\footnotesize{$^*$The starred methods can answer the question ``Is there an association?''  If we reject $H_0$, then we conclude that some sort of association is present in the two variables.}
+\end{frame}
+
+\end{document} 

@@ -1,0 +1,914 @@
+
+
+\input{"C:/Users/spileggi/Google Drive/STAT 217/Slides/SlideStyle.tex"}
+
+
+
+\title[Unit 3 Deck 4]{Final Review and Practice Problems}
+\author[Pileggi]{Shannon Pileggi}
+
+\institute[STAT 217]{STAT 217}
+
+\date{}
+
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}
+\frametitle{OUTLINE\qquad\qquad\qquad} \tableofcontents[hideallsubsections]
+\end{frame}
+
+
+%===========================================================================================================================
+\section[Overview]{Overview}
+%===========================================================================================================================
+
+%\subsection{}
+
+\begin{frame}
+\frametitle{Final exam}
+The final exam \emph{is} cumulative
+    \begin{itemize}
+    \item
+    $\sim$ 20\% Unit 1
+    \item
+    $\sim$ 20\% Unit 2
+    \item
+    $\sim$ 60\% Unit 3
+    \end{itemize}
+    \vskip20pt
+    Please bring your calculator! Questions?
+\end{frame}
+
+%\begin{frame}
+%\Large{Before we get started...  Thanks for being a great class!  I have really enjoyed teaching you this quarter!}
+%\end{frame}
+
+
+
+\begin{frame}[label=topics]
+\frametitle{Topics covered }
+\begin{itemize}
+    \item
+    Descriptive Statistics \hyperlink{descriptive}{\beamerreturnbutton{More}}
+    \item
+    Study Design \hyperlink{studydesign}{\beamerreturnbutton{More}}
+    \item
+    Associations \hyperlink{associations}{\beamerreturnbutton{More}}
+    \item
+    Distributions and Probability \hyperlink{probability}{\beamerreturnbutton{More}}
+    \item
+    Sampling Distributions \hyperlink{sampling}{\beamerreturnbutton{More}}
+    \item
+    Confidence Intervals \hyperlink{CIs}{\beamerreturnbutton{confidence intervals}}
+    \item
+    Hypothesis Tests \hyperlink{tests}{\beamerreturnbutton{steps}} \hyperlink{errors}{\beamerreturnbutton{errors}}
+    \item
+    Different Methods \hyperlink{overview}{\beamerreturnbutton{overview}} \hyperlink{methods}{\beamerreturnbutton{tests}} \hyperlink{pvals}{\beamerreturnbutton{calculations}} \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\begin{clicker}{Which of the following are \underline{true} statements about $p$-values?  Mark \underline{all} that apply.}
+\begin{enumerate}
+    \item
+    A nonsignificant difference (eg, $p$-value$>$0.05) means that the null hypothesis is true.
+    \item
+    Sample size can affect your $p$-value.
+    \item
+    A scientific conclusion should be based solely on whether or not the $p$-value is significant.
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Final Remarks}
+\begin{itemize}
+    \item
+    quantitative methods/statistics are applied in \emph{all} disciplines, regardless of whether you are in the humanities, social sciences, or natural sciences
+    \item
+    a $p$-value isn't the end of the story
+    \begin{itemize}
+        \item
+        association does not mean causation
+        \item
+        a statistically significant result isn't always meaningful
+    \end{itemize}
+    \item
+    sometimes statistical analysis is the end result of the research, but sometimes it is just the beginning....
+\end{itemize}
+\end{frame}
+
+
+
+
+%===========================================================================================================================
+\section[Data]{Data}
+%===========================================================================================================================
+\begin{frame}
+\tableofcontents[currentsection, hideallsubsections]
+\end{frame}
+
+%\subsection{}
+\begin{frame}
+\begin{columns}
+\column{0.6\textwidth}
+\includegraphics[width=1.0\textwidth]{Figures/ufo_conf.png}\\
+\column{0.4\textwidth}
+\begin{itemize}
+    \item
+   established in 1991
+   \item
+   largest \href{http://ufocongress.com/}{conference} on UFOs in US
+   \item
+   registration $\sim$\$200
+\end{itemize}
+\end{columns}
+\begin{itemize}
+\item[]
+    \item
+   $>$20 speakers discussing topics related to the UFO phenomenon including technology, government cover-ups, exopolitics, black projects, crop circles, alien visitation and more
+   \item
+   speakers include astrophysicists, nuclear physicists, abductees, and former top-secret-clearance military personnel
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{The data}
+\begin{columns}
+\column{0.8\textwidth}
+\begin{itemize}
+    \item
+    Feb 21-27, 2010 in Laughlin, Nevada
+    \item
+    anonymous survey of conference attenders
+    \item
+    collected by the Dept of Sociology at Baylor University (Texas)
+    \item
+    400 surveys distributed, 156 returned, 104 used
+    \item
+    97 variables
+    \begin{itemize}
+        \item
+        UFO beliefs and theories
+        \item
+        UFO experiences and beliefs about government conspiracies related to UFOs
+        \item
+        non-UFO paranormal beliefs and experiences
+        \item
+        religion
+        \item
+        demographics
+    \end{itemize}
+\end{itemize}
+\column{0.3\textwidth}
+%\pause
+\includegraphics[width=1.0\textwidth]{Figures/book.png}
+\end{columns}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{The data, $n=104$}
+\includegraphics[width=0.8\textwidth]{Figures/summaryufo.png}\\
+\vskip10pt
+%\pause
+\includegraphics[width=0.25\textwidth]{Figures/hist_age.pdf}
+\includegraphics[width=0.25\textwidth]{Figures/hist_kids.pdf}
+\includegraphics[width=0.25\textwidth]{Figures/hist_salary.pdf}
+\includegraphics[width=0.25\textwidth]{Figures/hist_edu.pdf}
+\end{frame}
+
+%===========================================================================================================================
+\section[Practice]{Practice}
+%===========================================================================================================================
+\begin{frame}
+\tableofcontents[currentsection, hideallsubsections]
+\end{frame}
+
+%\subsection{}
+\begin{frame}
+\frametitle{Research question 1}
+\framesubtitle{Which null hypothesis?}
+\begin{clicker}{The average years of education of the general population is 13, whereas the average years of education among the 104 respondents is 16.  Is average years of education for those interested in UFOs the same as the general population?}
+\begin{enumerate}
+    \item
+    $H_0: \mu_1=\mu_2$
+    \item
+    $H_0: \bar{x}_1=\bar{x}_2$
+    \item
+    $H_0: \mu_0=13$
+    \item
+    $H_0: \mu_0=16$
+    \item
+    $H_0: \mu=16$
+    \item
+    $H_0: \mu=13$
+      \item
+    $H_0: \bar{x}=13$
+    \item
+    $H_0: \bar{x}=16$
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+\begin{frame}
+\frametitle{Research question 2}
+\framesubtitle{Which method?}
+\begin{clicker}{Is whether or not an individual had a UFO experience associated with years of education?}
+\begin{enumerate}
+    \item
+    one sample z-test
+    \item
+    two sample z-test
+    \item
+    chi-squared test
+    \item
+    one sample t-test
+    \item
+    two sample t-test
+    \item
+    paired t-test
+    \item
+    ANOVA
+    \item
+    Linear regression
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+\begin{frame}
+\frametitle{Research question 3}
+\framesubtitle{Which method?}
+\begin{clicker}{Is there an association between gender and belief in big foot?}
+\begin{enumerate}
+    \item
+    one sample z-test
+    \item
+    two sample z-test
+    \item
+    one sample t-test
+    \item
+    two sample t-test
+    \item
+    paired t-test
+    \item
+    ANOVA
+    \item
+    Linear regression
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Research question 4}
+\framesubtitle{Which method?}
+\begin{clicker}{Is salary associated with years of education?}
+\begin{enumerate}
+    \item
+    one sample z-test
+    \item
+    two sample z-test
+    \item
+    chi-squared test
+    \item
+    one sample t-test
+    \item
+    two sample t-test
+    \item
+    paired t-test
+    \item
+    ANOVA
+    \item
+    Linear regression
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+\begin{frame}
+\frametitle{Research question 5}
+\framesubtitle{Which method?}
+\begin{clicker}{Suppose we categorize years of education as $<$high school, high school, and $>$high school, and we want to determine if there is an association between salary and level of education.}
+\begin{enumerate}
+    \item
+    one sample z-test
+    \item
+    two sample z-test
+    \item
+    chi-squared test
+    \item
+    one sample t-test
+    \item
+    two sample t-test
+    \item
+    paired t-test
+    \item
+    ANOVA
+    \item
+    Linear regression
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+
+%\begin{frame}
+%\frametitle{Research question 6}
+%\framesubtitle{Which method?}
+%\begin{clicker}{Adjusting for years of education, is salary associated with whether or not the individual believes in big foot?}
+%\begin{enumerate}[A.]
+%    \item
+%    one sample z-test
+%    \item
+%    two sample z-test
+%    \item
+%    chi-squared test
+%    \item
+%    one sample t-test
+%    \item
+%    two sample t-test
+%    \item
+%    paired t-test
+%    \item
+%    ANOVA
+%    \item
+%    Linear regression
+%    \item
+%    Multiple linear regression
+%\end{enumerate}
+%\end{clicker}
+%\end{frame}
+
+
+\begin{frame}
+\frametitle{Contingency tables}
+\begin{center}
+\begin{tabular}{|l|cc|r|}
+      \hline
+               &\multicolumn{2}{|c|}{Beliefs} & \\
+               &   Cosmic Force & God & Total\\
+      \hline
+      Bigfoot Yes     &   51   & 36 & 87 \\
+      Bigfoot No      &   9    & 8 & 17 \\
+       \hline
+       Total  &   60  & 44 & 104 \\
+       \hline
+\end{tabular}
+\end{center}
+\begin{clicker}{Which of the following is \underline{false}?}
+\begin{enumerate}
+    \item
+    Among those who believe in God, 36/44=81.8\% believe in bigfoot.
+    \item
+    Among those who believe in cosmic force, 51/104=49.0\% believe in bigfoot.
+    \item
+    Overall, the proportion of individuals who believe in bigfoot is higher than the proportion of individuals who believe in God.
+    \item
+    All of the above are true.
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+\begin{frame}
+\frametitle{Correlation}
+\begin{clicker}{The correlation between years of education and salary is 0.22.  This means that}
+\begin{enumerate}
+    \item
+    As annual salary increases by \$1, education increases by 0.22 years.
+    \item
+    As education increases by one year, annual salary increases by \$0.22.
+    \item
+    Since the correlation is not 0, we can predict a salary perfectly from years of education.
+    \item
+    The relationship between salary and years of education follows a curve rather than a straight line.
+    \item
+    As one of these variables increases, there is a tendency for the other variable to increase also.
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+\begin{frame}
+%\frametitle{SLR}
+\includegraphics[width=0.6\textwidth]{Figures/rq3.png}\\
+\begin{clicker}{\small{What is the estimated regression equation to predict salary  by years of education ?}}
+\begin{enumerate}\small{
+    \item
+    $\hat{y}= 5024 + 4053 \times years\textunderscore edu$
+    \item
+    $\hat{y}= 5024 + 4053 \times salary$
+    \item
+    $\hat{y}= 4053 + 5024 \times salary$
+    \item
+    $\hat{y}= 4053 + 5024 \times years\textunderscore edu$
+    \item
+    $\hat{y}= 27855 + 1720 \times years\textunderscore edu$
+    \item
+    $\hat{y}= 1720 + 27855 \times salary$}
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{SLR}
+\begin{columns}
+\column{0.6\textwidth}
+\includegraphics[width=1.0\textwidth]{Figures/rq3.png}
+\column{0.4\textwidth}
+\begin{clicker}{What is the null hypothesis tested on the line where the p-value is \texttt{0.0204}?}
+\begin{enumerate}
+    \item
+    $H_0$: $\mu_d=0$
+    \item
+    $H_0$: $\beta_0=0$
+    \item
+    $H_0$: $\beta_1=0$
+    \item
+    $H_0$: $\mu_1=\mu_2$
+\end{enumerate}
+\end{clicker}
+\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{lcverbatim}
+> cor(ufo$years_edu,ufo$salary)
+[1] 0.2272182
+\end{lcverbatim}
+\includegraphics[trim = 0mm 0mm 0mm 20mm, clip,width=0.6\textwidth]{Figures/rq3.png}\\
+\begin{clicker}{\small{Which of the following statements is \underline{true}?}}
+\begin{enumerate}
+    \small{
+    \item
+    We have evidence of an association between salary and years of education, and the association is strong.
+    \item
+    Although we have evidence of an association between salary and years of education, the association is weak.
+    \item
+    We do not have evidence between salary and years of education.
+}
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+%\begin{frame}
+%\frametitle{Clicker}
+%\begin{columns}
+%\column{0.6\textwidth}
+%\includegraphics[width=1.0\textwidth]{Figures/rq3.png}
+%\column{0.4\textwidth}
+%\begin{clicker}{Which of the following is \underline{true} regarding the residual standard error?}
+%\begin{enumerate}[A.]
+%    \small{
+%    \item
+%    If the residual standard error were to increase, the $R^2$ would also increase.
+%    \item
+%    All observed data points are \$47,010 above the predicted value of salary.
+%    \item
+%    As education increases by one year, annual salary increases by \$47,010.
+%    \item
+%    The standard deviation of salary for a fixed years of education is \$47,010.}
+%\end{enumerate}
+%\end{clicker}
+%\end{columns}
+%\end{frame}
+
+
+\begin{frame}
+\begin{columns}
+\column{0.4\textwidth}
+\includegraphics[width=1.0\textwidth]{Figures/edu_salary.pdf}
+\column{0.6\textwidth}
+\begin{clicker}{Which conditions of linear regression are not satisfied?}
+\begin{enumerate}
+    \item
+    independence of observations
+    \item
+    linear relationship between $x$ and $y$
+    \item
+    constant variability in $y$ about the regression line
+    \item
+    no conditions are violated
+\end{enumerate}
+\end{clicker}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\framesubtitle{ANOVA to determine if mean salary differ by level of education ($<$HS, =HS,$>$HS)}
+\begin{tabular}{lrrrrr}
+            & Df & Sum Sq & Mean Sq & F value & Pr($>$F) \\
+    source  &      2  &   267  &  133.3 &   0.477 &   0.623 \\
+    Residuals &   101&   15932  &  279.5   \\
+\end{tabular}
+\begin{clicker}{How can we interpret these ANOVA results?}
+\begin{enumerate}
+    \small{
+    \item
+    We have evidence that the mean salary is the same for all three levels of education.
+    \item
+    We have evidence that the mean salary is different for all three levels of education.
+    \item
+    We have evidence that the mean salary differs for at least two levels of education.
+    \item
+    We do not have evidence that the mean salary differs by level of education.}
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+
+\begin{frame}
+\framesubtitle{Is whether or not an individual had a UFO experience associated with years of education?}
+\includegraphics[width=0.90\textwidth]{Figures/rq1_noCI.png}\\
+\vskip10pt
+\begin{clicker}{What can we say about 95\% CI for $\mu_1-\mu_2$?}
+\begin{enumerate}
+    \item
+    it would contain $\bar{x}_1=15.7$
+    \item
+    it would contain $p=0.046$
+    \item
+    it would contain zero
+    \item
+    it would not contain zero
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+\begin{frame}
+\frametitle{Sampling Distributions}
+\begin{clicker}
+{For which of the following scenarios is the sampling distribution of the sample mean approximately normally distributed?}
+\begin{enumerate}
+    \item
+    Population is right skewed and $n = 10$
+    \item
+    Population is left skewed and $n = 40$
+    \item
+    Population is normal and $n = 10$
+    \item
+    1, 2 and 3
+    \item
+    2 and 3 only
+\end{enumerate}
+\end{clicker}
+\end{frame}
+
+%
+%%===========================================================================================================================
+%\section[HW]{HW}
+%%===========================================================================================================================
+%\begin{frame}
+%\tableofcontents[currentsection, hideallsubsections]
+%\end{frame}
+%
+%
+%\subsection{}
+%\begin{frame}
+%\frametitle{Homework}
+%For \textbf{Friday}:
+%\begin{itemize}
+%   \item
+%   Don't forget to submit Lab 10 Practice and Lab 10 Peer Evaluation by 9 am on Friday
+%   \item
+%   Come prepared to Lab 11 by reading the lab manual and watching the lab video
+%   \item
+%   Lecture HW 9 is due on Blackboard by 5pm Friday
+%   \item
+%   Complete the QTM 100 survey
+%    \item[]
+%\end{itemize}
+%Looking ahead:
+%\begin{itemize}
+%   \item
+%   Final exam Tuesday, May 7 12:30-3:00
+%   \item
+%   And have a \textbf{great} summer!
+%\end{itemize}
+%\end{frame}
+
+%===========================================================================================================================
+% Extra
+%===========================================================================================================================
+
+%\appendix
+%\newcounter{finalframe}
+%\setcounter{finalframe}{\value{framenumber}}
+
+
+\section[Review Slides]{Review Slides}
+
+%\subsection{}
+
+\begin{frame}[label=descriptive]
+\frametitle{Descriptive statistics}
+\begin{itemize}
+    \item
+    summarizing and visualizing categorical variables
+    \item
+    summarizing and visualizing quantitative variables
+    \item
+    statistics that are/are not robust to outliers
+\end{itemize}
+\begin{flushright}
+\hyperlink{topics}{\beamerreturnbutton{Back}}
+\end{flushright}
+\end{frame}
+
+
+\begin{frame}[label=studydesign]
+\frametitle{Study design}
+\begin{itemize}
+    \item
+    recognizing observational vs experimental studies
+    \item
+    potential sources of bias in a study (sampling bias, nonresponse bias, response bias)
+      \item
+    recognizing types of observational study design (simple, stratified, cluster)
+    \item
+    recognizing response vs explanatory variables
+    \item
+    identifying potential confounding variables
+    \item
+    association does not imply causation
+\end{itemize}
+\begin{flushright}
+\hyperlink{topics}{\beamerreturnbutton{Back}}
+\end{flushright}
+\end{frame}
+
+\begin{frame}[label=associations]
+\frametitle{Associations}
+\begin{columns}
+\column{0.20\textwidth}
+\vskip20pt
+Association? \\
+\vskip40pt
+No association?
+\column{0.25\textwidth}
+\centering{\footnotesize{quantitative-quantitative}}\\
+\centering{$r$, $b_1$}\\
+\includegraphics[width=1.0\textwidth]{Figures/scatter_weight.pdf}\\
+\includegraphics[width=1.0\textwidth]{Figures/scatter_height.pdf}
+\column{0.25\textwidth}
+\centering{\footnotesize{categorical-quantitative}}\\
+\centering{$\bar{x}_1$, $\bar{x}_2$}\\
+\includegraphics[width=1.0\textwidth]{Figures/bp_height_sex.pdf}\\
+\includegraphics[width=1.0\textwidth]{Figures/bp_bmi_sex.pdf}
+\column{0.25\textwidth}
+\centering{\footnotesize{categorical-categorical}}\\
+\centering{$\hat{p}_1$, $\hat{p}_2$}\\
+\includegraphics[width=1.0\textwidth]{Figures/bar_weapon_gender.pdf}\\
+\includegraphics[width=1.0\textwidth]{Figures/bar_weapon_bullied.pdf}
+\end{columns}
+\begin{center}
+\textcolor{OrangeRed}{\small{We need formal statistical tests to determine the direction, magnitude, and significance of the association!}}
+\end{center}
+\begin{flushright}
+\hyperlink{topics}{\beamerreturnbutton{Back}}
+\end{flushright}
+\end{frame}
+
+
+
+\begin{frame}[label=probability]
+\frametitle{Probability and Distributions}
+Distributions:
+    \begin{itemize}
+        \item
+        normal/$z$, $t$%, chi-squared
+        \item
+        68 - 95 - 99.7 rule for normal
+        \item[]
+    \end{itemize}
+  Interpreting a probability:
+    \begin{itemize}
+        \item
+        is it large or small?
+        \item
+        would the event be likely to occur by random chance alone?
+    \end{itemize}
+\begin{flushright}
+\hyperlink{topics}{\beamerreturnbutton{Back}}
+\end{flushright}
+\end{frame}
+
+
+\begin{frame}[label=sampling]
+\frametitle{Sampling Distributions}
+    \begin{itemize}
+        \item
+        For a random sample of size $n$ from a population with proportion $p$, then when $np\geq10$ and $n(1-p)\geq10$ the \textbf{sampling distribution} of the \textbf{sample proportion} is normally distributed with $\mbox{mean}(\hat{p})=p$ and $\mbox{sd}(\hat{p})=\sqrt{\frac{p(1-p)}{n}}$.
+        \item[]
+        \item
+        When underlying population distribution is \underline{normally distributed} or sample size large enough such that CLT applies ($n>30$), then when sampling from a population with mean $\mu$ and standard deviation $\sigma$ the \textbf{sampling distribution} of the \textbf{sample mean} is normally distributed with $\mbox{mean}(\bar{x})=\mu$ and $\mbox{sd}(\bar{x})=\frac{\sigma}{\sqrt{n}}$.
+    \end{itemize}
+    \begin{flushright}
+    \hyperlink{topics}{\beamerreturnbutton{Back}}
+    \end{flushright}
+\end{frame}
+
+\begin{frame}[label=CIs]
+\frametitle{Confidence intervals}
+\begin{itemize}
+    \item
+    used to \emph{estimate} plausible values for a parameter of interest (like a mean or a proportion)
+    \item
+    CIs take the form
+    \begin{center}
+    $estimate \pm (z^*\mbox{or } t^*) \times se$
+    \end{center}
+    \item
+    true meaning: in the long run, if we took many samples and calculated many confidence intervals, 95\% of 95\% CIs would actually capture the true parameter value
+    \item
+    know how to interpret
+    \item
+    understand how a confidence interval changes when $n$, $s$, or the confidence level changes
+\end{itemize}
+\begin{flushright}
+\hyperlink{topics}{\beamerreturnbutton{Back}}
+\end{flushright}
+\end{frame}
+
+
+\begin{frame}[label=tests]
+\frametitle{Hypothesis tests}
+\begin{enumerate}
+    \item
+    Define the parameter of interest
+    \item
+    State the null and alternative hypotheses
+    \item
+    Identify the appropriate test
+    \item
+    State assumptions
+    \item
+    Calculate the test statistic
+    \begin{center}
+    $\displaystyle \mbox{test statistic} = \frac{\mbox{sample statistic}-\mbox{null hypothesis value}}{\mbox{standard error of the sample statistic}}$
+    \end{center}
+    \item
+    Calculate the $p$-value (for STAT 217, provided by R!)
+    \item
+    State your conclusion
+\end{enumerate}
+\begin{flushright}
+\hyperlink{topics}{\beamerreturnbutton{Back}}
+\end{flushright}
+\end{frame}
+
+
+\begin{frame}[label=errors]
+\frametitle{Types of Errors}
+\begin{table}[H]
+\caption{Possible outcomes of a hypothesis test}
+\begin{center}
+%\resizebox{0.7\textwidth}{!}{
+ \begin{tabular}{l|cc|}
+    \cline{2-3}
+    \textbf{Decision based} & \multicolumn{2}{|c|}{\textbf{Unknown Truth}}\\
+    \textbf{on observed data}                                                         & $H_0$ true                   & $H_0$ false \\
+    \cline{2-3}
+     Fail to reject $H_0$ &\textcolor{blue}{Correct Decision}  & \textcolor{red}{Type II Error}\\
+                                            Reject $H_0$ & \textcolor{red}{Type I Error} & \textcolor{blue}{Correct Decision}\\
+  \cline{2-3}
+\end{tabular}%}
+\end{center}
+\end{table}
+\vskip10pt
+Confidence intervals and hypothesis tests results should agree:
+\begin{itemize}
+        \item
+        When you reject $H_0$, the corresponding CI \textbf{should not} include the null value tested in $H_0$.
+        \item
+        When you fail to reject $H_0$, the corresponding CI \textbf{should} include the null value tested in $H_0$.
+\end{itemize}
+\begin{flushright}
+\hyperlink{topics}{\beamerreturnbutton{Back}}
+\end{flushright}
+\end{frame}
+
+
+\begin{frame}[label=overview]
+\frametitle{Overview of Statistical Methods}
+\begin{columns}
+\column{0.45\textwidth}
+\underline{Quantitative variable - means}
+\begin{itemize}
+    \item
+    one sample t-test
+    \item
+    paired t-test
+    \item
+    two sample t-test
+    \item
+    anova
+\end{itemize}
+\column{0.55\textwidth}
+\underline{Categorical variable - proportions}
+\begin{itemize}
+    \item
+    one sample z-test
+    \item
+    \textcolor{gray}{N/A for STAT 217}
+    \item
+    two sample z-test
+    \item
+    chi-squared test
+\end{itemize}
+\end{columns}
+\vskip20pt
+Neither a mean or a proportion: simple linear regression.
+\begin{flushright}
+\hyperlink{topics}{\beamerreturnbutton{Back}}
+\end{flushright}
+\end{frame}
+
+
+\begin{frame}[label=methods]
+\frametitle{Different methods}
+\resizebox{1.0\textwidth}{!}{
+\begin{tabular}{|lllll|}
+    \hline
+    \textbf{Method} & \textbf{Use} & \textbf{Variables} & \textbf{Estimation} & \textbf{Testing}\\
+    \hline
+    Single proportion & categorical response  & one categorical variable & CI for $p$ & $H_0$: $p=p_0$\\
+    \emph{(one-sample $z$-test)}                  & in single group & & &\\
+    \hline
+    $^*$Two proportions &  categorical response  & two categorical variables &  CI for $p_1-p_2$ & $H_0$: $p_1=p_2$\\
+    \emph{(two-sample $z$-test)}                   &  in two groups & & &\\
+    \hline
+    $^*$Chi-squared test & categorical response & two categorical variables & N/A & $H_0$: no association/\\
+                       & in $\geq 2$ groups & & &\hspace*{0.2in} vars independent\\
+    \hline
+    Single mean &  quantitative response & one quantitative variable  & CI for $\mu$ & $H_0$: $\mu=\mu_0$\\
+    \emph{(one-sample $t$-test)}                  & in single group & & &\\
+    \hline
+    $^*$Two means & quantitative response &  one quantitative variable and & CI for $\mu_1-\mu_2$ & $H_0$: $\mu_1=\mu_2$\\
+    \emph{(two-sample $t$-test)}                   &  in two groups & one categorical variable & &\\
+    \hline
+    $^*$Dependent means & quantitative response & two paired & CI for $\mu_d$ & $H_0$: $\mu_d=0$\\
+    \emph{(paired $t$-test)} & measured on same observation & quantitative variables & & \\
+    \hline
+    $^*$ANOVA &  quantitative response & one quantitative variable and & Tukey pairwise & $H_0$: $\mu_1=\mu_2=\cdots=\mu_g$\\
+                       & in $>2$ groups & one categorical variable & intervals &\\
+    \hline
+    $^*$Linear regression &  quantitative response and &  2 quantitative variables & CI for $\beta_1$ & $H_0$: $\beta_1=0$ \\
+                       &  a quantitative explanatory & & &\\
+    \hline
+\end{tabular}}
+\vskip10pt
+\footnotesize{$^*$The starred methods can answer the question ``Is there an association?''  If we reject $H_0$, then we conclude that some sort of association is present in the two variables.}
+\begin{flushright}
+\hyperlink{topics}{\beamerreturnbutton{Back}}
+\end{flushright}
+\end{frame}
+
+\begin{frame}[label=pvals]
+\frametitle{Test statistics and Confidence Intervals}
+\resizebox{1.0\textwidth}{!}{
+{\renewcommand{\arraystretch}{2.2}
+\begin{tabular}{|llll|}
+    \hline
+    \textbf{Method} & $\mathbf{H_0}$ & \textbf{Test Statistic} &\textbf{Confidence Interval} \\
+    \hline
+    Single proportion & $p = p_0$ & $\displaystyle z=\frac{\hat{p}-p_0}{\sqrt{\frac{p_0(1-p_0)}{n}}}$ & $\displaystyle \hat{p} \pm z^*\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}$\\
+    \hline
+    %& & & \\
+    Two proportions &  $p_1 = p_2$ & $\displaystyle z=\frac{(\hat{p}_1-\hat{p}_2)-0}{se}$ & $\displaystyle (\hat{p}_1-\hat{p}_2) \pm z^*\times se$\\
+    \hline
+     % & & & \\
+    Chi-squared test & vars independent & $\displaystyle \chi^2=\sum\frac{(\mbox{observed}-\mbox{expected})^2}{\mbox{expected}}$   & N/A\\
+    \hline
+     %& & & \\
+    Single mean &  $\mu = \mu_0$ & $\displaystyle t=\frac{\bar{x}-\mu_0}{s/\sqrt{n}}$ & $\displaystyle \bar{x} \pm t^*_{df=n-1} \times s/\sqrt{n}$ \\
+    \hline
+    % & & & \\
+    Two means & $\mu_1 =\mu_2$ & $\displaystyle t=\frac{(\bar{x}_1 - \bar{x}_2)-0}{\sqrt{\frac{s_1^2}{n_1}+\frac{s_2^2}{n_2}}}$ &  $\displaystyle (\bar{x}_1-\bar{x}_2) \pm t^*_{df=given} \times \sqrt{\frac{s_1^2}{n_1}+\frac{s_2^2}{n_2}}$  \\
+    \hline
+    % & & & \\
+    Dependent means & $\mu_d = 0$ & $\displaystyle t=\frac{\bar{x}_d-0}{s_d/\sqrt{n}}$  & $\displaystyle \bar{x_d} \pm t^*_{df=n-1} \times s_d/\sqrt{n}$  \\
+    \hline
+    % & & & \\
+     ANOVA & $\mu_1=\mu_2=\cdots=\mu_g$ & N/A & Tukey \\
+     \hline
+     %& & & \\
+     Linear regression  & $\beta_1 = 0$ & $\displaystyle t=\frac{\hat{\beta}_1-0}{se_{\hat{\beta}_1}}$ & $\displaystyle \hat{\beta}_1 \pm t^*_{df=n-2} \times se_{\hat{\beta}_1}$ \\
+    \hline
+\end{tabular}}}
+\begin{itemize}
+    \item
+    \scriptsize{
+    When performing a statistical analysis with data in R, R by default assumes the two-sided alternative hypotheses as presented above, and all $p$-values presented represent the final $p$-values (ie, no need to multiply by two).}   \hyperlink{topics}{\beamerreturnbutton{Back}}
+\end{itemize}
+\end{frame}
+
+
+
+
+\end{document}

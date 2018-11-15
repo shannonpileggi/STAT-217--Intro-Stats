@@ -1,0 +1,304 @@
+\documentclass[letterpaper,12pt]{report}
+
+\usepackage{graphicx}
+\usepackage{amssymb,amsmath}
+\usepackage{epigraph,fancyvrb,eqparbox}
+%\usepackage[multiple]{footmisc}
+%\usepackage{menukeys}
+\usepackage{url}
+\usepackage[colorlinks = true, linkcolor = blue, urlcolor = blue]{hyperref}
+\usepackage{setspace}
+%\usepackage{fancyhdr}
+\usepackage{enumerate}
+\usepackage{menukeys}
+
+\usepackage[margin=0.75in]{geometry}
+
+%\usepackage{cellspace}
+%\setlength\cellspacetoplimit{5pt}
+%\setlength\cellspacebottomlimit{5pt}
+
+\setlength{\parindent}{0cm}
+
+%\newcommand\Tstrut{\rule{0pt}{2.6ex}}         % = `top' strut
+%\newcommand\Bstrut{\rule[-0.9ex]{0pt}{0pt}}   % = `bottom' strut
+
+%\lhead{STAT 217: Introduction to }
+\begin{document}
+
+\begin{center}
+\large{\textsc{STAT 217: Introduction to Statistical Concepts and Methods}}\\
+California Polytechnic State University, San Luis Obispo
+\\vskip10pt
+\large{\textsc{Project}}
+\end{center}
+
+\vskip10pt
+\begin{center}
+{\renewcommand{\arraystretch}{1.1}
+\begin{tabular}{llrr}
+\hline
+Phase & Points & Percent \\
+\hline\hline
+\textbf{1:} Team selection                & 2  & 3\% \\
+\textbf{2a:} Project proposal             & 5  & 8\% \\
+\textbf{2b:} Project proposal meeting     & 2  & 3\% \\
+\textbf{2c:} Project proposal revision    & 3  & 5\% \\
+\textbf{3:} Data collection               & 5  & 8\% \\
+\textbf{4:} Preliminary report            & 11 & 18\% \\
+\textbf{5a:} Final report                 & 30 & 50\% \\
+\textbf{5b:} Peer evaluation              & 2  & 3\%  \\
+\hline
+ &   60 & 100\%
+\end{tabular}}
+\end{center}
+
+%\textbf{Contribute}
+%\begin{itemize}
+%    \item[] Be a good team member and contribute equally to the project.  At the end of the project, all students will provide peer evaluations of their team members.  These peer evaluations may be used to adjust overall project grades by $\pm$ 20\%.
+%    \item[]
+%\end{itemize}
+
+\fbox{\textbf{Seek help}}
+\begin{itemize}
+    \item[] If you have \textbf{any} questions or need \textbf{any} clarification at \textbf{any} point, please (1) come to office hours, (2) schedule an appointment to meet with me, or (3) post on the course discussion forum.
+    \item[]
+\end{itemize}
+
+\fbox{\textbf{Work flow}}
+\begin{itemize}
+   \item[] \href{https://youtu.be/tGgGguVIxG8}{Watch: Getting Started on the Project (2:06)}
+    \item[] Download the \texttt{ProjectTemplate.Rmd} file from PolyLearn.  Update this file for each phase of your project submission, and \textbf{submit the resulting rendered \texttt{.html} file} to PolyLearn (not the \texttt{.Rmd} file).  When submitting a phase, you may simply update information for that phase and leave the remaining sections blank.  Only one student per group needs to submit a phase.
+    \item[] After you have collected your data - if you want to share the \texttt{.Rmd} file between group members, (1) all sharing group members will need a copy of the data set saved to their computer, and (2) you will need to change the code used to import the data set to match the location of the data set on your computer.
+         \item[]
+\end{itemize}
+
+\fbox{\textbf{Revisions}}
+\begin{itemize}
+    \item[] Revisions may be requested for any phase of the project.  If a revision is requested you do not need to keep the old text that you submitted - you may simply delete older work and submit newer work.
+    \item[]
+\end{itemize}
+
+\clearpage
+\fbox{\textbf{Writing guidelines}}
+\begin{itemize}
+    \item Rmarkdown does not automatically indicate misspelled words like Microsoft Word does.  In order to execute a spell check in RStudio, submit \keys{F7}. Please make sure you proof-read your writing carefully.
+    \item Avoid using the word \emph{correlation} unless you are specifically referring to the relationship between two quantitative variables.  If you are not referring to two quantitative variables, you may discuss the relationship or the association between the two variables.
+     \item When writing a paragraph or summary, do not refer to R variable names; instead, refer to the meaning of the variable.  For example, I might have a variable in data set called \texttt{prev\_stats} which indicates if a student has had previous experience with statistics prior to STAT 217.
+    \begin{itemize}
+        \item It would be \emph{incorrect} to write:
+        \item[] The percent of students with prev\_stats is 35\%.
+        \item It would be \emph{correct} to write:
+        \item[] The percent of students with previous experience in statistics is 35\%.
+    \end{itemize}
+    \item If you start a sentence with a number, you must spell it out.
+            \begin{itemize}
+        \item It would be \emph{incorrect} to write:
+        \item[] 64 people participated in the study.
+        \item It would be \emph{correct} to write:
+        \item[] Sixty-four people participated in the study.
+    \end{itemize}
+    \item When writing, round numbers (including $p$-values) to an appropriate number of decimal places.  (You don't need to worry about rounding in your R output.)
+        \begin{itemize}
+        \item It would be \emph{incorrect} to write:
+        \item[] The average weight is 130.2384638 pounds.
+        \item It would be \emph{correct} to write:
+        \item[] The average weight is 130.2 pounds.
+        \item An appropriate number of decimals to round a $p$-value is between 2 to 4 decimals.  For really small p-values you may write ``the $p$-value is less than 0.01'', if appropriate.
+    \end{itemize}
+    \item Your projects will also be evaluated on
+    \begin{itemize}
+    \item overall quality: coherent sentences, few grammatical mistakes, few typos, results discussed in context of research question
+    \item overall correctness: calculating appropriate descriptive statistics, choosing correct statistical methods, correct interpretation of results
+    \end{itemize}
+    \item[]
+\end{itemize}
+
+\clearpage
+\fbox{\textbf{Phase 1: Team selection}}
+\begin{itemize}
+    \item \textbf{Identify} 3 to 4 classmates to work with.  Include their full name and e-mail address in the project submission.  If you need help finding a team, please let me know.  Include this information in your Phase 1 submission.  In addition, create  your group on PolyLearn by clicking on \keys{Select groups for project} in the Project content area of PolyLearn.
+    \item \textbf{Designate} one team member to be the primary contact person.
+    \begin{itemize}
+        \item This person is responsible for facilitating communication between team members.
+        \item This person is my primary contact in case I have questions for your team.
+    \end{itemize}
+    \item Create your team \textbf{contract}: state three things that you think makes a group work well together that you all agree to do.
+    \item[]
+\end{itemize}
+
+
+\fbox{\textbf{Phase 2a: Project proposal}}
+\begin{itemize}
+    \item[] \href{https://youtu.be/YX_lKfmOd1E}{Watch: Example Study Design (2:16)}
+        \item[] \href{https://youtu.be/2i2zfMqlR7Q}{Watch: The Island (3:26)}
+    \item \textbf{Study Design Options}
+    \item[] Your team may choose to do either an observational or an experimental study in the real world or on \href{http://island.maths.uq.edu.au/access.php?/index.php}{\emph{The Island}}.  Selection one of the following four options:
+    \begin{enumerate}
+    \item Observational study in the real world
+    \item Experimental study in the real world
+    \item Observational study on \emph{The Island}
+    \item Experimental study on \emph{The Island}
+    \end{enumerate}
+    Be sure to state in your project proposal which option your team chose.
+    %\newpage
+    \item[] Real world vs \emph{The Island}
+    \begin{itemize}
+    \item In the real world, you don't have to conduct your study on people, but of course you may.  Your observational units could be things other than people, like text books or cows.  However, if you do conduct your study on people, make sure it is an ethical and reasonable study.  Don't ask people to do anything or answer anything that might make them uncomfortable.  It may be easier to conduct an observational study than an experiment in the real world.
+    \item \emph{The Island} is an online environment in which you can survey fictional people. Be aware that the islanders do mimic real people - they give birth, die, get sick, refuse to answer your questions, and even sleep at night.  It may be easier to conduct an experiment on \emph{The Island} compared to the real world.  For more details about \emph{The Island}, see the end of this document.
+    \end{itemize}
+    \item \textbf{Research question:} State a broad research question that your group would like to address.  Motivate this question as to why it interests you.
+    \item \textbf{Comparison groups:} Regardless of whether you do an observational or an experimental study, you are required to compare \textbf{two} groups.  State the two groups that you are comparing.
+    \item \textbf{Population:} Describe your population of interest.
+    \item \textbf{Sample:} Describe how you will obtain sample from the population.
+    \begin{itemize}
+        \item \emph{Observational studies}: include a plan for you will \emph{randomly select} participants from your population.
+        \item \emph{Experimental studies}:  include a plan for (1) how study participants will be identified (it is OK if they are not randomly selected), and (2) how you will \emph{randomly assign} participants to the two experimental groups.
+    \end{itemize}
+    \item \textbf{Sample size:} At a minimum, each team should have at least 30 participants in each of their two groups (for a total sample size of at least 60).  You may choose to collect more data than that. State your target sample size per group.
+    \item \textbf{Variables:}  All teams must identify \textbf{three} variables related to their research question (one explanatory variable and two response variables).  You  should specifically state what variables you want to collect data on and how you will measure the variables.
+        \begin{enumerate}
+        \item Categorical explanatory variable - this variable defines your two comparison groups
+        \item Quantitative response variable - this variable represents something that you are measuring to compare between your two comparison groups
+        \item Categorical response variable - this variable represents something that you are classifying to compare between your two comparison groups
+        \end{enumerate}
+    \item[]
+    Be sure you state how your variables will be measured:
+    \begin{itemize}
+    \item For categorical variables, what values will it take on?  (e.g., little/some/a lot, or on campus/off campus)
+    \item For quantitative variables, what are the measurement units? (e.g., If you are measuring time, are you doing it in hours, minutes, or seconds?  If you are measuring performance on a memory task, is that measured in terms of a score or time until completion?)
+    \end{itemize}
+    \item \textbf{Data collection:}  How do you intend to collect your data?  Will you be marking data on paper, a tablet, a laptop, or an online survey?  Will team members interview individuals or will individuals read all questions themselves?  Describe your data collection protocol in as much detail as possible.
+    \item \textbf{Other protocol:}  There may be some other details you need to address.  Any other study details should go here.
+    \item \textbf{Predictions:}  Discuss what predictions you have for what you will discover.  In your predictions, address both:
+    \begin{enumerate}
+    \item the relationship between your categorical explanatory variable and your quantitative response variable
+    \item the relationship between your categorical explanatory variable and your categorical response variable
+        \end{enumerate}
+        \item[] \emph{Note:} In this project, you will \textbf{not} examine the relationship between your quantitative response variable and your categorical response variable.
+        \item[] \emph{Note:} Posting a survey on a Facebook page (or other form of social media) is not an acceptable study design.
+\item[]
+\end{itemize}
+
+
+\fbox{\textbf{Phase 2b: Project proposal meeting}}
+\begin{itemize}
+\item Select an appointment time to meet with Dr. Pileggi to discuss your project proposal.  The more group members that can attend the better, but not all group members are required to attend.
+\item[]
+\end{itemize}
+
+\fbox{\textbf{Phase 2c: Project proposal revision}}
+\begin{itemize}
+\item Re-submit your project proposal according to any comments discussed with Dr. Pileggi.
+\item Make sure any changes you make are reflected throughout your study design.  For example:
+\begin{itemize}
+\item If you change a variable that you study, that should be reflected in your research question and in your predictions.
+\item If you change the way you obtain your sample, then you may need to update your Data Collection.
+\end{itemize}
+\item[]
+\end{itemize}
+
+
+%\clearpage
+\fbox{\textbf{Phase 3: Data collection}}
+\begin{itemize}
+    \item \textbf{Wait} to do data collection until your project proposal has been approved.
+    \item Import the data into R include the import code in an R chunk.
+    \item Provide a summary of the data set with the command \texttt{summary}(\emph{mydata}) in an R chunk.
+    \item \textbf{Tips:}
+    \begin{itemize}
+    \item Store your data in a \emph{single} spreadsheet.
+    \item Your spreadsheet should have three columns for three variables:
+    \begin{enumerate}
+    \item[] Variable 1: categorical explanatory variable
+    \item[] Variable 2: quantitative response variable
+    \item[] Variable 3: categorical response variable
+    \end{enumerate}
+    \item Save your spreadsheet as a \texttt{csv} file to import into \texttt{R} (you can import other file types, but we will primarily be using \texttt{csv}s throughout the quarter).
+    \item Keep the name of your data set short (one word) so it is easy to work with.
+    \item Keep the names of your variables short (one word) so they are easy to work with.
+    \item Be consistent in your data entry.  For example, if you are entering gender make sure you agree that it should be entered as \texttt{male} and \texttt{female}.  Otherwise, different students may enter \texttt{M}, \texttt{Male}, \texttt{male}, \texttt{m} which would then require you to do \emph{data cleaning} before you analyze your data.
+    \end{itemize}
+    \item[]
+\end{itemize}
+
+
+\clearpage
+\fbox{\textbf{Phase 4: Preliminary report}}
+\begin{itemize}
+    \item Produce a figure to examine the distribution of your quantitative response variable.
+    \item Produce at least one additional figure that compares your two groups.
+    \item Calculate appropriate descriptive statistics to compare your two groups.  Be sure to address both (1) the relationship between your categorical explanatory variable and your quantitative response variable, and (2) the relationship between your categorical explanatory variable and your categorical response variable.
+    \item Write brief paragraph describing your findings.  This paragraph should include, at a minimum, the sample size achieved in each group, specific statistics per group, and commentary on what the figures show.
+     \item \textbf{Tips:}
+    \begin{itemize}
+    %\item Be sure to refer to the writing guidelines stated at the beginning of the project assignment.
+    \item If you need help with the R commands, please review Lab 3!  You learned all of the commands necessary to complete this phase in Lab 3.
+    \item Please note that formal statistical tests should NOT be submitted with this phase (there should not be a $p$-value or a confidence interval).  This phase is only about describing your sample data.
+    \end{itemize}
+    \item[]
+\end{itemize}
+
+\fbox{\textbf{Phase 5a: Final Report}}
+\begin{itemize}
+    \item \textbf{Statistical methods:}
+    \begin{enumerate}
+    \item State the statistical methods you will use to evaluate the relationship between
+    \begin{enumerate}
+    \item your categorical explanatory variable and your quantitative response variable
+    \item your categorical explanatory variable and your categorical response variable
+    \end{enumerate}
+    \item State the conditions necessary for each statistical method \emph{in the context} of your research question (e.g., simply stating ``normal'' is not sufficient.)
+    \item Evaluate if the conditions are satisfied. If a condition has an ``or'' in it, evaluate both parts of the condition even if one part is already satisfied.  Comment on your findings.
+    \item[] \emph{Note:} If your conditions are not satisfied you may discuss this in the Limitations section.
+    \end{enumerate}
+    \item \textbf{Statistical results:}
+    \begin{enumerate}
+    \item Execute your statistical analysis.
+    \item Write at least one paragraph summarizing your results in the context of your data.  This should include discussion of \emph{both} the evidence and strength of association.
+    \end{enumerate}
+    \item \textbf{Limitations:}  State any limitations of your study.  Pay particular attention to any measurement error that may have occurred, include discussion of \emph{all} possible forms of bias, whether or not you can draw cause and effect conclusions, and if any conditions for statistical inference were violated.  Justify your statements.
+    \item \textbf{Conclusion:}  Discuss the overall findings of your study and how they relate to your broad research question.  Do your findings match your predictions? Suggest reasons for what you've observed (e.g., why do you think these groups differ? or are not very different?).  Provide recommendations based on your analyses (recommendations may not apply to all research questions).  Discuss what you might do differently next time.  What related research questions could a future team investigate to build on your results?
+    \item \textbf{Project title:} Modify the header of your Rmarkdown document to include an overall title for your project.
+    \item \keys{STOP!} Review writing guidelines prior to submission.
+    \item[]
+\end{itemize}
+
+\fbox{\textbf{Phase 6B: Peer evaluation}}
+\begin{itemize}
+    \item All team members are expected to contribute equally to the project.
+    \begin{itemize}
+    \item Two points of your \emph{individual} project grade comes from \emph{completing} the peer evaluation form on PolyLearn.
+    \item  After peer evaluations are assessed by the instructor, an \emph{individual's} project grade may be adjusted by $\pm$ 20\% from the overall group grade.
+    \end{itemize}
+    \item
+    Here is how you will assess \textbf{yourself} and your peers:
+    \begin{itemize}
+    \item[] Rate the individual on the following attributes according to the scale
+    \item[] $1=$ Strongly disagree, $2=$ Disagree, $3=$ Agree, $4=$ Strongly agree
+    \begin{itemize}
+    \item Communicated well with group members (electronically or in person)
+    \item Willingly volunteered for or accepted assigned tasks
+    \item Contributed positively to group discussions with useful ideas
+    \item Completed work on time or made alternative arrangements
+    \item Did work accurately and completely
+    \item Contributed a fair share to the project
+    \item Overall was a valuable member of the team
+    \end{itemize}
+    \end{itemize}
+    \item[]
+\end{itemize}
+
+%\newpage
+\fbox{\textbf{More about \emph{The Island}}}
+\begin{itemize}
+    \item All students have been added to the Island via their CalPoly email address.
+    \item The Island has 38 villages. Each of these villages contains households of living Islanders as well as a cemetery where users can view details of Islanders who have died in the village. The combined population (living and dead) is 14,771 Islanders.
+    \item To obtain information from an islander, use the map to click on the Village, and then the town, and then the resident, then an Islander. Once a person is selected, you will see some family information and his or her history.  Click the link for ``Obtain consent'' to determine whether this person is willing to participate in your study.  Then you can ``set a task'' which include ``complete my survey'' or you can impose a treatment or take a measurement. You should also add the person to your contacts so you can follow up with them later (e.g., which treatment group did you assign the person to?!).
+    \item To survey the Islanders, follow the link for Survey and then edit your survey. There are about 50 survey questions to choose from. Longer surveys take longer for the Islanders to complete so don’t ask too many questions.  Also be aware that some Islanders may choose to lie on a survey.
+    \item You can then view the results for a contact by either clicking on the person and “view task history” or in the contact list click on the “results” link.   You have the option of collecting data daily or every thirty seconds
+    \item I encourage you to play around with the Island to help you formulate your research questions.
+    \item[]
+\end{itemize}
+
+\end{document} 
